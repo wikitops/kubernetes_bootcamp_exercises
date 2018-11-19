@@ -61,10 +61,33 @@ kubectl get namespace
 
 #### Exercise n°2
 
-Create a namespace app-demo
+Create a namespace app-demo in command line
 
 ```text
 kubectl create namespace app-demo
+```
+
+#### Exercise n°3
+
+Create a namespace namespace-demo in a file declaration
+
+```text
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: namespace-demo
+```
+
+```text
+kubectl create -f namespace-demo.yaml
+```
+
+#### Exercise n°4
+
+Describe the namespace app-demo
+
+```text
+kubectl describe namespace app-demo
 ```
 
 ## Labels

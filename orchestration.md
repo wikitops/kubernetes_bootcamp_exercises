@@ -20,15 +20,25 @@ The Kubernetes command-line tool, **kubectl**, is used to to deploy and manage a
 
 You must use a kubectl version that is within one minor version difference of your cluster. For example, a v1.12 client should work with v1.11, v1.12, and v1.13 master. Using the latest version of kubectl helps avoid unforeseen issues.
 
-#### Installation
+### Installation
 
-#### Configuration
+### Configuration
 
-#### Usage
+### Usage
 
+Generally the command line format can be divide in three parts :
 
+1. The kubectl command line binary
+2. The action 
+3. The object  to manage
 
-Explain the format :
+This can be represented as this :
+
+```text
+kubectl <ACTION> <OBJECT>
+```
+
+Here is an exhaustive list of actions that can be done :
 
 | Action | Description |
 | :--- | :--- |
@@ -70,7 +80,7 @@ Explain the format :
 | uncordon | Mark node as schedulable |
 | version | Print the client and server version information |
 
-Explain the objects :
+Here is an exhaustive list of Kubernetes objects that can be managed :
 
 | Object name | Object short name |
 | :--- | :--- |
@@ -114,7 +124,23 @@ Explain the objects :
 
 #### Exercise n°1
 
-Get each elements deployed in the cluster.
+Get the cluster information in command line.
+
+```text
+kubectl cluster-info
+```
+
+#### Exercise n°2
+
+Get the config deployed in the Kubernetes cluster.
+
+```text
+kubectl config view
+```
+
+#### Exercise n°3
+
+Get each elements deployed in the cluster in command line.
 
 ```text
 kubectl get all --all-namespaces

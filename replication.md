@@ -1,5 +1,8 @@
 ---
-description: This section will give you information about the replication process.
+description: >-
+  Replication involves sharing information so as to ensure consistency between
+  redundant resources, such as software or hardware components, to improve
+  reliability, fault-tolerance, or accessibility.
 ---
 
 # Replication

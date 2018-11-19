@@ -1,5 +1,7 @@
 ---
-description: This section will give you some information about the pods management.
+description: >-
+  Pods are the smallest deployable units of computing that can be created and
+  managed in Kubernetes.
 ---
 
 # Pods

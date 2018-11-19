@@ -1,5 +1,7 @@
 ---
-description: This section will give you information about the service object management.
+description: >-
+  A Kubernetes service is an abstraction which defines a logical set of Pods and
+  a policy by which to access them - sometimes called a micro-service.
 ---
 
 # Service

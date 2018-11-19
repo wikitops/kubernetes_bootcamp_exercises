@@ -7,6 +7,14 @@ description: >-
 
 # Replication
 
+## Module Overview
+
+At the end of this module, you will :
+
+* _Learn what is a Replicaset_
+* _Learn how to scale a Pod_
+* _Understand why replication is part of High Availability_
+
 ## Create
 
 What ? Why ? How ? CLI replicaset = rs

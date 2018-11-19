@@ -10,9 +10,9 @@ description: >-
 
 At the end of this module, you will :
 
-* Learn what a Kubernetes cluster is
-* Learn how to manage it in command line
-* Learn how to manage basic resources on a Kubernetes cluster
+* _Learn what a Kubernetes cluster is_
+* _Learn how to manage it in command line_
+* _Learn how to manage basic resources on a Kubernetes cluster_
 
 ## Command Line
 

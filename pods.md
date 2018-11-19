@@ -6,6 +6,14 @@ description: >-
 
 # Pods
 
+## Module Overview
+
+At the end of this module, you will :
+
+* _Learn the format of a YAML file_
+* _Learn how to manage a Pods_
+* _Learn how to manage containers_
+
 ## YAML file
 
 What is YAML ? Structure ? Pros and Cons ? AKMS ?

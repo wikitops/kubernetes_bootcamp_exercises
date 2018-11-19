@@ -6,6 +6,14 @@ description: >-
 
 # Service
 
+## Module Overview
+
+At the end of the module, you will :
+
+* _Learn how to expose a Pod internally_
+* _Learn how the domain name resolution works on a Kubernetes cluster_
+* _Learn how to expose a Pod externally_
+
 ## Create
 
 What ? Why ? How ?

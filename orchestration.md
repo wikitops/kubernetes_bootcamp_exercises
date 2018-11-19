@@ -1,10 +1,18 @@
 ---
 description: >-
-  In this section, you will learn how to orchestrate containers on a Kubernetes
-  cluster.
+  Orchestration is the automated arrangement, coordination, and management of
+  computer systems, middleware, and services.
 ---
 
 # Orchestration
+
+## Module Overview
+
+At the end of this module, you will :
+
+* Learn what a Kubernetes cluster is
+* Learn how to manage it in command line
+* Learn how to manage basic resources on a Kubernetes cluster
 
 ## Command Line
 

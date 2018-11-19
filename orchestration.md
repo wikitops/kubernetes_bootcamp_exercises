@@ -53,6 +53,8 @@ yum install -y kubectl
 
 ### Configuration
 
+In order for kubectl to find and access a Kubernetes cluster, it needs a kubeconfig file, which is created automatically when you create a cluster or successfully deploy a Minikube cluster. By default, kubectl configuration is located at `~/.kube/config`.
+
 ### Usage
 
 Generally the command line format can be divide in three parts :

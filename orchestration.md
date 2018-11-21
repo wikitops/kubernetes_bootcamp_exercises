@@ -71,7 +71,7 @@ $ kubectl <ACTION> <OBJECT>
 
 #### Actions
 
-Here is an exhaustive list of actions that can be done :
+Here is an exhaustive [list of actions](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) that can be done :
 
 | Action | Description |
 | :--- | :--- |
@@ -115,7 +115,7 @@ Here is an exhaustive list of actions that can be done :
 
 #### Objects
 
-Here is an exhaustive list of Kubernetes objects that can be managed :
+Here is an exhaustive list of [Kubernetes objects](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.12/) that can be managed :
 
 | Object name | Object short name |
 | :--- | :--- |
@@ -344,6 +344,8 @@ Those documentations can help you to go further in this topic :
 * Kubernetes Official [command line cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 * Kubernetes Official documentation of [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 * Kubernetes Official documentation of [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
+* Kubernetes [API reference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.12/) documentation
+* [Kubectl Official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) documentation
 
 
 

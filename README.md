@@ -71,6 +71,7 @@ To go further in the documentation of Kubernetes objects and principles, please 
 
 * [Kubernetes Official documentation](https://kubernetes.io/docs/home/)
 * [Kubernetes Official blog](https://kubernetes.io/blog/)
+* [Kubectl Official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) documentation
 
 
 

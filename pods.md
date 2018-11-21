@@ -16,7 +16,7 @@ At the end of this module, you will :
 
 ## Get
 
-The get command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
 
 #### Exercise n°1
 
@@ -73,6 +73,8 @@ $ kubectl get all -n default
 ## Create
 
 In imperative object configuration, the kubectl command specifies the operation \(create, replace, etc.\), optional flags and at least one file name. The file specified must contain a full definition of the object in YAML or JSON format.
+
+The _create_ command create a resources based on the imperative declaration \(command line or YAML file\).
 
 #### Exercise n°1
 
@@ -136,6 +138,8 @@ $ kubectl create -f FILENAME
 
 When using declarative object configuration, a user operates on object configuration files stored locally, however the user does not define the operations to be taken on the files. Create, update, and delete operations are automatically detected per-object by kubectl. This enables working on directories, where different operations might be needed for different objects.
 
+The _apply_ command manage the status of resources in the Kubernetes cluster. It can create, update and delete resources based on one or more YAML files.
+
 #### Exercise n°1
 
 Update the image version of the previous nginx pods.
@@ -156,8 +160,6 @@ spec:
 ```bash
 $ kubectl apply -f FILENAME
 ```
-
-Objectives ? Filter ? Format ?
 
 ## Describe
 

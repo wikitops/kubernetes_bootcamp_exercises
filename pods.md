@@ -14,68 +14,6 @@ At the end of this module, you will :
 * _Learn how to manage a Pods_
 * _Learn how to manage containers_
 
-## Run
-
-Why ? What ? How ?
-
-#### Exercise n°1
-
-Run a busybox pod on the default namespace.
-
-```bash
-$ kubectl run busybox --image=busybox -n default
-```
-
-## Create
-
-How to deploy ? CLI ? Dashboard ? Difference with Run ?
-
-#### Exercise n°1
-
-Create a pod that contain a single nginx container with a simple YAML file.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mysingleapp
-  labels:
-    env: formation
-spec:
-  containers:
-  - name: nginx
-    image: nginx
-```
-
-```bash
-$ kubectl create -f FILENAME
-```
-
-#### Exercise n°2
-
-Create a pod that contain those containers : nginx, redis, postgres with a single YAML file.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mymultiapp
-  labels:
-    env: formation
-spec:
-  containers:
-  - name: nginx
-    image: nginx
-  - name: postgres
-    image: postgres
-  - name: rabbitmq
-    image: rabbitmq
-```
-
-```bash
-$ kubectl create -f FILENAME
-```
-
 ## List
 
 Objectives ? Filter ? Format ?
@@ -92,7 +30,7 @@ $ kubectl get pods
 
 List pods deployed on the namespace _app-demo_.
 
-```bash
+```text
 $ kubectl get pods -n app-demo
 ```
 
@@ -100,9 +38,118 @@ $ kubectl get pods -n app-demo
 
 List all pods in all namespaces.
 
-```bash
+```text
 $ kubectl get pods --all-namespaces
 ```
+
+## Run
+
+The _run_ command creates a deployment based on the parameters specified, such as the image or replicas. This deployment is issued to the Kubernetes master which launches the Pods and containers required. Kubectl run is similar to _docker run_ but at a cluster level.
+
+The format of the command is _kubectl run &lt;name of deployment&gt; &lt;properties&gt;_
+
+#### Exercise n°1
+
+Run a busybox pod on the default namespace.
+
+```bash
+$ kubectl run busybox --image=busybox -n default
+```
+
+List everything created by the previous command.
+
+```bash
+$ kubectl get all -n default
+```
+
+## Create
+
+In imperative object configuration, the kubectl command specifies the operation \(create, replace, etc.\), optional flags and at least one file name. The file specified must contain a full definition of the object in YAML or JSON format.
+
+#### Exercise n°1
+
+Create a pod that contain a single nginx container with a simple YAML file.
+
+{% hint style="info" %}
+The file created in this exercise will be reused, do not delete it.
+{% endhint %}
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-single-app
+  labels:
+    env: formation
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+```
+
+```bash
+$ kubectl create -f FILENAME
+```
+
+#### Exercise n°2
+
+Do the same things using another syntax.
+
+```bash
+$ kubectl create deployment busybox --image busybox
+```
+
+#### Exercise n°3
+
+Create a pod that contain those containers : nginx, redis, postgres with a single YAML file.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-multi-app
+  labels:
+    env: formation
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  - name: postgres
+    image: postgres
+  - name: rabbitmq
+    image: rabbitmq
+```
+
+```bash
+$ kubectl create -f FILENAME
+```
+
+## Apply
+
+When using declarative object configuration, a user operates on object configuration files stored locally, however the user does not define the operations to be taken on the files. Create, update, and delete operations are automatically detected per-object by kubectl. This enables working on directories, where different operations might be needed for different objects.
+
+#### Exercise n°1
+
+Update the image version of the previous nginx pods.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-single-app
+  labels:
+    env: formation
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14-alpine
+```
+
+```bash
+$ kubectl apply -f FILENAME
+```
+
+Objectives ? Filter ? Format ?
 
 ## Describe
 
@@ -136,6 +183,18 @@ Connect to the postgres container in the myapp pod in the namespace app-demo
 $ kubectl exec -it -c postgres myapp -n app-demo
 ```
 
+## Edit
+
+What ?
+
+#### Exercise n°1
+
+Edit the nginx pods to update the image.
+
+```bash
+$ kubectl edit POD_NAME
+```
+
 ## Delete
 
 Why ? What ? How ?
@@ -147,6 +206,22 @@ Delete the busybox pod deployed previously in the default namespace.
 ```bash
 $ kubectl delete pods busybox -n default
 ```
+
+#### Exercise n°2
+
+Delete the nginx pod deployed previously in the default namespace with declarative method.
+
+```bash
+$ kubectl delete -f FILENAME
+```
+
+## External documentation
+
+To go further in the management of Pods, please refer to those documentations :
+
+* Kubernetes Official [cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/) documentation
+* Kubernetes Official documentation on [object management](https://kubernetes.io/docs/concepts/overview/object-management-kubectl/overview/)
+* Kubernetes Official documentation on [list pods](https://kubernetes.io/docs/tasks/access-application-cluster/list-all-running-container-images/)
 
 
 

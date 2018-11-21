@@ -163,7 +163,11 @@ $ kubectl apply -f FILENAME
 
 ## Describe
 
-Why ? What ? How ?
+Once an application is running, it is inevitably a need to debug problems or check the configuration deployed.
+
+The _describe_ command display a lot of configuration information about the container\(s\) and Pod \(labels, resource requirements, etc.\) or any other Kubernetes objects, as well as status information about the container\(s\) and Pod \(state, readiness, restart count, events, etc.\).
+
+This command is really useful to introspect and debug a container deployed in a Pod.
 
 #### Exercise n°1
 
@@ -175,11 +179,15 @@ $ kubectl describe po nginx -n app-demo
 
 ## Connect
 
-Why ? What ? How ?
+Connect to a container is sometimes needed for debug or development purpose.
+
+The _exec_ command manage the SSH connection to a container deployed in a Pod. 
+
+Usually, the format is : _kubectl exec -it POD\_NAME -c CONTAINER\_NAME_
 
 #### Exercise n°1
 
-Connect to the pod nginx in the namespace app-demo.
+Connect to the pod _nginx_ in the namespace _app-demo_.
 
 ```bash
 $ kubectl exec -it nginx -n app-demo
@@ -187,27 +195,41 @@ $ kubectl exec -it nginx -n app-demo
 
 #### Exercise n°2
 
-Connect to the postgres container in the myapp pod in the namespace app-demo
+Connect to the postgres container in the _my-multi-app_ pod in the namespace _app-demo._
 
 ```bash
-$ kubectl exec -it -c postgres myapp -n app-demo
+$ kubectl exec -it -c postgres my-multi-app -n app-demo
 ```
 
 ## Edit
 
-What ?
+Sometimes it’s necessary to make narrow, non-disruptive updates to resources created. It is suggested to maintain a set of configuration files in source control, so that they can be maintained and versioned along with the code for the resources they configure. But sometimes for debug and development purpose, it could be useful to directly manage a Kubernetes object deployed in a cluster in real time.
+
+The _edit_ command allows to directly edit any API resource retrieve via the command line tools. It will open the editor defined by your KUBE \_EDITOR, or EDITOR environment variables, or fall back to 'vi' for Linux or 'notepad' for Windows. Multiple objects can edit, although changes are applied one at a time.
 
 #### Exercise n°1
 
-Edit the nginx pods to update the image.
+Edit the _nginx_ pods to update the image.
 
 ```bash
 $ kubectl edit POD_NAME
 ```
 
+#### Exercise n°2
+
+Edit the _nginx_ pods with _nano_ editor.
+
+```bash
+$ KUBE_EDITOR="nano" kubectl edit POD_NAME
+```
+
 ## Delete
 
-Why ? What ? How ?
+The _delete_ command delete resources by filenames, stdin, resources and names, or by resources and label selector.
+
+Some resources, such as pods, support graceful deletion. These resources define a default period before they are forcibly terminated \(the grace period\) but you may override that value with the --grace-period flag, or pass --now to set a grace-period of 1.
+
+Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.
 
 #### Exercise n°1
 
@@ -230,8 +252,12 @@ $ kubectl delete -f FILENAME
 To go further in the management of Pods, please refer to those documentations :
 
 * Kubernetes Official [cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/) documentation
+* [Kubectl Official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#-strong-getting-started-strong-) documentation
 * Kubernetes Official documentation on [object management](https://kubernetes.io/docs/concepts/overview/object-management-kubectl/overview/)
 * Kubernetes Official documentation on [list pods](https://kubernetes.io/docs/tasks/access-application-cluster/list-all-running-container-images/)
+* Kubernetes Official documentation on [introspection and debugging](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-introspection/#using-kubectl-describe-pod-to-fetch-details-about-pods)
+* Kubernetes Official documentation on [getting a shell to a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
+* Kubernetes Official documentation on [resources management](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/)
 
 
 

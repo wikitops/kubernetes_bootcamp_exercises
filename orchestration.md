@@ -63,11 +63,13 @@ Generally the command line format can be divide in three parts :
 2. The action 
 3. The object  to manage
 
-This can be represented as this :
+This can be represented like this :
 
 ```text
 kubectl <ACTION> <OBJECT>
 ```
+
+#### Actions
 
 Here is an exhaustive list of actions that can be done :
 
@@ -110,6 +112,8 @@ Here is an exhaustive list of actions that can be done :
 | top | Display Resource \(CPU/Memory/Storage\) usage |
 | uncordon | Mark node as schedulable |
 | version | Print the client and server version information |
+
+#### Objects
 
 Here is an exhaustive list of Kubernetes objects that can be managed :
 
@@ -177,25 +181,61 @@ Get each elements deployed in the cluster in command line.
 kubectl get all --all-namespaces
 ```
 
-## Masters / Workers
+## YAML file
 
-What is a master ? What is a worker ?
+
 
 #### Exercise n°1
 
-List the nodes of the cluster and identify the roles of each one
+Extract the default namespace YAML file definition with the command line.
+
+```text
+kubectl get namespace default -o yaml
+```
+
+## Masters / Nodes
+
+_Master_ components provide the cluster’s control plane. Master components make global decisions about the cluster \(for example, scheduling\), and detecting and responding to cluster events \(starting up a new pod when a replication controller’s ‘replicas’ field is unsatisfied\).
+
+_Master_ components can be run on any machine in the cluster. However, for simplicity, set up scripts typically start all master components on the same machine, and do not run user containers on this machine.
+
+_Node_ components run on every node, maintaining running pods and providing the Kubernetes runtime environment. They are the resources pool that will be managed by the masters to schedule the requiested objects.
+
+#### Exercise n°1
+
+List the all nodes of the cluster and identify the roles of each one.
 
 ```text
 kubectl get nodes
 ```
 
+#### Exercise n°2
+
+Describe one of the master node.
+
+```text
+kubectl describe node MASTER_NAME
+```
+
+#### Exercise n°3
+
+Get more information about nodes in one commande line.
+
+```text
+kubectl get nodes -o wide
+```
+
 ## Namespace
 
-What it is ?
+Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called namespaces.
+
+Namespaces provide a scope for names. Names of resources need to be unique within a namespace, but not across namespaces.
+
+Namespaces are a way to divide cluster resources between multiple users via the definition of resource quotas.
 
 #### Exercise n°1
 
-List all the namespaces
+List all the default namespaces created by the installer.
 
 ```text
 kubectl get namespace
@@ -203,7 +243,7 @@ kubectl get namespace
 
 #### Exercise n°2
 
-Create a namespace app-demo in command line
+Create the namespace _app-demo_ with the command line.
 
 ```text
 kubectl create namespace app-demo
@@ -211,13 +251,13 @@ kubectl create namespace app-demo
 
 #### Exercise n°3
 
-Create a namespace namespace-demo in a file declaration
+Create a namespace _another-demo_ in declarative mode with a YAML file.
 
 ```text
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: namespace-demo
+  name: another-demo
 ```
 
 ```text
@@ -226,19 +266,31 @@ kubectl create -f namespace-demo.yaml
 
 #### Exercise n°4
 
-Describe the namespace app-demo
+Describe the namespace _app-demo_.
 
 ```text
 kubectl describe namespace app-demo
 ```
 
+#### Exercise n°5
+
+Delete the namespace named "_another-demo_".
+
+{% hint style="info" %}
+Remember, when a namespace is deleted, each dependent objects are also deleted.
+{% endhint %}
+
+```text
+kubectl delete namespace another-demo
+```
+
 ## Labels
 
-What is a label ?
+Labels are key/value pairs that are attached to objects, such as pods. Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system. Labels can be used to organize and to select subsets of objects. Labels can be attached to objects at creation time and subsequently added and modified at any time. Each object can have a set of key/value labels defined. Each Key must be unique for a given object.
 
 #### Exercise n°1
 
-Display the labels of each nodes
+List all nodes of the cluster and display all their labels.
 
 ```text
 kubectl get nodes --show-labels
@@ -246,20 +298,18 @@ kubectl get nodes --show-labels
 
 #### Exercise n°2
 
-Attach a label to the all nodes ...
+Add the key/value pair : _random-key=random-value_ to the first node of the cluster.
 
 ```text
-kubectl label nodes slave1 schedulePodName=hello-pod`
-node "slave1" labeled
+kubectl label nodes NODE_NAME random-key=random-value
 ```
 
 #### Exercise n°3
 
-Attach a label to a specific node ...
+Delete the key/value pair : _random-key=random-value_ of the first node of the cluster.
 
 ```text
-kubectl label nodes slave1 schedulePodName=hello-pod`
-node "slave1" labeled
+kubectl label nodes NODE_NAME random-key-
 ```
 
 ## External documentations
@@ -268,6 +318,8 @@ Those documentations can help you to go further in this topic :
 
 * Kubernetes Official documentation of [the command line](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * Kubernetes Official [command line cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+* Kubernetes Official documentation of [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
+* Kubernetes Official documentation of [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
 
 
 

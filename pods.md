@@ -14,19 +14,33 @@ At the end of this module, you will :
 * _Learn how to manage a Pods_
 * _Learn how to manage containers_
 
-## YAML file
+What is a pod ? a container ? Difference ?
 
-What is YAML ? Structure ? Pros and Cons ? AKMS ?
+## Run
+
+Why ? What ? How ?
 
 #### Exercise n°1
 
-Develop your first pod yaml file deployment
+Run a busybox pod on the default namespace.
+
+```text
+kubectl run busybox --image=busybox -n default
+```
+
+## Create
+
+How to deploy ? CLI ? Dashboard ? Difference with Run ?
+
+#### Exercise n°1
+
+Create a pod that contain a single nginx container with a simple YAML file.
 
 ```text
 apiVersion: v1
 kind: Pod
 metadata:
-  name: mynginx
+  name: mysingleapp
   labels:
     env: formation
 spec:
@@ -35,19 +49,19 @@ spec:
     image: nginx
 ```
 
-## Multi containers
+```text
+kubectl create -f FILENAME
+```
 
-What is a pod ? a container ? Difference ?
+#### Exercise n°2
 
-#### Exercise n°1
-
-Deploy a pod with 3 containers : nginx, postgres, rabbitmq
+Create a pod that contain those containers : nginx, redis, postgres with a single YAML file.
 
 ```text
 apiVersion: v1
 kind: Pod
 metadata:
-  name: myapp
+  name: mymultiapp
   labels:
     env: formation
 spec:
@@ -59,22 +73,6 @@ spec:
   - name: rabbitmq
     image: rabbitmq
 ```
-
-## Create
-
-How to deploy ? CLI ? Dashboard ? Run vs deploy ?
-
-#### Exercise n°1
-
-Run your first pod
-
-```text
-kubectl run mytomcat --image=tomcat:8.0.52-jre8
-```
-
-#### Exercise n°2
-
-Deploy your first app with the CLI command and a file
 
 ```text
 kubectl create -f FILENAME

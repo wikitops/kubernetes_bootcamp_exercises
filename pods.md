@@ -14,13 +14,13 @@ At the end of this module, you will :
 * _Learn how to manage a Pods_
 * _Learn how to manage containers_
 
-## List
+## Get
 
-Objectives ? Filter ? Format ?
+The get command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
 
 #### Exercise n°1
 
-List pods deployed on the current namespace
+List pods deployed on the current namespace.
 
 ```bash
 $ kubectl get pods
@@ -40,6 +40,14 @@ List all pods in all namespaces.
 
 ```text
 $ kubectl get pods --all-namespaces
+```
+
+#### Exercise n°4
+
+List all pods, services, deployments in the _kube-system_ namespace.
+
+```bash
+$ kubectl get pods,service,deployment -n kube-system
 ```
 
 ## Run

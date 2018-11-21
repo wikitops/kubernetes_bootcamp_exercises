@@ -14,8 +14,6 @@ At the end of this module, you will :
 * _Learn how to manage a Pods_
 * _Learn how to manage containers_
 
-What is a pod ? a container ? Difference ?
-
 ## Run
 
 Why ? What ? How ?
@@ -24,8 +22,8 @@ Why ? What ? How ?
 
 Run a busybox pod on the default namespace.
 
-```text
-kubectl run busybox --image=busybox -n default
+```bash
+$ kubectl run busybox --image=busybox -n default
 ```
 
 ## Create
@@ -36,7 +34,7 @@ How to deploy ? CLI ? Dashboard ? Difference with Run ?
 
 Create a pod that contain a single nginx container with a simple YAML file.
 
-```text
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -49,15 +47,15 @@ spec:
     image: nginx
 ```
 
-```text
-kubectl create -f FILENAME
+```bash
+$ kubectl create -f FILENAME
 ```
 
 #### Exercise n°2
 
 Create a pod that contain those containers : nginx, redis, postgres with a single YAML file.
 
-```text
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -74,36 +72,36 @@ spec:
     image: rabbitmq
 ```
 
-```text
-kubectl create -f FILENAME
+```bash
+$ kubectl create -f FILENAME
 ```
 
 ## List
 
-Objectives ? Filter ? Format ? Contraction namespace = ns
+Objectives ? Filter ? Format ?
 
 #### Exercise n°1
 
 List pods deployed on the current namespace
 
-```text
-kubectl get pods
+```bash
+$ kubectl get pods
 ```
 
 #### Exercise n°2
 
-List pods deployed on a specific namespace
+List pods deployed on the namespace _app-demo_.
 
-```text
-kubectl get pods -n app-demo
+```bash
+$ kubectl get pods -n app-demo
 ```
 
 #### Exercise n°3
 
-List all pods in all namespaces
+List all pods in all namespaces.
 
-```text
-kubectl get pods --all-namespaces
+```bash
+$ kubectl get pods --all-namespaces
 ```
 
 ## Describe
@@ -114,8 +112,8 @@ Why ? What ? How ?
 
 Get the information of the pod nginx deployed on the namespace app-demo
 
-```text
-kubectl describe po nginx -n app-demo
+```bash
+$ kubectl describe po nginx -n app-demo
 ```
 
 ## Connect
@@ -126,16 +124,16 @@ Why ? What ? How ?
 
 Connect to the pod nginx in the namespace app-demo.
 
-```text
-kubectl exec -it nginx -n app-demo
+```bash
+$ kubectl exec -it nginx -n app-demo
 ```
 
 #### Exercise n°2
 
 Connect to the postgres container in the myapp pod in the namespace app-demo
 
-```text
-kubectl exec -it -c postgres myapp -n app-demo
+```bash
+$ kubectl exec -it -c postgres myapp -n app-demo
 ```
 
 ## Delete
@@ -144,10 +142,10 @@ Why ? What ? How ?
 
 #### Exercise n°1
 
-Delete the nginx pod in the app-demo namespace.
+Delete the busybox pod deployed previously in the default namespace.
 
-```text
-kubectl delete pods nginx -n app-demo
+```bash
+$ kubectl delete pods busybox -n default
 ```
 
 

@@ -106,7 +106,7 @@ Here is an exhaustive [list of actions](https://kubernetes.io/docs/reference/gen
 | rolling-update | Perform a rolling update of the given ReplicationController \(Deprecated\) |
 | rollout | Manage the rollout of a resource |
 | run | Run a particular image on the cluster |
-| scale  | Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job |
+| scale | Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job |
 | set | Set specific features on objects |
 | taint | Update the taints on one or more nodes |
 | top | Display Resource \(CPU/Memory/Storage\) usage |
@@ -346,3 +346,4 @@ Those documentations can help you to go further in this topic :
 * Kubernetes Official documentation of [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
 * Kubernetes [API reference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.12/) documentation
 * [Kubectl Official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) documentation
+

@@ -258,3 +258,4 @@ To go further in the management of Pods, please refer to those documentations :
 * Kubernetes Official documentation on [introspection and debugging](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-introspection/#using-kubectl-describe-pod-to-fetch-details-about-pods)
 * Kubernetes Official documentation on [getting a shell to a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
 * Kubernetes Official documentation on [resources management](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/)
+

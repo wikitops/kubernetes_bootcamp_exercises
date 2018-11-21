@@ -1,9 +1,3 @@
----
-description: >-
-  A Kubernetes service is an abstraction which defines a logical set of Pods and
-  a policy by which to access them - sometimes called a micro-service.
----
-
 # Service
 
 ## Module Overview

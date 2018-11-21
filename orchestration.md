@@ -183,7 +183,29 @@ kubectl get all --all-namespaces
 
 ## YAML file
 
+YAML, which stands for Yet Another Markup Language, or YAML Ain’t Markup Language is a human-readable text-based format for specifying configuration-type information.
 
+Using YAML for Kubernetes definitions gives a number of advantages, including:
+
+* **Convenience:** Declaring all the parameters in a command line is no longer needed
+* **Maintenance:** YAML files can be added to source control to track changes
+* **Flexibility:** Easier to configure complex structure in a file than a command line
+
+YAML is a superset of JSON, which means that any valid JSON file is also a valid YAML file.
+
+The usual basic structure of a Kubernetes YAML file definition look like this :
+
+```text
+apiVersion: 
+kind: 
+metadata: 
+spec:
+```
+
+* **apiVersion** : API version
+* **kind** : Kubernetes object to manage \(ex: Pod, Deployment, Service ...\)
+* **metadata** : metadata of the object declared \(like labels, annotations ...\)
+* **spec** : main part of a YAML file, specification of each parameter defining the object declared \(ex: image, replicas, volumes, secrets, environment ...\)
 
 #### Exercise n°1
 

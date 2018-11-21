@@ -126,8 +126,8 @@ spec:
     image: nginx
   - name: postgres
     image: postgres
-  - name: rabbitmq
-    image: rabbitmq
+  - name: redis
+    image: redis
 ```
 
 ```bash

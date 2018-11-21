@@ -23,7 +23,7 @@ The _get_ command list the object asked. It could be a single object or a list o
 List pods deployed on the current namespace.
 
 ```bash
-$ kubectl get pods
+kubectl get pods
 ```
 
 #### Exercise n°2
@@ -31,7 +31,7 @@ $ kubectl get pods
 List pods deployed on the namespace _app-demo_.
 
 ```text
-$ kubectl get pods -n app-demo
+kubectl get pods -n app-demo
 ```
 
 #### Exercise n°3
@@ -39,7 +39,7 @@ $ kubectl get pods -n app-demo
 List all pods in all namespaces.
 
 ```text
-$ kubectl get pods --all-namespaces
+kubectl get pods --all-namespaces
 ```
 
 #### Exercise n°4
@@ -47,7 +47,7 @@ $ kubectl get pods --all-namespaces
 List all pods, services, deployments in the _kube-system_ namespace.
 
 ```bash
-$ kubectl get pods,service,deployment -n kube-system
+kubectl get pods,service,deployment -n kube-system
 ```
 
 ## Run
@@ -61,13 +61,13 @@ The format of the command is _kubectl run &lt;name of deployment&gt; &lt;propert
 Run a busybox pod on the default namespace.
 
 ```bash
-$ kubectl run busybox --image=busybox -n default
+kubectl run busybox --image=busybox -n default
 ```
 
 List everything created by the previous command.
 
 ```bash
-$ kubectl get all -n default
+kubectl get all -n default
 ```
 
 ## Create
@@ -98,7 +98,7 @@ spec:
 ```
 
 ```bash
-$ kubectl create -f FILENAME
+kubectl create -f FILENAME
 ```
 
 #### Exercise n°2
@@ -106,7 +106,7 @@ $ kubectl create -f FILENAME
 Do the same things using another syntax.
 
 ```bash
-$ kubectl create deployment busybox --image busybox
+kubectl create deployment busybox --image busybox
 ```
 
 #### Exercise n°3
@@ -131,7 +131,7 @@ spec:
 ```
 
 ```bash
-$ kubectl create -f FILENAME
+kubectl create -f FILENAME
 ```
 
 ## Apply
@@ -158,7 +158,7 @@ spec:
 ```
 
 ```bash
-$ kubectl apply -f FILENAME
+kubectl apply -f FILENAME
 ```
 
 ## Describe
@@ -174,14 +174,14 @@ This command is really useful to introspect and debug a container deployed in a 
 Get the information of the pod nginx deployed on the namespace app-demo
 
 ```bash
-$ kubectl describe po nginx -n app-demo
+kubectl describe po nginx -n app-demo
 ```
 
 ## Connect
 
 Connect to a container is sometimes needed for debug or development purpose.
 
-The _exec_ command manage the SSH connection to a container deployed in a Pod. 
+The _exec_ command manage the SSH connection to a container deployed in a Pod.
 
 Usually, the format is : _kubectl exec -it POD\_NAME -c CONTAINER\_NAME_
 
@@ -190,7 +190,7 @@ Usually, the format is : _kubectl exec -it POD\_NAME -c CONTAINER\_NAME_
 Connect to the pod _nginx_ in the namespace _app-demo_.
 
 ```bash
-$ kubectl exec -it nginx -n app-demo
+kubectl exec -it nginx -n app-demo
 ```
 
 #### Exercise n°2
@@ -198,7 +198,7 @@ $ kubectl exec -it nginx -n app-demo
 Connect to the postgres container in the _my-multi-app_ pod in the namespace _app-demo._
 
 ```bash
-$ kubectl exec -it -c postgres my-multi-app -n app-demo
+kubectl exec -it -c postgres my-multi-app -n app-demo
 ```
 
 ## Edit
@@ -212,7 +212,7 @@ The _edit_ command allows to directly edit any API resource retrieve via the com
 Edit the _nginx_ pods to update the image.
 
 ```bash
-$ kubectl edit POD_NAME
+kubectl edit POD_NAME
 ```
 
 #### Exercise n°2
@@ -220,7 +220,7 @@ $ kubectl edit POD_NAME
 Edit the _nginx_ pods with _nano_ editor.
 
 ```bash
-$ KUBE_EDITOR="nano" kubectl edit POD_NAME
+KUBE_EDITOR="nano" kubectl edit POD_NAME
 ```
 
 ## Delete
@@ -236,7 +236,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the busybox pod deployed previously in the default namespace.
 
 ```bash
-$ kubectl delete pods busybox -n default
+kubectl delete pods busybox -n default
 ```
 
 #### Exercise n°2
@@ -244,7 +244,7 @@ $ kubectl delete pods busybox -n default
 Delete the nginx pod deployed previously in the default namespace with declarative method.
 
 ```bash
-$ kubectl delete -f FILENAME
+kubectl delete -f FILENAME
 ```
 
 ## External documentation
@@ -258,6 +258,3 @@ To go further in the management of Pods, please refer to those documentations :
 * Kubernetes Official documentation on [introspection and debugging](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-introspection/#using-kubectl-describe-pod-to-fetch-details-about-pods)
 * Kubernetes Official documentation on [getting a shell to a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
 * Kubernetes Official documentation on [resources management](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/)
-
-
-

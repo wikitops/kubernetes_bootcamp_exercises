@@ -27,17 +27,17 @@ There are a few methods to install kubectl, here are the basics depending on the
 {% tabs %}
 {% tab title="Debian / Ubuntu" %}
 ```bash
-$ sudo apt-get update && sudo apt-get install -y apt-transport-https
-$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-$ echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-$ sudo apt-get update
-$ sudo apt-get install -y kubectl
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
 ```
 {% endtab %}
 
 {% tab title="CentOS / RedHat / Fedora" %}
 ```text
-$ cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
@@ -46,7 +46,7 @@ gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
-$ yum install -y kubectl
+yum install -y kubectl
 ```
 {% endtab %}
 {% endtabs %}
@@ -60,13 +60,13 @@ In order for kubectl to find and access a Kubernetes cluster, it needs a kubecon
 Generally the command line format can be divide in three parts :
 
 1. The kubectl command line binary
-2. The action 
+2. The action
 3. The object  to manage
 
 This can be represented like this :
 
 ```bash
-$ kubectl <ACTION> <OBJECT>
+kubectl <ACTION> <OBJECT>
 ```
 
 #### Actions
@@ -162,7 +162,7 @@ Here is an exhaustive list of [Kubernetes objects](https://kubernetes.io/docs/re
 Get the cluster information in command line.
 
 ```bash
-$ kubectl cluster-info
+kubectl cluster-info
 ```
 
 #### Exercise n°2
@@ -170,7 +170,7 @@ $ kubectl cluster-info
 Get the config deployed in the Kubernetes cluster.
 
 ```bash
-$ kubectl config view
+kubectl config view
 ```
 
 #### Exercise n°3
@@ -178,7 +178,7 @@ $ kubectl config view
 Get each elements deployed in the cluster in command line.
 
 ```bash
-$ kubectl get all --all-namespaces
+kubectl get all --all-namespaces
 ```
 
 ## YAML file
@@ -214,7 +214,7 @@ spec:
 Extract the default namespace YAML file definition with the command line.
 
 ```bash
-$ kubectl get namespace default -o yaml
+kubectl get namespace default -o yaml
 ```
 
 ## Masters / Nodes
@@ -230,7 +230,7 @@ _Node_ components run on every node, maintaining running pods and providing the 
 List the all nodes of the cluster and identify the roles of each one.
 
 ```bash
-$ kubectl get nodes
+kubectl get nodes
 ```
 
 #### Exercise n°2
@@ -238,7 +238,7 @@ $ kubectl get nodes
 Describe one of the master node.
 
 ```bash
-$ kubectl describe node MASTER_NAME
+kubectl describe node MASTER_NAME
 ```
 
 #### Exercise n°3
@@ -246,7 +246,7 @@ $ kubectl describe node MASTER_NAME
 Get more information about nodes in one commande line.
 
 ```bash
-$ kubectl get nodes -o wide
+kubectl get nodes -o wide
 ```
 
 ## Namespace
@@ -262,7 +262,7 @@ Namespaces are a way to divide cluster resources between multiple users via the 
 List all the default namespaces created by the installer.
 
 ```bash
-$ kubectl get namespace
+kubectl get namespace
 ```
 
 #### Exercise n°2
@@ -270,7 +270,7 @@ $ kubectl get namespace
 Create the namespace _app-demo_ with the command line.
 
 ```bash
-$ kubectl create namespace app-demo
+kubectl create namespace app-demo
 ```
 
 #### Exercise n°3
@@ -285,7 +285,7 @@ metadata:
 ```
 
 ```bash
-$ kubectl create -f namespace-demo.yaml
+kubectl create -f namespace-demo.yaml
 ```
 
 #### Exercise n°4
@@ -293,7 +293,7 @@ $ kubectl create -f namespace-demo.yaml
 Describe the namespace _app-demo_.
 
 ```bash
-$ kubectl describe namespace app-demo
+kubectl describe namespace app-demo
 ```
 
 #### Exercise n°5
@@ -305,7 +305,7 @@ Remember, when a namespace is deleted, each dependent objects are also deleted.
 {% endhint %}
 
 ```bash
-$ kubectl delete namespace another-demo
+kubectl delete namespace another-demo
 ```
 
 ## Labels
@@ -317,7 +317,7 @@ Labels are key/value pairs that are attached to objects, such as pods. Labels ar
 List all nodes of the cluster and display all their labels.
 
 ```bash
-$ kubectl get nodes --show-labels
+kubectl get nodes --show-labels
 ```
 
 #### Exercise n°2
@@ -325,7 +325,7 @@ $ kubectl get nodes --show-labels
 Add the key/value pair : _random-key=random-value_ to the first node of the cluster.
 
 ```bash
-$ kubectl label nodes NODE_NAME random-key=random-value
+kubectl label nodes NODE_NAME random-key=random-value
 ```
 
 #### Exercise n°3
@@ -333,7 +333,7 @@ $ kubectl label nodes NODE_NAME random-key=random-value
 Delete the key/value pair : _random-key=random-value_ of the first node of the cluster.
 
 ```bash
-$ kubectl label nodes NODE_NAME random-key-
+kubectl label nodes NODE_NAME random-key-
 ```
 
 ## External documentations
@@ -346,6 +346,3 @@ Those documentations can help you to go further in this topic :
 * Kubernetes Official documentation of [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
 * Kubernetes [API reference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.12/) documentation
 * [Kubectl Official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) documentation
-
-
-

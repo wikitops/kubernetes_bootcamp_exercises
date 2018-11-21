@@ -6,3 +6,18 @@ description: >-
 
 # Autoscaling
 
+## Module Overview
+
+At the end of this module, you will :
+
+* _Learn the format of a YAML Autoscale file_
+* _Learn how to manage a Autoscale_
+* _Learn the composition of a Autoscale_
+
+## Get
+
+## Create
+
+## Describe
+
+## Delete

@@ -1,3 +1,9 @@
+---
+description: >-
+  A ReplicaSet ensures that a specified number of pod replicas are running at
+  any given time.
+---
+
 # Replicas
 
 ## Module Overview

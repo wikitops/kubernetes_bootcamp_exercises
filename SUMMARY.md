@@ -3,7 +3,7 @@
 * [Overview](README.md)
 * [Orchestration](orchestration.md)
 * [Pods](pods.md)
-* [Replication](replication.md)
+* [Replicas](replication.md)
 * [Service](service.md)
 * [Deployment](deployment.md)
 * [ConfigMap](configmap.md)

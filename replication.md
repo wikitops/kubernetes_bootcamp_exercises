@@ -1,4 +1,4 @@
-# Replication
+# Replicas
 
 ## Module Overview
 

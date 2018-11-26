@@ -20,14 +20,6 @@ What ? Why ? How ? CLI replicaset = rs
 
 #### Exercise n°1
 
-Scale the nginx pod in the namespace app-demo to 5 with the command line.
-
-```text
-kubectl scale --replicas=5 -n app-demo nginx
-```
-
-#### Exercise n°2
-
 Update the nginx pod YAML file to downscale the nginx pod in the namespace app-demo to 1.
 
 ```text
@@ -45,7 +37,7 @@ spec:
 ```
 
 ```text
-kubectl apply -f nginx.yaml
+kubectl create -f nginx.yaml
 ```
 
 ## List
@@ -83,4 +75,18 @@ Delete the replicaset of the nginx pod in the namespace app-demo
 ```text
 kubectl delete replicaset nginx -n app-demo
 ```
+
+## Scale
+
+What ? Why ? How ?
+
+#### Exercise n°1
+
+Scale the nginx pod in the namespace app-demo to 5 with the command line.
+
+```text
+kubectl scale --replicas=5 -n app-demo nginx
+```
+
+
 

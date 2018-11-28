@@ -99,7 +99,7 @@ ETCDCTL_API=3 etcdctl snapshot restore PATH_TO_BACKUP_FILE \
 ```
 
 {% hint style="info" %}
-The parameters ETCD\_NODE\_NAMEX and ETCD\_NODE\_IPX must be updated based on the cluster information to correctly restore the cluster.
+The parameters ETCD\_NODE\_NAMEX and ETCD\_NODE\_IPX must be updated based on the host information to correctly restore the cluster.
 {% endhint %}
 
 ## External documentation

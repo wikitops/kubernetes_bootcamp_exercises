@@ -15,9 +15,9 @@ At the end of this module, you will :
 * _Learn to manage roles_
 * _Learn to secure the cluster access_
 
-## Get
-
 ## Create
+
+## Get
 
 ## Describe
 

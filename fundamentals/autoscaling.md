@@ -1,7 +1,8 @@
 ---
 description: >-
-  Autoscaling is a feature in which the cluster is capable of increasing or
-  decreasing the number of pods as the demand for service response need it.
+  Automatically scales the number of pods in a replication controller,
+  deployment or replica set based on observed metrics like CPU, memory or custom
+  metrics.
 ---
 
 # Autoscaling
@@ -14,9 +15,9 @@ At the end of this module, you will :
 * _Learn how to manage a Autoscale_
 * _Learn the composition of a Autoscale_
 
-## Get
-
 ## Create
+
+## Get
 
 ## Describe
 
@@ -26,7 +27,9 @@ At the end of this module, you will :
 
 Those documentations can help you to go further in this topic :
 
-* Kubernetes official documentation on [horizontal pod auto scale](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+* Kubernetes official documentation on [Horizontal Pod Auto Scaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) \(HPA\)
+* Kubernetes official documentation [walkthrough HPA](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+* Kubernetes official documentation of [autoscale API](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#autoscale)
 
 
 

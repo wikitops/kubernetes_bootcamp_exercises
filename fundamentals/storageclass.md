@@ -1,3 +1,9 @@
+---
+description: >-
+  A StorageClass provides a way for administrators to describe the “classes” of
+  storage they offer.
+---
+
 # StorageClass
 
 ## Module Overview

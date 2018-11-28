@@ -14,9 +14,9 @@ At the end of this module, you will :
 * _Learn to format it in a declarative mode_
 * _Learn the different type of scalability_
 
-## Get
-
 ## Create
+
+## Get
 
 ## Describe
 
@@ -25,4 +25,7 @@ At the end of this module, you will :
 ## External documentation
 
 Those documentations can help you to go further in this topic :
+
+* 
+
 

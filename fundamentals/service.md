@@ -72,6 +72,10 @@ The default output display some useful information about each services :
 * External-IP : display the externale resources IP of the resources, field configured when LoadBalancer type is used
 * Port\(s\) : display a list of ports opened in the pods managed by the service
 
+#### Exercise n°1
+
+Get the list of existing service in the default namespace.
+
 ```bash
 kubectl get service
 ```
@@ -84,6 +88,10 @@ The _describe_ command display a lot of configuration information about the Serv
 
 This command is really useful to introspect and debug an object deployed in a cluster.
 
+#### Exercise n°1
+
+Describe one of the existing service in the default namespace.
+
 ```bash
 kubectl describe service SERVICE_NAME
 ```
@@ -95,6 +103,10 @@ The _delete_ command delete resources by filenames, stdin, resources and names, 
 Deleting a Service will have no effect on the Pod state. It only delete the access to each resources managed by the service. 
 
 Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.
+
+#### Exercise n°1
+
+Delete the service Nginx deployed previously in the default namespace.
 
 ```bash
 kubectl delete service SERVICE_NAME

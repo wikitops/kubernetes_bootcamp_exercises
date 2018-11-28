@@ -2,7 +2,7 @@
 
 * [Overview](README.md)
 
-## Kubernetes
+## Fundamentals
 
 * [Orchestration](cheat-sheets/orchestration.md)
 * [Pods](cheat-sheets/pods.md)

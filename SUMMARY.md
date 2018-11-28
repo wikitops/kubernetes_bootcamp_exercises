@@ -12,6 +12,7 @@
 * [ConfigMap](fundamentals/configmap.md)
 * [Secrets](fundamentals/secrets.md)
 * [Volumes](fundamentals/volumes.md)
+* [StorageClass](fundamentals/storageclass.md)
 * [Autoscaling](fundamentals/autoscaling.md)
 * [Network](fundamentals/network.md)
 * [Routes](fundamentals/routes.md)

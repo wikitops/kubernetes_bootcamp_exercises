@@ -20,11 +20,17 @@ At the end of this module, you will :
 
 ## Describe
 
+## Attach to a pod
+
+### In environment variable
+
+### In file path
+
 ## Delete
 
 ## External documentation
 
 Those documentations can help you to go further in this topic :
 
-* Kubernetes Official documentation on [configmap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)
+* Kubernetes official documentation on [configmap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)
 

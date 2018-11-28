@@ -340,10 +340,10 @@ kubectl label nodes NODE_NAME random-key-
 
 Those documentations can help you to go further in this topic :
 
-* Kubernetes Official documentation of [the command line](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* Kubernetes Official [command line cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
-* Kubernetes Official documentation of [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
-* Kubernetes Official documentation of [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
+* Kubernetes official documentation of [the command line](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* Kubernetes official [command line cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+* Kubernetes official documentation of [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
+* Kubernetes official documentation of [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
 * Kubernetes [API reference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.12/) documentation
-* [Kubectl Official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) documentation
+* [Kubectl official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) documentation
 

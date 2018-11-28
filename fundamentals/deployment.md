@@ -24,5 +24,5 @@ At the end of this module, you will :
 
 Those documentations can help you to go further in this topic :
 
-* Kubernetes Official documentation on [deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+* Kubernetes official documentation on [deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 

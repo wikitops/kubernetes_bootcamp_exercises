@@ -26,5 +26,5 @@ At the end of this module, you will :
 
 Those documentations can help you to go further in this topic :
 
-* Kubernetes Official documentation on [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+* Kubernetes official documentation on [ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 

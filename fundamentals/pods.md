@@ -251,11 +251,11 @@ kubectl delete -f FILENAME
 
 Those documentations can help you to go further in this topic :
 
-* Kubernetes Official [cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/) documentation
-* [Kubectl Official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#-strong-getting-started-strong-) documentation
-* Kubernetes Official documentation on [object management](https://kubernetes.io/docs/concepts/overview/object-management-kubectl/overview/)
-* Kubernetes Official documentation on [list pods](https://kubernetes.io/docs/tasks/access-application-cluster/list-all-running-container-images/)
-* Kubernetes Official documentation on [introspection and debugging](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-introspection/#using-kubectl-describe-pod-to-fetch-details-about-pods)
-* Kubernetes Official documentation on [getting a shell to a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
-* Kubernetes Official documentation on [resources management](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/)
+* Kubernetes official [cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/) documentation
+* [Kubectl official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#-strong-getting-started-strong-) documentation
+* Kubernetes official documentation on [object management](https://kubernetes.io/docs/concepts/overview/object-management-kubectl/overview/)
+* Kubernetes official documentation on [list pods](https://kubernetes.io/docs/tasks/access-application-cluster/list-all-running-container-images/)
+* Kubernetes official documentation on [introspection and debugging](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-introspection/#using-kubectl-describe-pod-to-fetch-details-about-pods)
+* Kubernetes official documentation on [getting a shell to a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
+* Kubernetes official documentation on [resources management](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/)
 

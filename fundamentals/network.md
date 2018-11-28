@@ -22,3 +22,8 @@ At the end of this module, you will :
 
 ## Delete
 
+## External documentation
+
+Those documentations can help you to go further in this topic :
+
+* Kubernetes Official documentation on [Network Policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/)

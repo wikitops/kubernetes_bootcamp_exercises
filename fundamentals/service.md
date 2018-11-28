@@ -75,7 +75,6 @@ kubectl delete services SERVICE_NAME
 
 ## External documentation
 
-To go further in the management of Service, please refer to those documentations :
+Those documentations can help you to go further in this topic :
 
-* Official [Kubernetes documentation ](https://kubernetes.io/docs/concepts/services-networking/service/)on services
-
+* Kubernetes Official documentation on [services](https://kubernetes.io/docs/concepts/services-networking/service/)

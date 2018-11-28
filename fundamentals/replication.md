@@ -88,5 +88,8 @@ Scale the nginx pod in the namespace app-demo to 5 with the command line.
 kubectl scale --replicas=5 -n app-demo POD_NAME
 ```
 
+## External documentation
 
+Those documentations can help you to go further in this topic :
 
+* Kubernetes Official documentation on [replicaset](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)

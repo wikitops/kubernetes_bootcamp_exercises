@@ -20,13 +20,13 @@ What ? Why ? How ? CLI replicaset = rs
 
 #### Exercise n°1
 
-Update the nginx pod YAML file to downscale the nginx pod in the namespace app-demo to 1.
+Create a pod YAML file with 2 replicas of the nginx container in the namespace app-demo.
 
-```text
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: mynginx
+  name: mynginxreplicated
   labels:
     env: formation
 spec:
@@ -36,8 +36,8 @@ spec:
     image: nginx
 ```
 
-```text
-kubectl create -f nginx.yaml
+```bash
+kubectl create -f FILENAME
 ```
 
 ## List
@@ -48,7 +48,7 @@ What ? Why ? How ?
 
 List the replicaset created in the namespace app-demo
 
-```text
+```bash
 kubectl get replicaset -n app-demo
 ```
 
@@ -60,8 +60,8 @@ What ? Why ? How ?
 
 Describe the replicaset of the nginx pod in the namespace app-demo.
 
-```text
-kubectl describe replicaset nginx -n app-demo
+```bash
+kubectl describe replicaset REPLICASET_NAME -n app-demo
 ```
 
 ## Delete
@@ -72,8 +72,8 @@ What ? Why ? How ?
 
 Delete the replicaset of the nginx pod in the namespace app-demo
 
-```text
-kubectl delete replicaset nginx -n app-demo
+```bash
+kubectl delete replicaset REPLICASET_NAME -n app-demo
 ```
 
 ## Scale
@@ -84,8 +84,8 @@ What ? Why ? How ?
 
 Scale the nginx pod in the namespace app-demo to 5 with the command line.
 
-```text
-kubectl scale --replicas=5 -n app-demo nginx
+```bash
+kubectl scale --replicas=5 -n app-demo POD_NAME
 ```
 
 

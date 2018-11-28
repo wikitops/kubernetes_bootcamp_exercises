@@ -27,15 +27,15 @@ Expose the pod nginx in the namespace app-demo to be able to access it on HTTP i
 
 The pod has to be opened outside the cluster.
 
-```text
-kubectl create service --type=NodePort --port=80
+```bash
+kubectl create services --type=NodePort --port=80
 ```
 
 #### Exercise n°2
 
 Expose the pod nginx in the namespace app-demo to be able to access it on HTTP and HTTPS thanks to a YAML file.
 
-```text
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -57,9 +57,25 @@ kubectl apply -f nginx.yaml
 
 ## List
 
+```bash
+kubectl get services
+```
+
 ## Describe
+
+```bash
+kubectl describe services SERVICE_NAME
+```
 
 ## Delete
 
+```bash
+kubectl delete services SERVICE_NAME
+```
 
+## External documentation
+
+To go further in the management of Service, please refer to those documentations :
+
+* Official [Kubernetes documentation ](https://kubernetes.io/docs/concepts/services-networking/service/)on services
 

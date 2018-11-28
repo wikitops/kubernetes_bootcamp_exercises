@@ -16,7 +16,7 @@ At the end of this module, you will :
 
 ## Create
 
-A ReplicaSet is a Kubernetes object that can be easily managed in a YAML file. A ReplicaSet has to be attached to a Pod definition thanks to selectors and labels to identify which object has to be scaled.
+A ReplicaSet can be easily scaled up or down by simply updating the .spec.replicas field in a YAML file definition. The ReplicaSet controller ensures that a desired number of pods with a matching label selector are available and operational
 
 #### Exercise n°1
 
@@ -54,11 +54,13 @@ kubectl create -f FILENAME
 
 ## Get
 
-Getting a list of ReplicaSet deployed on a Kubernetes cluster can be useful to quickly get the status of the object managed. A ReplicaSet has 3 states :
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
 
-* desired : number of replicas desired
-* current : current number of replicas in the cluster
-* ready : number of replicas ready to production usage
+The default output of a get ReplicaSet command display three replicas status :
+
+* desired : display the number of replicas defined in the YAML file definition
+* current : display the current number of replicas deployed in the cluster
+* ready : display the number of production ready replicas in the cluster
 
 #### Exercise n°1
 
@@ -70,11 +72,15 @@ kubectl get replicaset -n app-demo
 
 ## Describe
 
-Describe a ReplicaSet object can be useful to get exhaustive informations on it for debug purpose.
+Once an object is running, it is inevitably a need to debug problems or check the configuration deployed.
+
+The _describe_ command display a lot of configuration information about the ReplicaSet\(s\) \(labels, resource requirements, etc.\) or any other Kubernetes objects, as well as status information about the ReplicaSet\(s\) and Pod \(state, readiness, restart count, events, etc.\).
+
+This command is really useful to introspect and debug an object deployed in a cluster.
 
 #### Exercise n°1
 
-Describe the replicaset of the nginx pod in the namespace app-demo.
+Describe the ReplicaSet of the Nginx Pod in the namespace app-demo.
 
 ```bash
 kubectl describe replicaset REPLICASET_NAME -n app-demo
@@ -82,11 +88,15 @@ kubectl describe replicaset REPLICASET_NAME -n app-demo
 
 ## Delete
 
-What ? Why ? How ?
+The _delete_ command delete resources by filenames, stdin, resources and names, or by resources and label selector.
+
+Deleting a ReplicaSet will automatically delete each Pods associated with.
+
+Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.
 
 #### Exercise n°1
 
-Delete the replicaset of the nginx pod in the namespace app-demo
+Delete the ReplicaSet of the Nginx Pod in the namespace app-demo
 
 ```bash
 kubectl delete replicaset REPLICASET_NAME -n app-demo
@@ -94,11 +104,13 @@ kubectl delete replicaset REPLICASET_NAME -n app-demo
 
 ## Scale
 
-What ? Why ? How ?
+Some Kubernetes objects like Deployment, ReplicaSet, Replication Controller, or Job can be easily scaled in command line.
+
+The command line management has to be used only for debug purpose. In production environment, it's recommended to update the YAML file definition to ensure a consistent deployment.
 
 #### Exercise n°1
 
-Scale the nginx pod in the namespace app-demo to 5 with the command line.
+Scale the Nginx Pod in the namespace app-demo to 5 with the command line.
 
 ```bash
 kubectl scale --replicas=5 -n app-demo POD_NAME
@@ -109,4 +121,3 @@ kubectl scale --replicas=5 -n app-demo POD_NAME
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [replicaset](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
-

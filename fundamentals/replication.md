@@ -16,37 +16,53 @@ At the end of this module, you will :
 
 ## Create
 
-What ? Why ? How ? CLI replicaset = rs
+A ReplicaSet is a Kubernetes object that can be easily managed in a YAML file. A ReplicaSet has to be attached to a Pod definition thanks to selectors and labels to identify which object has to be scaled.
 
 #### Exercise n°1
 
-Create a pod YAML file with 2 replicas of the nginx container in the namespace app-demo.
+Create a ReplicaSet object to scale an Nginx Pod with 3 replicas.
 
 ```yaml
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  name: mynginxreplicated
+  name: mynginxreplicaset
   labels:
+    app: mynginxreplicaset
     env: formation
 spec:
-  replicas: 1
-  containers:
-  - name: nginx
-    image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mynginxreplicaset
+    matchExpressions:
+      - {key: app, operator: In, values: [mynginxreplicaset]}
+  template:
+    metadata:
+      labels:
+        app: mynginxreplicaset
+        env: formation
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
 ```
 
 ```bash
 kubectl create -f FILENAME
 ```
 
-## List
+## Get
 
-What ? Why ? How ?
+Getting a list of ReplicaSet deployed on a Kubernetes cluster can be useful to quickly get the status of the object managed. A ReplicaSet has 3 states :
+
+* desired : number of replicas desired
+* current : current number of replicas in the cluster
+* ready : number of replicas ready to production usage
 
 #### Exercise n°1
 
-List the replicaset created in the namespace app-demo
+List the ReplicaSet created in the namespace app-demo
 
 ```bash
 kubectl get replicaset -n app-demo
@@ -54,7 +70,7 @@ kubectl get replicaset -n app-demo
 
 ## Describe
 
-What ? Why ? How ?
+Describe a ReplicaSet object can be useful to get exhaustive informations on it for debug purpose.
 
 #### Exercise n°1
 

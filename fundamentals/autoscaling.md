@@ -26,5 +26,7 @@ At the end of this module, you will :
 
 Those documentations can help you to go further in this topic :
 
-* Kubernetes official documentation on [horizonta pod autoscale](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+* Kubernetes official documentation on [horizontal pod auto scale](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+
+
 

@@ -169,7 +169,7 @@ The _describe_ command display a lot of configuration information about the cont
 
 This command is really useful to introspect and debug a container deployed in a Pod.
 
-### Exercise n°1
+#### Exercise n°1
 
 Get the information of the pod nginx deployed on the namespace app-demo
 

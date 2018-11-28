@@ -9,7 +9,7 @@
 * [Replicas](fundamentals/replication.md)
 * [Service](fundamentals/service.md)
 * [Deployment](fundamentals/deployment.md)
-* [ConfigMap](fundamentals/configmap.md)
+* [ConfigMaps](fundamentals/configmap.md)
 * [Secrets](fundamentals/secrets.md)
 * [Volumes](fundamentals/volumes.md)
 * [StorageClass](fundamentals/storageclass.md)

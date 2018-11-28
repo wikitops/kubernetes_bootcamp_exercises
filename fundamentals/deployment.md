@@ -99,7 +99,7 @@ The _describe_ command display a lot of configuration information about the Depl
 This command is really useful to introspect and debug an object deployed in a cluster.
 
 ```bash
-kubectl describe deployment SERVICE_NAME
+kubectl describe deployment DEPLOYMENT_NAME
 ```
 
 ## Delete
@@ -111,7 +111,7 @@ Deleting a Deployment will automatically delete each resources associated like P
 Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.
 
 ```bash
-kubectl delete deployment SERVICE_NAME
+kubectl delete deployment DEPLOYMENT_NAME
 ```
 
 ## External documentation

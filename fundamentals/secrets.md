@@ -27,3 +27,4 @@ At the end of this module, you will :
 Those documentations can help you to go further in this topic :
 
 * Kubernetes Official documentation on [secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
+

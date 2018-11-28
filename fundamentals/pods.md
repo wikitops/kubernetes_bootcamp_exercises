@@ -169,7 +169,7 @@ The _describe_ command display a lot of configuration information about the cont
 
 This command is really useful to introspect and debug a container deployed in a Pod.
 
-#### Exercise n°1
+### Exercise n°1
 
 Get the information of the pod nginx deployed on the namespace app-demo
 
@@ -258,3 +258,4 @@ Those documentations can help you to go further in this topic :
 * Kubernetes Official documentation on [introspection and debugging](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-introspection/#using-kubectl-describe-pod-to-fetch-details-about-pods)
 * Kubernetes Official documentation on [getting a shell to a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
 * Kubernetes Official documentation on [resources management](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/)
+

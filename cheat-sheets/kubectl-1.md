@@ -1,9 +1,3 @@
----
-description: >-
-  Kubectl is a command line interface for running commands against Kubernetes
-  clusters.
----
-
 # Kubectl
 
 ## External documentation

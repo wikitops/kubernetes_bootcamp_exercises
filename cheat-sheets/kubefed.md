@@ -1,10 +1,3 @@
----
-description: >-
-  Federation makes it easy to manage multiple clusters. It does so by providing
-  2 major building blocks: sync resources across clusters and cross cluster
-  discovery.
----
-
 # Kubefed
 
 ## External documentation

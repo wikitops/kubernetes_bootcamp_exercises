@@ -98,6 +98,10 @@ The _describe_ command display a lot of configuration information about the Depl
 
 This command is really useful to introspect and debug an object deployed in a cluster.
 
+#### Exercise n°1
+
+Describe a deployment in the default namespace.
+
 ```bash
 kubectl describe deployment DEPLOYMENT_NAME
 ```
@@ -109,6 +113,10 @@ The _delete_ command delete resources by filenames, stdin, resources and names, 
 Deleting a Deployment will automatically delete each resources associated like Pods and ReplicaSet.
 
 Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.
+
+#### Exercise n°1
+
+Delete the previous deployment in command line.
 
 ```bash
 kubectl delete deployment DEPLOYMENT_NAME

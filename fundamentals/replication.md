@@ -121,3 +121,4 @@ kubectl scale --replicas=5 -n app-demo POD_NAME
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [replicaset](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
+

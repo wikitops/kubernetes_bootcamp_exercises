@@ -64,7 +64,7 @@ The default output of a get ReplicaSet command display three replicas status :
 
 #### Exercise n°1
 
-List the ReplicaSet created in the namespace app-demo
+List the ReplicaSet created in the namespace app-demo.
 
 ```bash
 kubectl get replicaset -n app-demo
@@ -96,7 +96,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 
 #### Exercise n°1
 
-Delete the ReplicaSet of the Nginx Pod in the namespace app-demo
+Delete the ReplicaSet of the Nginx Pod in the namespace app-demo.
 
 ```bash
 kubectl delete replicaset REPLICASET_NAME -n app-demo

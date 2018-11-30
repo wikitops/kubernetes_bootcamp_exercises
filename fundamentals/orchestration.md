@@ -243,7 +243,7 @@ kubectl describe node MASTER_NAME
 
 #### Exercise n°3
 
-Get more information about nodes in one commande line.
+Get more information about nodes in one command line.
 
 ```bash
 kubectl get nodes -o wide
@@ -335,6 +335,28 @@ Delete the key/value pair : _random-key=random-value_ of the first node of the c
 ```bash
 kubectl label nodes NODE_NAME random-key-
 ```
+
+## Module exercise
+
+Based on your reads, try to do it as simple as possible.
+
+{% tabs %}
+{% tab title="Exercise" %}
+1. Create a namespace called _voting-app_.
+2. Update one node with the key/value label : _type=database_.
+3. Update another node with the key/value label : _type=queue_
+4. Ensure each nodes are correctly configured.
+{% endtab %}
+
+{% tab title="Resolution" %}
+```bash
+kubectl create namespace voting-app
+kubectl label node NODE_NAME1 type=database
+kubectl label node NODE_NAME2 type=queue
+kubectl get nodes --show-labels
+```
+{% endtab %}
+{% endtabs %}
 
 ## External documentations
 

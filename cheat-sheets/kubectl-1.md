@@ -58,7 +58,6 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 The following table includes short descriptions and the general syntax for all of the kubectl operations :
 
-
 | Operation | Description |
 | :--- | :--- |
 | annotate | Update the annotations on a resource |
@@ -143,6 +142,69 @@ The following table includes a list of all the supported resource types and thei
 | statefulsets | sts |
 | storageclasses | sc |
 
+## Useful commands
+
+The tables following give you some useful commands that you will probably use in the Kubernetes resources management.
+
+### Cluster
+
+Some useful commands on Kubernetes cluster management.
+
+| Description | Command |
+| :--- | :--- |
+| Show nodes with labels | `kubectl get nodes --show-labels` |
+| Get nodes resources usage | `kubectl top node` |
+
+### Deployments
+
+Some useful commands on Kubectl Deployment management.
+
+| Description | Command |
+| :--- | :--- |
+| Scale a pod to three | `kubectl scale --replicas=3 deployment/nginx` |
+
+### Kubectl
+
+Some useful commands on Kubectl management.
+
+| Description | Command |
+| :--- | :--- |
+| Display version | `kubectl version` |
+| Enable Bash autocompletion | `echo "source <(kubectl completion bash)" >>~/.bashrc` |
+| Enable ZSH autocompletion | `echo "source <(kubectl completion zsh)" >>~/.zshrc, and reload` |
+| Display system configuration in yaml output | `kubectl -n kube-system get cm kubeadm-config -o yaml` |
+| Explain resources | `kubectl explain pods` |
+
+### Pods
+
+Some useful commands on Kubectl Pods management.
+
+| Description | Command |
+| :--- | :--- |
+| List all pods with labels | `kubectl get pods --show-labels` |
+| List all pods within a the 'prod' namespace | `kubectl get pods -n prod` |
+| List all pods in all namespace | `kubectl get pods --all-namespaces` |
+| List all pods with nodes info | `kubectl get pods -o wide` |
+| Simulate the execution of a command | `kubectl create --dry-run -f pod-dummy.yaml` |
+| Start a temporary pod | `kubectl run temppod --rm -it --image=busybox -- sh` |
+| Run a pod with two replicas | `kubectl run nginx --image=nginx --replicas=2` |
+| Watch a pods | `kubectl get pods --watch` |
+| Open a bash terminal in a pod | `kubectl exec -it nginx sh` |
+| Check pod environment variables | `kubectl exec busybox env` |
+| Get pods sorted by restart count | `kubectl get pods –sort-by=’.status.containerStatuses[0].restartCount’` |
+| Get pods resources usage | `kubectl top pod` |
+| Describe a pod | `kubectl describe busybox` |
+| Delete a pod | `kubectl delete pods busybox` |
+
+### Services
+
+Some useful commands on Kubectl Service management.
+
+| Description | Command |
+| :--- | :--- |
+| Get all services in all namespaces | `kubectl get services --all-namespaces` |
+| Get services sorted by name | `kubectl get services –sort-by=.metadata.name` |
+
 ## External documentation
 
 To go further in the management of Kubectl, please refer to these documentations :
@@ -150,6 +212,4 @@ To go further in the management of Kubectl, please refer to these documentations
 * Official [Kubernetes documentation](https://kubernetes.io/docs/reference/kubectl/overview/) on Kubectl command line
 * Official[ Kubernetes documentation ](https://kubernetes.io/docs/tasks/tools/install-kubectl/)to install Kubectl command line
 * Official [Kubectl commands](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands) details
-
-
 

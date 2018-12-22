@@ -1,8 +1,7 @@
 ---
 description: >-
-  Automatically scales the number of pods in a replication controller,
-  deployment or replica set based on observed metrics like CPU, memory or custom
-  metrics.
+  Autoscaling is a feature in which the cluster is capable of increasing or
+  decreasing the number of pods as the demand for service response need it.
 ---
 
 # Autoscaling

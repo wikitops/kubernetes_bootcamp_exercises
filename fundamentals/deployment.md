@@ -1,7 +1,5 @@
 ---
-description: >-
-  A Deployment object describe the state of Pods and ReplicaSets in a
-  declarative ways.
+description: A deployment is a declarative way to manage the state of pods and replicas.
 ---
 
 # Deployment

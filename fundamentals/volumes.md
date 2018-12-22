@@ -1,7 +1,8 @@
 ---
 description: >-
-  A volume is simply a storage space where data can be persisted to survive a
-  Pod restart or crash.
+  A Kubernetes volume has an explicit lifetime, the same as the pod that
+  encloses it. A volume outlives any containers that run within the pod, and
+  data is preserved across container restarts.
 ---
 
 # Volumes

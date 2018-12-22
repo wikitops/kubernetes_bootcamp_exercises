@@ -69,11 +69,11 @@ This can be represented like this :
 kubectl <ACTION> <OBJECT>
 ```
 
-#### Actions
+#### Operations
 
 Here is an exhaustive [list of actions](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) that can be done :
 
-| Action | Description |
+| Operation | Description |
 | :--- | :--- |
 | annotate | Update the annotations on a resource |
 | api-resources | Print the supported API versions on the server, in the form of "group/version" |
@@ -113,11 +113,11 @@ Here is an exhaustive [list of actions](https://kubernetes.io/docs/reference/gen
 | uncordon | Mark node as schedulable |
 | version | Print the client and server version information |
 
-#### Objects
+#### Resource types
 
 Here is an exhaustive list of [Kubernetes objects](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.12/) that can be managed :
 
-| Object name | Object short name |
+| Resource type | Abbreviated alias |
 | :--- | :--- |
 | all | all |
 | certificatesigningrequests | csr |

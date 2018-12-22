@@ -49,6 +49,61 @@ Kubectl is a powerful tool to manage each object on a Kubernetes cluster. The co
 kubectl [command] [TYPE] [NAME] [flags]
 ```
 
+* **command** : specifies the operation that you want to perform on one or more resources \(create, get, describe, delete\)
+* **type** : specifies the resource type. Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms
+* **name** : specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed
+* **flags** : specifies optional flags.
+
+## Operations
+
+The following table includes short descriptions and the general syntax for all of the kubectl operations :
+
+
+
+## Resource Types
+
+The following table includes a list of all the supported resource types and their abbreviated aliases :
+
+| Resource type | Abbreviated alias |
+| :--- | :--- |
+| all | all |
+| certificatesigningrequests | csr |
+| clusterrolebindings | clusterrolebindings |
+| clusterroles | clusterroles |
+| componentstatuses | cs |
+| configmaps | cm |
+| controllerrevisions | controllerrevisions |
+| cronjobs | cronjobs |
+| customresourcedefinition | crd |
+| daemonsets | ds |
+| deployments | deploy |
+| endpoints | ep |
+| events | ev |
+| horizontalpodautoscalers | hpa |
+| ingresses | ing |
+| jobs | jobs |
+| limitranges | limits |
+| namespaces | ns |
+| networkpolicies | netpol |
+| nodes | no |
+| persistentvolumeclaims | pvc |
+| persistentvolumes | pv |
+| poddisruptionbudgets | pdb |
+| podpreset | podpreset |
+| pods | po |
+| podsecuritypolicies | psp |
+| podtemplates | podtemplates |
+| replicasets | rs |
+| replicationcontrollers | rc |
+| resourcequotas | quota |
+| rolebindings | rolebindings |
+| roles | roles |
+| secrets | secrets |
+| serviceaccounts | sa |
+| services | svc |
+| statefulsets | sts |
+| storageclasses | sc |
+
 ## External documentation
 
 To go further in the management of Kubectl, please refer to these documentations :

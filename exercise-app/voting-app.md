@@ -26,7 +26,7 @@ The images build in this project are publicly accessible on [Docker Hub](https:/
 
 ## Kubernetes architecture
 
-The purpose of this bootcamp is to explain how to deploy this kind of application in a Kubernetes cluster. The idea is to respect those principles :
+The purpose of this bootcamp is to explain how to deploy this kind of application in a Kubernetes cluster. The idea is to respect those principles to be able to deploy the Voting App on Minikube, an on premise cluster or a managed cluster like AKS, EKS or GKE easily :
 
 * Portability : The application has to be deployable on any Docker orchestration platform
 * Auto / Scalability : Each part of the application has to be scalable to ensure the next principle

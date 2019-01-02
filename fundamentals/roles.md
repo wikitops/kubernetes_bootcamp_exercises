@@ -37,6 +37,20 @@ Add the --recursive flag to display all of the fields at once without descriptio
 
 ## Delete
 
+The _delete_ command delete resources by filenames, stdin, resources and names, or by resources and label selector.
+
+A role can be deleted only if it is not used by a running Kubernetes resource.
+
+Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.
+
+#### Exercise n°1
+
+Delete the previous role in command line.
+
+```bash
+kubectl delete roles ROLE_NAME
+```
+
 ## Module exercise
 
 Based on your reads, try to do it as simple as possible.

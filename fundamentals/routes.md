@@ -36,6 +36,20 @@ Add the --recursive flag to display all of the fields at once without descriptio
 
 ## Delete
 
+The _delete_ command delete resources by filenames, stdin, resources and names, or by resources and label selector.
+
+Be careful on the deletion of a Ingress object. This will interupt existing communication based on this resource.
+
+Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.
+
+#### Exercise n°1
+
+Delete the previous ingress in command line.
+
+```bash
+kubectl delete ingresses INGRESS_NAME
+```
+
 ## Module exercise
 
 Based on your reads, try to do it as simple as possible.

@@ -30,7 +30,8 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each services :
 
-*
+\*
+
 #### Exercise n°1
 
 Get a list of ConfigMaps deployed in the default namespace.
@@ -98,3 +99,4 @@ Based on your reads, try to do it as simple as possible.
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [ConfigMaps](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)
+

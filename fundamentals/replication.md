@@ -86,34 +86,6 @@ Describe the ReplicaSet of the Nginx Pod in the namespace app-demo.
 kubectl describe replicaset REPLICASET_NAME -n app-demo
 ```
 
-## Explain
-
-Kubernetes come with a lot of documentation about his objects and the available options in each one. This can be fin easily in command line or in the official Kubernetes documentation.
-
-#### Exercise n°1
-
-Get the documentation of a specific field of a resource.
-
-```bash
-kubectl explain replicaset.spec
-```
-
-Add the --recursive flag to display all of the fields at once without descriptions.
-
-## Scale
-
-Some Kubernetes objects like Deployment, ReplicaSet, Replication Controller, or Job can be easily scaled in command line.
-
-The command line management has to be used only for debug purpose. In production environment, it's recommended to update the YAML file definition to ensure a consistent deployment.
-
-#### Exercise n°1
-
-Scale the Nginx Pod in the namespace app-demo to 5 with the command line.
-
-```bash
-kubectl scale --replicas=5 -n app-demo POD_NAME
-```
-
 ## Delete
 
 The _delete_ command delete resources by filenames, stdin, resources and names, or by resources and label selector.
@@ -130,13 +102,27 @@ Delete the ReplicaSet of the Nginx Pod in the namespace app-demo.
 kubectl delete replicaset REPLICASET_NAME -n app-demo
 ```
 
+## Scale
+
+Some Kubernetes objects like Deployment, ReplicaSet, Replication Controller, or Job can be easily scaled in command line.
+
+The command line management has to be used only for debug purpose. In production environment, it's recommended to update the YAML file definition to ensure a consistent deployment.
+
+#### Exercise n°1
+
+Scale the Nginx Pod in the namespace app-demo to 5 with the command line.
+
+```bash
+kubectl scale --replicas=5 -n app-demo POD_NAME
+```
+
 ## Module exercise
 
 Based on your reads, try to do it as simple as possible.
 
 {% tabs %}
 {% tab title="Exercise" %}
-1.
+1. 
 {% endtab %}
 
 {% tab title="Resolution" %}
@@ -151,3 +137,6 @@ Based on your reads, try to do it as simple as possible.
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [replicaset](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
+
+
+

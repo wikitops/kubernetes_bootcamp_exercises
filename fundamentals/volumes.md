@@ -31,7 +31,7 @@ A Volume can only be deleted if it is not attached to a Pod. Use with caution, a
 
 Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.
 
-**Exercise n°1**
+#### Exercise n°1
 
 Delete the previous volumes deployed in the default namespace.
 
@@ -39,11 +39,24 @@ Delete the previous volumes deployed in the default namespace.
 kubectl delete persistentvolume VOLUME_NAME
 ```
 
+## Module exercise
+
+Based on your reads, try to do it as simple as possible.
+
+{% tabs %}
+{% tab title="Exercise" %}
+1.
+{% endtab %}
+
+{% tab title="Resolution" %}
+```bash
+
+```
+{% endtab %}
+{% endtabs %}
+
 ## External documentation
 
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
-
-
-

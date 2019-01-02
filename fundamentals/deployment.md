@@ -120,9 +120,24 @@ Delete the previous deployment in command line.
 kubectl delete deployment DEPLOYMENT_NAME
 ```
 
+## Module exercise
+
+Based on your reads, try to do it as simple as possible.
+
+{% tabs %}
+{% tab title="Exercise" %}
+1.
+{% endtab %}
+
+{% tab title="Resolution" %}
+```bash
+
+```
+{% endtab %}
+{% endtabs %}
+
 ## External documentation
 
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-

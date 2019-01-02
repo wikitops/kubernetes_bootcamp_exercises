@@ -22,6 +22,22 @@ At the end of this module, you will :
 
 ## Delete
 
+## Module exercise
+
+Based on your reads, try to do it as simple as possible.
+
+{% tabs %}
+{% tab title="Exercise" %}
+1.
+{% endtab %}
+
+{% tab title="Resolution" %}
+```bash
+
+```
+{% endtab %}
+{% endtabs %}
+
 ## External documentation
 
 Those documentations can help you to go further in this topic :
@@ -29,6 +45,3 @@ Those documentations can help you to go further in this topic :
 * Kubernetes official documentation on [Horizontal Pod Auto Scaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) \(HPA\)
 * Kubernetes official documentation [walkthrough HPA](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 * Kubernetes official documentation of [autoscale API](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#autoscale)
-
-
-

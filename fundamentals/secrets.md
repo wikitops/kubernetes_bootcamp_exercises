@@ -38,7 +38,7 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each services :
 
-* 
+*
 #### Exercise n°1
 
 Get a list of existing Secrets in the default namespace.
@@ -85,11 +85,24 @@ Delete the previous Secrets created.
 kubectl delete secrets SECRETS_NAME
 ```
 
+## Module exercise
+
+Based on your reads, try to do it as simple as possible.
+
+{% tabs %}
+{% tab title="Exercise" %}
+1.
+{% endtab %}
+
+{% tab title="Resolution" %}
+```bash
+
+```
+{% endtab %}
+{% endtabs %}
+
 ## External documentation
 
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
-
-
-

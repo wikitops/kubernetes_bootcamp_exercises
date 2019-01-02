@@ -360,6 +360,7 @@ Based on your reads, try to do it as simple as possible.
 
 {% tab title="Resolution" %}
 ```bash
+kubectl get nodes
 kubectl create namespace voting-app
 kubectl label node NODE_NAME1 type=database
 kubectl label node NODE_NAME2 type=queue
@@ -378,3 +379,4 @@ Those documentations can help you to go further in this topic :
 * Kubernetes official documentation of [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
 * Kubernetes [API reference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.12/) documentation
 * [Kubectl official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) documentation
+

@@ -29,3 +29,12 @@
 * [Etcd](cheat-sheets/etcd.md)
 * [Kubefed](cheat-sheets/kubefed.md)
 
+## Exercise App
+
+* [Voting App](exercise-app/voting-app.md)
+
+## External Documentation
+
+* [kubernetes.io](https://kubernetes.io/)
+* [kubernetes API reference](https://v1-13.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/)
+

@@ -27,7 +27,6 @@
 * [Kubeadm](cheat-sheets/kubeadm-1.md)
 * [Kubectl](cheat-sheets/kubectl-1.md)
 * [Etcd](cheat-sheets/etcd.md)
-* [Kubefed](cheat-sheets/kubefed.md)
 
 ## Exercise App
 

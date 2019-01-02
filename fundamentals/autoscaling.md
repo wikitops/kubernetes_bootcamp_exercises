@@ -16,6 +16,10 @@ At the end of this module, you will :
 
 ## Create
 
+The Kubernetes basic autoscaling architecture can be schematized like this :
+
+![](../.gitbook/assets/autoscaling_architecture.png)
+
 ## Get
 
 ## Describe
@@ -73,4 +77,6 @@ Those documentations can help you to go further in this topic :
 * Kubernetes official documentation on [Horizontal Pod Auto Scaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) \(HPA\)
 * Kubernetes official documentation [walkthrough HPA](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 * Kubernetes official documentation of [autoscale API](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#autoscale)
+
+
 

@@ -235,6 +235,10 @@ _Master_ components can be run on any machine in the cluster. However, for simpl
 
 _Node_ components run on every node, maintaining running pods and providing the Kubernetes runtime environment. They are the resources pool that will be managed by the masters to schedule the requiested objects.
 
+A basic Kubernetes architecture can be schematized like this :
+
+![Kubernetes architecture](../.gitbook/assets/kubernetes_architecture.png)
+
 #### Exercise n°1
 
 List the all nodes of the cluster and identify the roles of each one.

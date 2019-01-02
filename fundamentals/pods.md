@@ -177,9 +177,9 @@ Get the information of the pod nginx deployed on the namespace app-demo
 kubectl describe po nginx -n app-demo
 ```
 
-## Connect
+## Exec
 
-Connect to a container is sometimes needed for debug or development purpose.
+Execute a command in a container is sometimes needed for debug or development purpose.
 
 The _exec_ command manage the SSH connection to a container deployed in a Pod.
 

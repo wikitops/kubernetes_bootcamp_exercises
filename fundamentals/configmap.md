@@ -28,7 +28,7 @@ ConfigMaps allow to decouple configuration artifacts from image content to keep 
 
 The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some JSON search or external tools like `tr`, `sort`, `uniq`.
 
-The default output display some useful information about each services :
+The default output display some useful information about each configMaps :
 
 \*
 

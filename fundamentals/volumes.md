@@ -17,6 +17,10 @@ At the end of this module, you will :
 
 ## Create
 
+The Kubernetes basic architecture can be schematized like this :
+
+![Kubernetes volumes architecture](../.gitbook/assets/volumes_architecture.png)
+
 ## Get
 
 ## Describe

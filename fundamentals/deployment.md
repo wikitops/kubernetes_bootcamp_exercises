@@ -128,6 +128,10 @@ Similar to application Scaling, if a Deployment is exposed publicly, the Service
 
 The updates can be done based on the yaml file update or in command line depending on the kind of update needed. Remember, the command line modification are temporary and can be overwritten by an automated lifecycle manage like a Continuous Deployment tool. In production, it is highly recommended to versioned the yaml file in a git repository and ensure that each modification are tested on multiple environment before the production deployment.
 
+The Kubernetes basic Rolling Updates architecture can be schematized like this :
+
+![Kubernetes Rolling Updates architecture](../.gitbook/assets/rolling_update_architecture.gif)
+
 #### Exercise n°1
 
 1. Check the history of the previous Nginx deployment

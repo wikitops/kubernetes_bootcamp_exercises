@@ -90,11 +90,25 @@ Describe one of the existing service in the default namespace.
 kubectl describe service SERVICE_NAME
 ```
 
+## Explain
+
+Kubernetes come with a lot of documentation about his objects and the available options in each one. This can be fin easily in command line or in the official Kubernetes documentation.
+
+#### Exercise n°1
+
+Get the documentation of a specific field of a resource.
+
+```bash
+kubectl explain service.spec
+```
+
+Add the --recursive flag to display all of the fields at once without descriptions.
+
 ## Delete
 
 The _delete_ command delete resources by filenames, stdin, resources and names, or by resources and label selector.
 
-Deleting a Service will have no effect on the Pod state. It only delete the access to each resources managed by the service. 
+Deleting a Service will have no effect on the Pod state. It only delete the access to each resources managed by the service.
 
 Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.
 
@@ -112,7 +126,7 @@ Based on your reads, try to do it as simple as possible.
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. 
+1.
 {% endtab %}
 
 {% tab title="Resolution" %}
@@ -127,4 +141,3 @@ Based on your reads, try to do it as simple as possible.
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [services](https://kubernetes.io/docs/concepts/services-networking/service/)
-

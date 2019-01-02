@@ -6,9 +6,9 @@
 
 * [Orchestration](fundamentals/orchestration.md)
 * [Pods](fundamentals/pods.md)
-* [Replicas](fundamentals/replication.md)
-* [Service](fundamentals/service.md)
+* [ReplicaSet](fundamentals/replication.md)
 * [Deployment](fundamentals/deployment.md)
+* [Service](fundamentals/service.md)
 * [ConfigMaps](fundamentals/configmap.md)
 * [Secrets](fundamentals/secrets.md)
 * [Volumes](fundamentals/volumes.md)

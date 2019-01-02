@@ -55,7 +55,7 @@ Describe one of the ConfigMaps deployed in the default namespace.
 kubectl describe configmaps CONFIGMAPS_NAME
 ```
 
-## Attach to a pod
+## Attach
 
 ### In environment variable
 
@@ -82,4 +82,6 @@ kubectl delete configmaps CONFIGMAPS_NAME
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [ConfigMaps](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)
+
+
 

@@ -4,7 +4,7 @@ description: >-
   any given time.
 ---
 
-# Replicas
+# ReplicaSet
 
 ## Module Overview
 

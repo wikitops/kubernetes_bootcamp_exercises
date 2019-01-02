@@ -21,7 +21,7 @@ At the end of this module, you will :
 
 ## Describe
 
-## Attach to a pod
+## Attach
 
 ## Delete
 

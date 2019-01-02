@@ -63,7 +63,7 @@ Describe one of the existing Secrets in the default namespace.
 kubectl describe secrets SECRETS_NAME
 ```
 
-## Attach to a pod
+## Attach
 
 ### In environment variable
 

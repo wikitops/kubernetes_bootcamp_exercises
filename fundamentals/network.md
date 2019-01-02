@@ -4,7 +4,7 @@ description: >-
   with each other and the network endpoint.
 ---
 
-# Network
+# Networks
 
 ## Module Overview
 

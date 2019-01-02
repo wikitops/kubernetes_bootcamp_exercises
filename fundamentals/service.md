@@ -4,7 +4,7 @@ description: >-
   by which to access them based on labels.
 ---
 
-# Service
+# Services
 
 ## Module Overview
 

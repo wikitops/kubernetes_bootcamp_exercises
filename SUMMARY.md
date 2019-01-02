@@ -37,5 +37,4 @@
 
 * [kubernetes.io](https://kubernetes.io/)
 * [kubernetes API reference](https://v1-13.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/)
-* [What is Kubernetes ?](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/)
 

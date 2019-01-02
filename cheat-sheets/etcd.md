@@ -1,8 +1,18 @@
+---
+description: >-
+  Etcd is a consistent and highly-available key value store used as Kubernetes’
+  backing store for all cluster data.
+---
+
 # Etcd
 
 ## Clustering
 
-Many actions can be done once an etcd cluster is up and running.
+Etcd can be deployed on a single server for test and development or as a cluster in production to ensure the high availability of the service.
+
+Etcd is the default database of Kubernetes, if the service goes down, Kubernetes will not be able to manage any action on the deployed objects.
+
+Depending on the size of the cluster, Etcd is usually deployed on the master nodes but remember that in production it is recommended to dedicate servers to the Etcd cluster.
 
 ### Initiating a cluster
 

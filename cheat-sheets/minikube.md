@@ -1,3 +1,10 @@
+---
+description: >-
+  Minikube runs a single-node Kubernetes cluster inside a virtual machine on
+  local computer for users looking to try out Kubernetes or develop with it
+  day-to-day.
+---
+
 # Minikube
 
 ## Installing
@@ -59,7 +66,7 @@ Depending on the operating system, the provider used to start the Kubernetes vir
 {% tab title="Virtualbox" %}
 [VirtualBox](https://www.virtualbox.org/) is a powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use. It can be installed on Linux, Windows and Mac operating system.
 
-When it's done, just run these comand to run Minikube locally.
+When it's done, just run these command to run Minikube locally.
 
 ```bash
 minikube start --vm-driver virtualbox
@@ -167,7 +174,7 @@ minikube ssh
 
 ## Dashboard
 
-Minikube automatically deployed the Kubernetes dashboard when a cluster is bootstraped. The minikube command line can automatically open it in the default Web browser on port 8001.
+Minikube automatically deployed the Kubernetes dashboard when a cluster is bootstrapped. The minikube command line can automatically open it in the default Web browser on port 8001.
 
 ```bash
 minikube dashboard
@@ -215,7 +222,7 @@ minikube addons list
 
 To go further in the management of Minikube, please refer to these documentations :
 
-* Official [Minikube Github repository](https://github.com/kubernetes/minikube)
+* Official [Minikube GitHub repository](https://github.com/kubernetes/minikube)
 * Official [Kubernetes documentation](https://kubernetes.io/docs/tasks/tools/install-minikube/) of Minikube
 * Official [Kubernetes documentation](https://kubernetes.io/docs/setup/minikube/) for running Minikube
 

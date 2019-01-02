@@ -1,3 +1,9 @@
+---
+description: >-
+  A Service is an abstraction which defines a logical set of Pods and a policy
+  by which to access them based on labels.
+---
+
 # Service
 
 ## Module Overview

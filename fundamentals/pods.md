@@ -223,6 +223,28 @@ Edit the _nginx_ pods with _nano_ editor.
 KUBE_EDITOR="nano" kubectl edit POD_NAME
 ```
 
+## Explain
+
+Kubernetes come with a lot of documentation about his objects and the available options in each one. This can be fin easily in command line or in the official Kubernetes documentation.
+
+#### Exercise n°1
+
+Get the documentation of a specific field of a resource.
+
+```bash
+kubectl explain pods.spec
+```
+
+Add the --recursive flag to display all of the fields at once without descriptions.
+
+#### Exercise n°2
+
+Edit the _nginx_ pods with _nano_ editor.
+
+```bash
+KUBE_EDITOR="nano" kubectl edit POD_NAME
+```
+
 ## Delete
 
 The _delete_ command delete resources by filenames, stdin, resources and names, or by resources and label selector.
@@ -278,4 +300,3 @@ Those documentations can help you to go further in this topic :
 * Kubernetes official documentation on [introspection and debugging](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-introspection/#using-kubectl-describe-pod-to-fetch-details-about-pods)
 * Kubernetes official documentation on [getting a shell to a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
 * Kubernetes official documentation on [resources management](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/)
-

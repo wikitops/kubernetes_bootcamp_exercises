@@ -181,6 +181,16 @@ Get each elements deployed in the cluster in command line.
 kubectl get all --all-namespaces
 ```
 
+#### Exercise n°4
+
+Describe the fields associated with each supported API resource.
+
+```bash
+kubectl explain
+```
+
+Add the --recursive flag to display all of the fields at once without descriptions. Information about each field is retrieved from the server in OpenAPI format.
+
 ## YAML file
 
 YAML, which stands for Yet Another Markup Language, or YAML Ain’t Markup Language is a human-readable text-based format for specifying configuration-type information.
@@ -368,4 +378,3 @@ Those documentations can help you to go further in this topic :
 * Kubernetes official documentation of [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
 * Kubernetes [API reference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.12/) documentation
 * [Kubectl official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) documentation
-

@@ -265,20 +265,14 @@ kubectl delete -f FILENAME
 
 Based on your reads, try to do it as simple as possible.
 
-{% tabs %}
-{% tab title="Exercise" %}
 1. Create a pod named nginx with the basic image nginx on the namespace called voting-app.
 2. Run a busybox pod, connect on it to get the default nginx web page.
-{% endtab %}
 
-{% tab title="Resolution" %}
 ```bash
 kubectl run nginx --image=nginx --restart=Never
 kubectl get po -o wide
 kubectl run busybox --image=busybox -it -- /bin/sh 'wget -O- NGINX_IP:80'
 ```
-{% endtab %}
-{% endtabs %}
 
 ## External documentation
 
@@ -292,3 +286,4 @@ Those documentations can help you to go further in this topic :
 * Kubernetes official documentation on [introspection and debugging](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-introspection/#using-kubectl-describe-pod-to-fetch-details-about-pods)
 * Kubernetes official documentation on [getting a shell to a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
 * Kubernetes official documentation on [resources management](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/)
+

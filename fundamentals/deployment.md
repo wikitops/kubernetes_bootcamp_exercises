@@ -18,51 +18,36 @@ A Deployment controller provides declarative updates for Pods and ReplicaSets.
 
 Describe a desired state in a Deployment object, and the Deployment controller changes the actual state to the desired state at a controlled rate. A Deployment object can create, update or delete resources or parameters.
 
+The _create_ command can directly ask the API resource to create a Deployment in command line or create a Deployment object based on a yaml file definition.
+
 #### Exercise n°1
 
-Deploy an Nginx Pod in a declarative way with a Deployment object.
+Create a Deployment object in command line named myNginxDeploymentCli to deploy an Nginx Pod.
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: mynginxdeployment
-  labels:
-    app: mynginxdeployment
-spec:
-  selector:
-    matchLabels:
-      app: mynginxdeployment
-  template:
-    metadata:
-      labels:
-        app: mynginxdeployment
-    spec:
-      containers:
-      - name: nginx
-        image: nginx
+```bash
+kubectl create deployment myNginxDeploymet02 --image=nginx
 ```
 
 #### Exercise n°2
 
-Update the previous deployment to scale it at 3.
+Deploy an Nginx Pod in a declarative way with a Deployment object and scale it to 3.
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mynginxdeployment
+  name: myNginxDeploymentYaml
   labels:
-    app: mynginxdeployment
+    app: myNginxDeploymentYaml
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: mynginxdeployment
+      app: myNginxDeploymentYaml
   template:
     metadata:
       labels:
-        app: mynginxdeployment
+        app: myNginxDeploymentYaml
     spec:
       containers:
       - name: nginx

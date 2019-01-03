@@ -29,6 +29,8 @@ Kubernetes manage four kinds of services depending on the exposition needed for 
 | LoadBalancer | External exposition, Internet access |
 | Endpoint | External endpoint definition to easily use it in the cluster |
 
+
+
 #### Exercise n°1
 
 Expose the Nginx Pod in the namespace app-demo to be able to access it from the local network on HTTP \(80\) port in command line.

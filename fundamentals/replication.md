@@ -18,6 +18,8 @@ At the end of this module, you will :
 
 A ReplicaSet can be easily scaled up or down by simply updating the .spec.replicas field in a YAML file definition. The ReplicaSet controller ensures that a desired number of pods with a matching label selector are available and operational
 
+The _create_ command create a ReplicaSet object based on a yaml file definition to manage the number of a pods identified by his labels.
+
 #### Exercise n°1
 
 Create a ReplicaSet object to scale an Nginx Pod with 3 replicas.

@@ -14,42 +14,6 @@ At the end of this module, you will :
 * _Learn how to manage a Pods_
 * _Learn how to manage containers_
 
-## Get
-
-The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
-
-#### Exercise n°1
-
-List pods deployed on the current namespace.
-
-```bash
-kubectl get pods
-```
-
-#### Exercise n°2
-
-List pods deployed on the namespace _app-demo_.
-
-```text
-kubectl get pods -n app-demo
-```
-
-#### Exercise n°3
-
-List all pods in all namespaces.
-
-```text
-kubectl get pods --all-namespaces
-```
-
-#### Exercise n°4
-
-List all pods, services, deployments in the _kube-system_ namespace.
-
-```bash
-kubectl get pods,service,deployment -n kube-system
-```
-
 ## Run
 
 The _run_ command creates a deployment based on the parameters specified, such as the image or replicas. This deployment is issued to the Kubernetes master which launches the Pods and containers required. Kubectl run is similar to _docker run_ but at a cluster level.
@@ -159,6 +123,42 @@ spec:
 
 ```bash
 kubectl apply -f FILENAME
+```
+
+## Get
+
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
+
+#### Exercise n°1
+
+List pods deployed on the current namespace.
+
+```bash
+kubectl get pods
+```
+
+#### Exercise n°2
+
+List pods deployed on the namespace _app-demo_.
+
+```text
+kubectl get pods -n app-demo
+```
+
+#### Exercise n°3
+
+List all pods in all namespaces.
+
+```text
+kubectl get pods --all-namespaces
+```
+
+#### Exercise n°4
+
+List all pods, services, deployments in the _kube-system_ namespace.
+
+```bash
+kubectl get pods,service,deployment -n kube-system
 ```
 
 ## Describe
@@ -292,4 +292,3 @@ Those documentations can help you to go further in this topic :
 * Kubernetes official documentation on [introspection and debugging](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-introspection/#using-kubectl-describe-pod-to-fetch-details-about-pods)
 * Kubernetes official documentation on [getting a shell to a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)
 * Kubernetes official documentation on [resources management](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/)
-

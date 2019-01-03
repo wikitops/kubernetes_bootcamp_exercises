@@ -75,7 +75,7 @@ kubectl create deployment busybox --image busybox
 
 #### Exercise n°3
 
-Create a pod that contain those containers : nginx, redis, postgres with a single YAML file.
+Create a pod that contain multiple containers : nginx, redis, postgres with a single YAML file.
 
 ```yaml
 apiVersion: v1
@@ -225,7 +225,9 @@ KUBE_EDITOR="nano" kubectl edit POD_NAME
 
 ## Explain
 
-Kubernetes come with a lot of documentation about his objects and the available options in each one. This can be fin easily in command line or in the official Kubernetes documentation.
+Kubernetes come with a lot of documentation about his objects and the available options in each one. Those information can be find easily in command line or in the official Kubernetes documentation.
+
+The _explain_ command allows to directly ask the API resource via the command line tools to display information about each Kubernetes objects and their architecture.
 
 #### Exercise n°1
 

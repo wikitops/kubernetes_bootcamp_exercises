@@ -88,7 +88,9 @@ kubectl describe replicaset REPLICASET_NAME -n app-demo
 
 ## Explain
 
-Kubernetes come with a lot of documentation about his objects and the available options in each one. This can be fin easily in command line or in the official Kubernetes documentation.
+Kubernetes come with a lot of documentation about his objects and the available options in each one. Those information can be fin easily in command line or in the official Kubernetes documentation.
+
+The _explain_ command allows to directly ask the API resource via the command line tools to display information about each Kubernetes objects and their architecture.
 
 #### Exercise n°1
 

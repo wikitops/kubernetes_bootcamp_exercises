@@ -1,4 +1,0 @@
-# Advanced
-
-## Module Overview
-

@@ -18,8 +18,6 @@
 * [Routes](fundamentals/routes.md)
 * [High Availability](fundamentals/high-availability.md)
 * [Roles](fundamentals/roles.md)
-* [Advanced](fundamentals/advanced.md)
-* [Bonus](fundamentals/bonus.md)
 
 ## Cheat Sheets
 

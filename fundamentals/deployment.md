@@ -134,6 +134,12 @@ The Kubernetes basic Rolling Updates architecture can be schematized like this :
 
 ![Kubernetes Rolling Updates architecture](../.gitbook/assets/rolling_update_architecture.gif)
 
+The _rollout_ command allows to directly ask the API resource via the command line tools to manage the life cycle of a Deployment like displaying the older release with the _history_ parameter.
+
+{% hint style="info" %}
+The rolling update method does not apply only to the _Deployment_ object but to the _DaemonSet_ and the _StatefulSet_ too.
+{% endhint %}
+
 #### Exercise n°1
 
 1. Check the history of the previous Nginx deployment
@@ -181,6 +187,12 @@ spec:
 In a Kubernetes cluster, a Rollback mean scaling up the corresponding ReplicaSet and scaled down the current one.
 
 This can be done easily in command line by specifying the revision to rollback the deployment.
+
+The _rollout_ command allows to directly ask the API resource via the command line tools to manage the life cycle of a Deployment like revert to an older version with the _undo_ parameter.
+
+{% hint style="info" %}
+The rolling update method does not apply only to the _Deployment_ object but to the _DaemonSet_ and the _StatefulSet_ too.
+{% endhint %}
 
 #### Exercise n°1
 

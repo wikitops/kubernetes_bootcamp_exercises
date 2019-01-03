@@ -29,14 +29,14 @@ Kubernetes manage four kinds of services depending on the exposition needed for 
 | LoadBalancer | External exposition, Internet access |
 | Endpoint | External endpoint definition to easily use it in the cluster |
 
-
+The _create_ command can directly ask the API resource to create a Service in command line or create a Service object based on a yaml file definition.
 
 #### Exercise n°1
 
 Expose the Nginx Pod in the namespace app-demo to be able to access it from the local network on HTTP \(80\) port in command line.
 
 ```bash
-kubectl create services --type=NodePort --port=80
+kubectl create service --type=NodePort --port=80
 ```
 
 #### Exercise n°2
@@ -65,13 +65,13 @@ kubectl apply -f FILENAME
 
 ## Get
 
-The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formatted to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
 
 The default output display some useful information about each services :
 
 * Type : display the type of exposition defined at service creation \(see previous table\).
 * Cluster-IP : display the internal cluster IP of the resources
-* External-IP : display the externale resources IP of the resources, field configured when LoadBalancer type is used
+* External-IP : display the external resources IP of the resources, field configured when LoadBalancer type is used
 * Port\(s\) : display a list of ports opened in the pods managed by the service
 
 #### Exercise n°1

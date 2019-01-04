@@ -18,24 +18,86 @@ At the end of this module, you will :
 
 A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod specification or in an image, putting it in a Secret object allows for more control over how it is used, and reduces the risk of accidental exposure.
 
+Independently from the deployment method, the command line to create a ConfigMaps should look like this :
+
+```bash
+kubectl create secret TYPE NAME SOURCES
+```
+
+* TYPE define which kind of Secret to create :
+  * docker-registry : Create a secret for use with a Docker registry
+  * generic : Create a secret from a local file, directory or literal value
+  * tls : Create a TLS secret
+* NAME define the name of the Secret, needed to attach it to a Pod
+* SOURCES define the data source for the Secret content to encode :
+  * --from-literal : Specify a key and literal value to insert in secret \(i.e. mykey=somevalue\)
+  * --from-file : Key files can be specified using their file path, in which case a default name will be given to
+  * --from-env-file : Specify the path to a file to read lines of key=val pairs to create a secret
+
 The _create_ command can directly ask the API resource to create a Secret in command line or create a Secret object based on a yaml file definition.
 
-The creation method of Secrets is similar to ConfigMap object. It can be created from a literal value, from files or from directories. The difference is that the content in the files and the directories has to be encoded in base64 before creating the Secret object otherwise the Kubernetes API will not be able to create it and an explicit error will be displayed.
+### From literal values
+
+Multiple key-value pairs can be passed to the Kubectl client to create a single Secret. Each pair provided on the command line is represented as a separate entry in the data section of the Secret.
+
+In this particular method, the key / value are explicitly defined in the command line and each key / value will generate a new entry in the Secret.
+
+The command line for this kind of Secrets creation should look like this :
+
+```bash
+kubectl create secret generic SECRET_NAME --from-literal=KEY=NAME
+```
 
 #### Exercise n°1
 
-Create a Secrets in command line from a literal value.
+Create a Secret called myFirstSecret in command line from a literal value to encode the key / value pair : password=myclearpassword
 
 ```bash
-kubectl create secret generic SECRET_NAME --from-literal=KEY=VALUE
+kubectl create secret generic myFirstSecret --from-literal=password=myclearpassword
 ```
 
-#### Exercise n°2
+{% hint style="info" %}
+This method is not recommended in production. It is recommended to version the Secrets files in a sources repository to manage it with a CI/CD tool.
+{% endhint %}
 
-Create a Secrets in declarative mode with YAML file.
+### From a file
+
+Like any other object in Kubernetes, multiple Secrets can be created based on multiple files stocked in different directories. The Kubectl client take care to parse each file given to the command line to ensure that each content files are integrated as Secrets.
+
+The command line for this kind of Secrets creation should look like this :
 
 ```bash
-kubectl create secrets ...
+kubectl create secret generic SECRET_NAME --from-file=PATH_FILE
+```
+
+#### Exercise n°1
+
+1. Create on or more file with some sensitive data in.
+2. Create a unique Secret based on the files created
+
+```bash
+kubectl create secret generic SECRET_NAME --from-file=PATH_FILE1 --from-file=PATH_FILE2
+```
+
+### Manually
+
+A Secret can be create manually thanks to a yaml file and the Kubernetes API. This is useful to manage it easily in a source repository and update it via a CI/CD tool.
+
+Pay attention to the format of data in the yaml file definition, the content has to be encoded in base64 to be correctly understand by the Kubernetes API.
+
+#### Exercise n°1
+
+Create a Secret manually in declarative mode.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: myFirstManualSecret
+type: Opaque
+data:
+  username: YWRtaW4=          # echo -n 'admin' | base64
+  password: MWYyZDFlMmU2N2Rm  # echo -n '1f2d1e2e67df' | base64
 ```
 
 ## Get

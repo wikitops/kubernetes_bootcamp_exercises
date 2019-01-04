@@ -137,9 +137,70 @@ kubectl describe secrets SECRETS_NAME
 
 ## Attach
 
+Once a Secret is created, it has to be attach to a pod to be able to read the data within it.
+
+The data can be attach as :
+
+* Environment variable : The application in the container has to be able to read data from those environment variables.
+* File : The application in the container has to be able to read the content in the specific files and find the needed keys to get the right value.
+
+Multiple Secrets can be defined in a Pod, this is useful when the configuration has to be managed by different teams.
+
 ### In environment variable
 
+
+
+#### Exercise n°1
+
+Based on the previous Secrets created, create a Pod using the busybox image to display some part of the Secret in single environment variables.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myFirstSecretEnv
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    env:
+      - name: SECRET_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: myFirstSecret
+            key: password
+  restartPolicy: Never
+```
+
 ### In file path
+
+
+
+#### Exercise n°1
+
+Based on the previous Secrets created, create a Pod using the busybox image to display some part of the Secret in single file.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myFirstSecretFile
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    volumeMounts:
+    - name: myFirstSecretMount
+      mountPath: "/data/sensitive"
+      readOnly: true
+  volumes:
+  - name: myFirstSecretMount
+    secret:
+      secretName: myFirstSecret
+      items:
+      - key: password
+        path: myapp/my-password
+```
 
 ## Explain
 

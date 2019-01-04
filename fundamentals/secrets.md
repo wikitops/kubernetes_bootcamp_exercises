@@ -16,17 +16,23 @@ At the end of this module, you will :
 
 ## Create
 
+A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod specification or in an image, putting it in a Secret object allows for more control over how it is used, and reduces the risk of accidental exposure.
+
+The _create_ command can directly ask the API resource to create a Secret in command line or create a Secret object based on a yaml file definition.
+
+The creation method of Secrets is similar to ConfigMap object. It can be created from a literal value, from files or from directories. The difference is that the content in the files and the directories has to be encoded in base64 before creating the Secret object otherwise the Kubernetes API will not be able to create it and an explicit error will be displayed.
+
 #### Exercise n°1
 
-Create a Secrets in declarative mode with YAML file.
+Create a Secrets in command line from a literal value.
 
 ```bash
-kubectl apply -f FILENAME
+kubectl create secret generic SECRET_NAME --from-literal=KEY=VALUE
 ```
 
 #### Exercise n°2
 
-Create a Secrets in command line.
+Create a Secrets in declarative mode with YAML file.
 
 ```bash
 kubectl create secrets ...
@@ -34,11 +40,14 @@ kubectl create secrets ...
 
 ## Get
 
-The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formatted to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
 
 The default output display some useful information about each services :
 
-\*
+* Name : The name of the Secrets object needed to attach it to a Pod
+* Type : The type of Secrets, indication of type of content in the object
+* Data : The count of keys in the Secrets
+* Age : Duration from the creation of the object
 
 #### Exercise n°1
 

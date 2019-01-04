@@ -32,6 +32,8 @@ The data source corresponds to a key-value pair in the ConfigMap, where
 * key is the file name or the key provided on the command line
 * value is the file contents or the literal value provided on the command line
 
+The _create_ command can directly ask the API resource to create a Service in command line or create a ConfigMap object based on a yaml file\(s\) definition.
+
 ### From literal values
 
 Multiple key-value pairs can be passed to the Kubectl client to create a single ConfigMap. Each pair provided on the command line is represented as a separate entry in the data section of the ConfigMap.
@@ -113,11 +115,13 @@ kubectl create configmap CONFIGMAP_NAME --from-file=PATH_FILE1 --from-file=PATH_
 
 ## Get
 
-The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some JSON search or external tools like `tr`, `sort`, `uniq`.
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formatted to only display some information based on some JSON search or external tools like `tr`, `sort`, `uniq`.
 
-The default output display some useful information about each configMaps :
+The default output display some useful information about each ConfigMaps :
 
-\*
+* Name : Name of the ConfigMap, needed to attach it to a Pod
+* Data : The count of keys in the ConfigMap
+* Age : Duration from the object creation
 
 #### Exercise n°1
 
@@ -145,9 +149,132 @@ kubectl describe configmaps CONFIGMAPS_NAME
 
 ## Attach
 
+Once a ConfigMap is created, it has to be attach to a pod to be able to read the data within it.
+
+The data can be attach as :
+
+* Environment variable : The application in the container has to be able to read data from those environment variables.
+* File : The application in the container has to be able to read the content in the specific files and find the needed keys to get the right value.
+
+Multiple ConfigMaps can be defined in a Pod, this is useful when the configuration has to be managed by different teams.
+
 ### In environment variable
 
+There is two method to define the content of a ConfigMap in a Pod :
+
+* Define each variable individually
+* Define each key / value pairs in a ConfigMap as an environment variable automatically
+
+Depending of the ConfigMap content, defining each variable individually can be much complex and more secure than giving access to all the content of a ConfigMap.
+
+#### Exercise n°1
+
+Based on the previous ConfigMaps created, create a Pod using the busybox image to display some part of the ConfigMap in single environment variables.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myFirstConfigMapEnv1
+spec:
+  containers:
+    - name: busybox
+      image: k8s.gcr.io/busybox
+      command: [ "/bin/sh", "-c", "env" ]
+      env:
+        - name: CM_COURSE
+          valueFrom:
+            configMapKeyRef:
+              name: MySimpleConfigMap
+              key: course
+        - name: CM_SUBJECT_TITLE
+          valueFrom:
+            configMapKeyRef:
+              name: MySimpleConfigMap
+              key: subject.title
+  restartPolicy: Never
+```
+
+#### Exercise n°2
+
+Based on the previous ConfigMaps created, create a Pod using the busybox image to display the entire ConfigMap in environment variables automatically.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myFirstConfigMapEnv2
+spec:
+  containers:
+    - name: busybox
+      image: k8s.gcr.io/busybox
+      command: [ "/bin/sh", "-c", "env" ]
+      envFrom:
+      - configMapRef:
+          name: MySimpleConfigMap
+  restartPolicy: Never
+```
+
 ### In file path
+
+With this method, the data of a ConfigMap is directly connected as a Volume to a Pod in a specific path in the container to be readable by the application deployed.
+
+As the previous method, the content of a ConfigMap can entirely be copied in the specific file or only some specific keys can be defined to be available in the specific path.
+
+{% hint style="info" %}
+Be careful in the path used to mount the volumes, if a file already exist, it will be erased to mount the ConfigMap Volume.
+{% endhint %}
+
+#### Exercise n°1
+
+Based on the previous ConfigMaps created, create a Pod using the busybox image to display some keys of the ConfigMap mounted as Volumes.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myFirstConfigMapFile01
+spec:
+  containers:
+    - name: busybox
+      image: k8s.gcr.io/busybox
+      command: [ "/bin/sh","-c","cat /tmp/myconfigmap/mycourse" ]
+      volumeMounts:
+      - name: myConfigMap
+        mountPath: /tmp/myconfigmap
+  volumes:
+    - name: myConfigMap
+      configMap:
+        name: MySimpleConfigMap
+        items:
+        - key: course
+          path: mycourse
+  restartPolicy: Never
+```
+
+#### Exercise n°2
+
+Based on the previous ConfigMaps created, create a Pod using the busybox image to display the entire content of a ConfigMap mounted as Volumes.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myFirstConfigMapFile02
+spec:
+  containers:
+    - name: busybox
+      image: k8s.gcr.io/busybox
+      command: [ "/bin/sh","-c","cat /tmp/myconfigmap" ]
+      volumeMounts:
+      - name: myConfigMap
+        mountPath: /tmp/myconfigmap
+  volumes:
+    - name: myConfigMap
+      configMap:
+        name: MySimpleConfigMap
+  restartPolicy: Never
+```
 
 ## Explain
 

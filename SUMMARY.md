@@ -32,6 +32,7 @@
 
 ## External Documentation
 
-* [kubernetes.io](https://kubernetes.io/)
-* [kubernetes API reference](https://v1-13.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/)
+* [Kubernetes documentation](https://kubernetes.io/docs)
+* [Kubernetes blog](https://kubernetes.io/blog/)
+* [Kubernetes API reference](https://v1-13.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/)
 

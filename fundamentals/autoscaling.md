@@ -103,7 +103,7 @@ The _explain_ command allows to directly ask the API resource via the command li
 Get the documentation of a specific field of a resource.
 
 ```bash
-kubectl explain autoscaling.spec
+kubectl explain hpa.spec
 ```
 
 Add the --recursive flag to display all of the fields at once without descriptions.

@@ -16,6 +16,8 @@ At the end of this module, you will :
 
 ## Create
 
+Looks up a Deployment, ReplicaSet, or ReplicationController by name and creates an autoscaler that uses the given resource as a reference. An autoscaler can automatically increase or decrease number of pods deployed within the system as needed.
+
 Horizontal Pod Autoscaler automatically scales the number of pods in a deployment or replica set based on observed CPU, Memory or Custom Metrics utilization depending the API version used.
 
 The Kubernetes basic autoscaling architecture can be schematized like this :
@@ -38,6 +40,41 @@ kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
 ```
 
 ## Get
+
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formatted to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
+
+The default output display some useful information about each services :
+
+* name : The name for the newly created object.
+* reference : The object managed by the autoscaler, like  Pod name, a Deployment name ...
+* targets : The metrics defined to autoscale the referenced resource
+* minpods : The lower limit for the number of pods that can be set by the autoscaler.
+* maxpods : The upper limit for the number of pods that can be set by the autoscaler.
+* replicas : Current replicas number
+* age : the age of the object from his creation
+
+#### Exercise n°1
+
+Get the current HorizontalPodAutoscaler resources in the default namespace.
+
+```text
+kubectl get hpa
+```
+
+#### Exercise n°2
+
+Stress the Pod created in the previous section and check the HorizontalPoMindAutoscaler associated.
+
+```bash
+# Connect to the Pod
+kubectl run -i --tty load-generator --image=busybox /bin/sh
+
+# Run a loop bash command in the container to stress the CPU
+while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
+
+# Check the Horizontal Pod Autoscaler status
+kubectl get hpa
+```
 
 ## Describe
 

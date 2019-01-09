@@ -20,6 +20,20 @@ At the end of this module, you will :
 
 ## Describe
 
+Once an object is running, it is inevitably a need to debug problems or check the configuration deployed.
+
+The _describe_ command display a lot of configuration information about the NetworkPolicies \(labels, annotations, etc.\) and the specific policies associated to the current NetworkPolicy \(type, port, selectors, etc\).
+
+This command is really useful to introspect and debug an object deployed in a cluster.
+
+#### Exercise n°1
+
+Describe one of the existing Network Policy in the default namespace.
+
+```bash
+kubectl describe networkpolicy NETWORK_POLICY_NAME
+```
+
 ## Explain
 
 Kubernetes come with a lot of documentation about his objects and the available options in each one. Those information can be fin easily in command line or in the official Kubernetes documentation.

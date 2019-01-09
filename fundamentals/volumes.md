@@ -25,6 +25,24 @@ The Kubernetes basic architecture can be schematized like this :
 
 ## Describe
 
+Once an object is running, it is inevitably a need to debug problems or check the configuration deployed.
+
+The _describe_ command display a lot of configuration information about the Volumes \(labels, annotations, etc.\) and the claim policy of each resources \(storageclass, type, size, access, etc\).
+
+This command is really useful to introspect and debug an object deployed in a cluster.
+
+#### Exercise  n°1
+
+Describe one of the existing Volumes in the default namespace.
+
+```bash
+# Describe a persistent volume
+kubectl describe persistentvolume VOLUME_NAME
+
+# Describe the persistent volume claim associated
+kubectl describe persitentvolumeclaim PVC_NAME
+```
+
 ## Attach
 
 ## Explain

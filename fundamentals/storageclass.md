@@ -17,7 +17,49 @@ At the end of this module, you will :
 
 ## Create
 
+StorageClasses are the foundation of dynamic provisioning, allowing cluster administrators to define abstractions for the underlying storage platform. Users simply refer to a StorageClass by name in the PersistentVolumeClaim \(PVC\) using the “storageClassName” parameter.
+
+Storage is a critical part of running stateful containers, and Kubernetes offers powerful primitives for managing it. Dynamic volume provisioning, a feature unique to Kubernetes, allows storage volumes to be created on-demand. The storage resources can be dynamically provisioned using the provisioner specified by the StorageClass object. 
+
+StorageClasses are essentially blueprints that abstract away the underlying storage provider, as well as other parameters, like disk-type.
+
+The _create_ command can create a StorageClass object based on a yaml file definition.
+
+#### Exercise n°1
+
+Create a StorageClass object to automatically use the AWS EBS volumes.
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: standard
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+reclaimPolicy: Retain
+mountOptions:
+  - debug
+volumeBindingMode: Immediate
+```
+
 ## Get
+
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formatted to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
+
+The default output display some useful information about each services :
+
+* name : the name of the newly created resource
+* provisioner : the target storage provisioner used to create the futur volumes
+* age : the age of the object from his creation
+
+#### Exercise n°1
+
+Get the information of a Storage Class deployed in the default namespace.
+
+```bash
+kubectl get storageclass STORAGECLASS_NAME
+```
 
 ## Describe
 

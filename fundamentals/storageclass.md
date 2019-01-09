@@ -93,6 +93,27 @@ kubectl explain storageclasses.spec
 
 Add the --recursive flag to display all of the fields at once without descriptions.
 
+## Default Storage Class
+
+The default StorageClass is used to dynamically provision storage for PersistentVolumeClaims that do not require any specific storage class. It simplify the management by using the default Storage Class to create the new Persitent Volumes.
+
+The default Storage Class is defined by an annotation set to true : `storageclass.kubernetes.io/is-default-class`
+
+This parameter can be updated in command line or by editing the yaml file of each Storage Class. If a Storage Class already exist, it is needed to disable the annotation to enable it on another object.
+
+#### Exercise n°1
+
+1. Disable the default StorageClass in the default namespace.
+2. Configure the previous StorageClass created as default 
+
+```bash
+# Disable the current default StorageClass
+kubectl patch storageclass CURRENT_DEFAULT_STORAGECLASS_NAME -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+ 
+# Configure the new default StorageClass
+kubectl patch storageclass NEW_DEFAULT_STORAGECLASS_NAME -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}' 
+```
+
 ## Delete
 
 The _delete_ command delete resources by filenames, stdin, resources and names, or by resources and label selector.

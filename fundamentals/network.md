@@ -20,6 +20,8 @@ A network policy is a specification of how groups of pods are allowed to communi
 
 NetworkPolicy resources use labels to select pods and define rules which specify what traffic is allowed to the selected pods.
 
+By default, if no policies exist in a namespace, then all ingress and egress traffic is allowed to and from pods in that namespace
+
 The _create_ command can create a NetworkPolicy object based on a yaml file definition.
 
 #### Exercise n°1

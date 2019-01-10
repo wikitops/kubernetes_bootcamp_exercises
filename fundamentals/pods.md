@@ -18,7 +18,11 @@ At the end of this module, you will :
 
 The _run_ command creates a deployment based on the parameters specified, such as the image or replicas. This deployment is issued to the Kubernetes master which launches the Pods and containers required. Kubectl run is similar to _docker run_ but at a cluster level.
 
-The format of the command is _kubectl run &lt;name of deployment&gt; &lt;properties&gt;_
+The format of the command is :
+
+```bash
+kubectl run <name of deployment> <properties>
+```
 
 #### Exercise n°1
 

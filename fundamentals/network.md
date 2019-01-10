@@ -16,7 +16,49 @@ At the end of this module, you will :
 
 ## Create
 
+A network policy is a specification of how groups of pods are allowed to communicate with each other and other network endpoints.
+
+NetworkPolicy resources use labels to select pods and define rules which specify what traffic is allowed to the selected pods.
+
+The _create_ command can create a NetworkPolicy object based on a yaml file definition.
+
+#### Exercise n°1
+
+Deploy a default Network Policy for each resources in the default namespace to :
+
+* Authorize all egress traffic
+* Not authorize all ingress traffic
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: defaultNetworkPolicy
+  namespace: default
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  egress:
+  - {}
+```
+
 ## Get
+
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formatted to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
+
+The default output display some useful information about each services :
+
+* name : the name of the newly created resource
+* pod-selector : the labels used to associate the Network Policy with the Pods
+* age :  the age from the resource creation
+
+#### Exercise n°1
+
+```bash
+kubectl get networkpolicy
+```
 
 ## Describe
 
@@ -45,7 +87,7 @@ The _explain_ command allows to directly ask the API resource via the command li
 Get the documentation of a specific field of a resource.
 
 ```bash
-kubectl explain networkpolicies.spec
+kubectl explain networkpolicy.spec
 ```
 
 Add the --recursive flag to display all of the fields at once without descriptions.
@@ -63,7 +105,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous network policy in command line.
 
 ```bash
-kubectl delete networkpolicies NETWORKPOLICY_NAME
+kubectl delete networkpolicy NETWORKPOLICY_NAME
 ```
 
 ## Module exercise

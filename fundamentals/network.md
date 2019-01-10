@@ -26,10 +26,7 @@ The _create_ command can create a NetworkPolicy object based on a yaml file defi
 
 #### Exercise n°1
 
-Deploy a default Network Policy for each resources in the default namespace to :
-
-* Authorize all egress traffic
-* Not authorize all ingress traffic
+Deploy a default Network Policy for each resources in the default namespace to deny all ingress and egress traffic.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -42,8 +39,6 @@ spec:
   policyTypes:
   - Ingress
   - Egress
-  egress:
-  - {}
 ```
 
 ## Get

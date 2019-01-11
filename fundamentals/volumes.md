@@ -21,9 +21,54 @@ The Kubernetes basic architecture can be schematized like this :
 
 ![Kubernetes volumes architecture](../.gitbook/assets/volumes_architecture.png)
 
+The _create_ command can create a PersistentVolume / PersistentVolumeClaim object based on a yaml file definition.
+
+### EmptyDir
+
+#### Exercise n°1
+
+Create an Nginx Pod and attach an EmptyDir volume to it.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: nginx-storage
+      mountPath: /data/test
+  volumes:
+  - name: nginx-storage
+    emptyDir: {}
+```
+
 ## Get
 
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formatted to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
 
+The default output display some useful information about each services :
+
+* name : the name of the newly created resource
+* capacity : the storage capacity available in the volume
+* access modes : the access modes available \(read, write, owner\)
+* reclaim policy :  the management of the resource when pod is deleted
+* status : the status of the resource
+* claim : the claim object associated
+* storageclass : the storage class used to create the new resource
+* reason : the reason of the resource creation
+* age : the age since the creation resource 
+
+#### Exercise n°1
+
+List all existing Volumes in the default namespace.
+
+```bash
+kubectl get persistentvolume
+```
 
 ## Describe
 

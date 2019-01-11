@@ -1,9 +1,3 @@
----
-description: >-
-  Kubeadm is a tool that help to bootstrap a minimum viable Kubernetes cluster
-  that conforms to best practices.
----
-
 # Kubeadm
 
 ## Installing

@@ -1,10 +1,3 @@
----
-description: >-
-  A StorageClass provides a way to describe the “classes” of storage to offer.
-  Different classes might map to quality-of-service levels, or to backup
-  policies, or to arbitrary policies.
----
-
 # StorageClass
 
 ## Module Overview

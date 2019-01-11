@@ -20,6 +20,18 @@ Ingress exposes HTTP and HTTPS routes from outside the cluster to Services withi
 
 An ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, and offer name based virtual hosting. An ingress controller is responsible for fulfilling the ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 
+In order for the ingress resource to work, the cluster must have an ingress controller running :
+
+| Name | Description |
+| :--- | :--- |
+| Contour | An Envoy based ingress controller provided and supported by Heptio. |
+| F5 Networks | Provides support and maintenance for the F5 BIG-IP Controller for Kubernetes. |
+| HAproxy | Offers support and maintenance for HAProxy Enterprise and the ingress controller jcmoraisjr/haproxy-ingress. |
+| Istio | Based ingress controller Control Ingress Traffic. |
+| Kong | Offers community or commercial support and maintenance for the Kong Ingress Controllerfor Kubernetes. |
+| Nginx | Offers support and maintenance for the NGINX Ingress Controller for Kubernetes. |
+| Traefik | Fully featured ingress controller \(Let’s Encrypt, secrets, http2, websocket\), and it also comes with commercial support by Containous. |
+
 The _create_ command can create a Ingress object based on a yaml file definition.
 
 #### Exercise n°1

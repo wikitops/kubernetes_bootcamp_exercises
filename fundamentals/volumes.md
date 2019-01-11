@@ -23,6 +23,8 @@ The Kubernetes basic architecture can be schematized like this :
 
 ## Get
 
+
+
 ## Describe
 
 Once an object is running, it is inevitably a need to debug problems or check the configuration deployed.
@@ -98,4 +100,6 @@ Based on your reads, try to do it as simple as possible.
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
+* Kubernetes official documentation on persistent volumes
+* Kubernetes official documentation on how to attach a volume to a pod
 

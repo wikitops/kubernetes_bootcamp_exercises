@@ -4,7 +4,7 @@ description: >-
   to communicate inside and outside the cluster's network.
 ---
 
-# Routes
+# Route
 
 ## Module Overview
 
@@ -16,7 +16,52 @@ At the end of this module, you will :
 
 ## Create
 
+Ingress exposes HTTP and HTTPS routes from outside the cluster to Services within the cluster. Traffic routing is controlled by rules defined on the ingress resource.
+
+An ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, and offer name based virtual hosting. An ingress controller is responsible for fulfilling the ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic.
+
+The _create_ command can create a Ingress object based on a yaml file definition.
+
+#### Exercise n°1
+
+Create an Ingress resource to expose an Nginx pod Service's on port 80.
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: myfirstingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /foo
+        backend:
+          serviceName: <service_name>
+          servicePort: 80
+```
+
 ## Get
+
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formatted to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
+
+The default output display some useful information about each services :
+
+* name : the name of the newly created resource
+* hosts : the host to apply the newly created resource
+* address : the address exposed by the newly created resource
+* ports : the ports exposed by the resource
+* age : the age since the creation of the resource
+
+#### Exercise n°1
+
+List the current Ingress resources created.
+
+```bash
+kubectl get ingress
+```
 
 ## Describe
 
@@ -63,7 +108,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous ingress in command line.
 
 ```bash
-kubectl delete ingresses INGRESS_NAME
+kubectl delete ingress INGRESS_NAME
 ```
 
 ## Module exercise

@@ -15,7 +15,7 @@
 * [StorageClass](fundamentals/storageclass.md)
 * [Autoscaling](fundamentals/autoscaling.md)
 * [Networks](fundamentals/network.md)
-* [Routes](fundamentals/routes.md)
+* [Route](fundamentals/routes.md)
 * [High Availability](fundamentals/high-availability.md)
 * [Roles](fundamentals/roles.md)
 

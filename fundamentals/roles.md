@@ -31,71 +31,32 @@ The _create_ command can directly ask the API resource to create a Roles / Roleb
 
 Create a Role in the default namespace to grant read access to pods.
 
-```yaml
-kind: Role
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  namespace: default
-  name: pod-reader
-rules:
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["get", "watch", "list"]
+```bash
+kubectl create role pod-reader --verb=get,list,watch --resource=pods -n default
 ```
 
 #### Exercise n°2
 
 Create a ClusterRole to grant read access to secrets in any particular namespace.
 
-```yaml
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  # "namespace" omitted since ClusterRoles are not namespaced
-  name: secret-reader
-rules:
-- apiGroups: [""]
-  resources: ["secrets"]
-  verbs: ["get", "watch", "list"]
+```bash
+kubectl create clusterrole secret-reader --verb=get,list,watch --resource=secrets
 ```
 
 #### Exercise n°3
 
 Create a RoleBinding to grant the "pod-reader" role to a user "jane" within the default namespace.
 
-```yaml
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: read-pods
-  namespace: default
-subjects:
-- kind: User
-  name: jane
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: Role
-  name: pod-reader
-  apiGroup: rbac.authorization.k8s.io
+```bash
+kubectl create rolebinding read-pods --user=jane --role=pod-reader
 ```
 
 #### Exercise n°4
 
 Create a RoleBinding to allow any user in the group "manager" to read secrets in any namespace.
 
-```yaml
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: read-secrets-global
-subjects:
-- kind: Group
-  name: manager
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: secret-reader
-  apiGroup: rbac.authorization.k8s.io
+```bash
+kubectl create clusterrolebinding read-secrets-global --group=manager --clusterrole=secret-reader
 ```
 
 ## Get

@@ -100,6 +100,6 @@ Based on your reads, try to do it as simple as possible.
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
-* Kubernetes official documentation on persistent volumes
-* Kubernetes official documentation on how to attach a volume to a pod
+* Kubernetes official documentation on [persistent volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+* Kubernetes official documentation on [how to attach a volume to a pod](https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/)
 

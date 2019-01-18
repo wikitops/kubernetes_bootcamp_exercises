@@ -46,6 +46,63 @@ spec:
     emptyDir: {}
 ```
 
+### HostPath
+
+Kubernetes supports hostPath for development and testing on a single-node cluster. A hostPath PersistentVolume uses a file or directory on the Node to emulate network-attached storage.
+
+HostPath volumes should not be used in a production cluster. Instead a cluster administrator would provision a network resource like a Google Compute Engine persistent disk, an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also use StorageClasses to set up dynamic provisioning.
+
+#### Exercise n°1
+
+1. Create an HostPath volume based on that directory : /data/nginx/conf
+2. Create the PersistentVolumeClaim to claim this volume
+3. Attach this volume to an Nginx Pod
+
+```yaml
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: myfirsthostpathvolume
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/nginx/conf"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: myfirsthostpathvolumeclaim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: myfirsthostpathpod
+spec:
+  volumes:
+    - name: myfirsthostpathvolume
+      persistentVolumeClaim:
+       claimName: myfirsthostpathvolumeclaim
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: myfirsthostpathvolume
+```
+
 ## Get
 
 The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formatted to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.

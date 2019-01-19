@@ -25,6 +25,10 @@ The _create_ command can create a PersistentVolume / PersistentVolumeClaim objec
 
 ### EmptyDir
 
+An EmptyDir Volume, as the name says, attach an empty volume to all the containers in a single Pods. 
+
+Containers in the Pod can all read and write the same files in the emptyDir volume, though that volume can be mounted at the same or different paths in each Container. When a Pod is removed from a node for any reason, the data in the emptyDir is deleted forever.
+
 #### Exercise n°1
 
 Create an Nginx Pod and attach an EmptyDir volume to it.

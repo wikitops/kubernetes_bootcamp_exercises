@@ -29,6 +29,8 @@ An EmptyDir Volume, as the name says, attach an empty volume to all the containe
 
 Containers in the Pod can all read and write the same files in the emptyDir volume, though that volume can be mounted at the same or different paths in each Container. When a Pod is removed from a node for any reason, the data in the emptyDir is deleted forever.
 
+An EmptyDir Volume does not require the definition of an external resource like PersistentVolume or PersistentVolumeClaim. The definition is done directly in the yaml file of the Pod.
+
 #### Exercise n°1
 
 Create an Nginx Pod and attach an EmptyDir volume to it.

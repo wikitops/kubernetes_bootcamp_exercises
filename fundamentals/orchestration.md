@@ -227,13 +227,13 @@ Extract the default namespace YAML file definition with the command line.
 kubectl get namespace default -o yaml
 ```
 
-## Masters / Nodes
+## Architecture
 
 _Master_ components provide the cluster’s control plane. Master components make global decisions about the cluster \(for example, scheduling\), and detecting and responding to cluster events \(starting up a new pod when a replication controller’s ‘replicas’ field is unsatisfied\).
 
 _Master_ components can be run on any machine in the cluster. However, for simplicity, set up scripts typically start all master components on the same machine, and do not run user containers on this machine.
 
-_Node_ components run on every node, maintaining running pods and providing the Kubernetes runtime environment. They are the resources pool that will be managed by the masters to schedule the requiested objects.
+_Node_ components are worker machine in Kubernetes, previously known as a minion. They maintain running pods and provide the Kubernetes runtime environment. They are the resources pool that will be managed by the masters to schedule the requested objects.
 
 A basic Kubernetes architecture can be schematized like this :
 

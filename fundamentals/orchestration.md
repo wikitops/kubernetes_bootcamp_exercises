@@ -354,7 +354,7 @@ kubectl label nodes NODE_NAME random-key-
 
 The purpose of this section is to manage each steps of the lifecycle of an application to better understand each concepts of the Kubernetes course. 
 
-The main objective in this module is to deploy the namespace of our future application to isolate it and label the nodes to manage the deployment of each part of the application in the next modules.
+The main objective in this module is to create a namespace for a future application to isolate it and label the nodes to manage the deployment of each part of the application in the next modules.
 
 For more information about the application used all along the course, please refer to the _Exercise App &gt; Voting App_ link in the left panel.
 

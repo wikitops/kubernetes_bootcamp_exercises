@@ -271,13 +271,20 @@ kubectl delete -f FILENAME
 
 ## Module exercise
 
-Based on your reads, try to do it as simple as possible.
+The purpose of this section is to manage each steps of the lifecycle of an application to better understand each concepts of the Kubernetes course.
+
+The main objective in this module is to deploy the Voting App Pods in his dedicated namespace.
+
+For more information about the application used all along the course, please refer to the _Exercise App &gt; Voting App_ link in the left panel.
+
+Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
+
+The file developed has to be stored in this directory : `/data/votingapp/pods`
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. Create this local directories : `/data/votingapp/pods`
-2. Based on the Voting App definition page, develop the Pod yaml file needed to easily create the resource in the dedicated namespace _voting-app_. Copy / paste the developed file in the previous directory : `/data/votingapp/pods/01_pods.yaml`
-3. In command line, deploy the Pod thanks to the yaml file developed.
+1. Deploy each containers of the Voting App in a single Pod called `voting-app-pod` in his dedicated namespace created in the previous module.
+2. Ensure the Pods is up and running.
 {% endtab %}
 
 {% tab title="Resolution" %}
@@ -309,6 +316,12 @@ Kubectl command to deploy the Pods based on the previous definition file.
 
 ```bash
 kubectl create -f /data/votingapp/pods/01_pods.yaml
+```
+
+Ensure the Pods is up and running.
+
+```bash
+kubectl get pods -n voting-app
 ```
 {% endtab %}
 {% endtabs %}

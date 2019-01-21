@@ -4,7 +4,7 @@ description: >-
   to communicate inside and outside the cluster's network.
 ---
 
-# Route
+# Routes
 
 ## Module Overview
 

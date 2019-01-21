@@ -15,7 +15,7 @@
 * [StorageClass](fundamentals/storageclass.md)
 * [Autoscaling](fundamentals/autoscaling.md)
 * [Networks](fundamentals/network.md)
-* [Route](fundamentals/routes.md)
+* [Routes](fundamentals/routes.md)
 * [Roles](fundamentals/roles.md)
 
 ## Cheat Sheets

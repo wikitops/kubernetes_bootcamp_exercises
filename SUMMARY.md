@@ -16,7 +16,6 @@
 * [Autoscaling](fundamentals/autoscaling.md)
 * [Networks](fundamentals/network.md)
 * [Route](fundamentals/routes.md)
-* [High Availability](fundamentals/high-availability.md)
 * [Roles](fundamentals/roles.md)
 
 ## Cheat Sheets

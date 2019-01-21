@@ -17,6 +17,13 @@ At the end of this module, you will :
 
 ## Create
 
+On-disk files in a container are ephemeral, which presents some problems for non-trivial applications when running in containers :
+
+* When a container crashes, they will automatically restart but the files will be lost. The container starts with a clean state. 
+* When running containers together in a Pod it is often necessary to share files between those containers. 
+
+The Kubernetes Volume abstraction solves both of these problems.
+
 The Kubernetes basic architecture can be schematized like this :
 
 ![Kubernetes volumes architecture](../.gitbook/assets/volumes_architecture.png)
@@ -52,7 +59,11 @@ spec:
     emptyDir: {}
 ```
 
-### HostPath
+### PersistentVolume
+
+A PersistentVolume is a piece of storage in a Kubernetes cluster. It is a resource in the cluster just like a node is a cluster resource. PersistentVolumes have a lifecycle independent of any individual pod that uses volumes.
+
+**HostPath**
 
 Kubernetes supports hostPath for development and testing on a single-node cluster. A hostPath PersistentVolume uses a file or directory on the Node to emulate network-attached storage.
 
@@ -60,9 +71,7 @@ HostPath volumes should not be used in a production cluster. Instead a cluster a
 
 #### Exercise n°1
 
-1. Create an HostPath volume based on that directory : /data/nginx/conf
-2. Create the PersistentVolumeClaim to claim this volume
-3. Attach this volume to an Nginx Pod
+Create an hostPath volume based on that directory : /data/nginx/conf
 
 ```yaml
 kind: PersistentVolume
@@ -77,7 +86,17 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/data/nginx/conf"
----
+```
+
+## Claim
+
+A PersistentVolumeClaim is a request for storage by a user. It is similar to a pod. Pods consume node resources and PersistentVolumeClaim consume PersistentVolume resources. Pods can request specific levels of resources \(CPU and Memory\). Claims can request specific size and access modes \(e.g., can be mounted once read/write or many times read-only\).
+
+#### Exercise n°1
+
+Create the PersistentVolumeClaim to claim the previous PersistentVolume provisioned.
+
+```yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -89,7 +108,17 @@ spec:
   resources:
     requests:
       storage: 1Gi
----
+```
+
+## Attach
+
+Undependently on the PersistentVolume type used, attach a Volume to a Pod can be done in the yaml file definition of a Pod.
+
+#### Exercise n°1
+
+Attach the previous PersistentVolumeClaim to an Nginx Pod to consume the hostPath PersistentVolume provisioned before.
+
+```yaml
 kind: Pod
 apiVersion: v1
 metadata:
@@ -135,6 +164,26 @@ List all existing Volumes in the default namespace.
 kubectl get persistentvolume
 ```
 
+### PersistentVolumeClaim
+
+The default output display some useful information about each services :
+
+* name : the name of the newly created resource
+* status : is the resource bouned, mouted, etc
+* volume : the PersitentVolume impacted by the newly created resource
+* capacity : volume storage size claimed
+* access mode : access mode of the newly created resource
+* storageclass : the name of the StorageClass associated
+* age : the age since the creation resource
+
+#### Exercise n°1
+
+List all existing Volume claims in the default namespace.
+
+```bash
+kubectl get persistentvolumeclaim
+```
+
 ## Describe
 
 Once an object is running, it is inevitably a need to debug problems or check the configuration deployed.
@@ -154,8 +203,6 @@ kubectl describe persistentvolume VOLUME_NAME
 # Describe the persistent volume claim associated
 kubectl describe persitentvolumeclaim PVC_NAME
 ```
-
-## Attach
 
 ## Explain
 

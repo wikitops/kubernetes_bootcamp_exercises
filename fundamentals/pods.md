@@ -275,15 +275,40 @@ Based on your reads, try to do it as simple as possible.
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. Create a pod named nginx with the basic image nginx on the namespace called voting-app.
-2. Run a busybox pod, connect on it to get the default nginx web page.
+1. Create this local directories : `/data/votingapp/pods`
+2. Based on the Voting App definition page, develop the Pod yaml file needed to easily create the resource in the dedicated namespace _voting-app_. Copy / paste the developed file in the previous directory : `/data/votingapp/pods/01_pods.yaml`
+3. In command line, deploy the Pod thanks to the yaml file developed.
 {% endtab %}
 
 {% tab title="Resolution" %}
+Yaml file definition to deploy the Voting App containers.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: voting-app-pod
+  namespace: voting-app
+  labels:
+    env: formation
+spec:
+  containers:
+  - name: db
+    image: postgres
+  - name: redis
+    image: redis
+  - name: result-app
+    image: result
+  - name: voting-app
+    image: vote
+  - name: worker
+    image: worker
+```
+
+Kubectl command to deploy the Pods based on the previous definition file.
+
 ```bash
-kubectl run nginx --image=nginx --restart=Never
-kubectl get po -o wide
-kubectl run busybox --image=busybox -it -- /bin/sh 'wget -O- NGINX_IP:80'
+kubectl create -f /data/votingapp/pods/01_pods.yaml
 ```
 {% endtab %}
 {% endtabs %}

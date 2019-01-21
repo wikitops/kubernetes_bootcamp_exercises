@@ -136,16 +136,57 @@ kubectl delete replicaset REPLICASET_NAME -n app-demo
 
 ## Module exercise
 
-Based on your reads, try to do it as simple as possible.
+The purpose of this section is to manage each steps of the lifecycle of an application to better understand each concepts of the Kubernetes course.
+
+The main objective in this module is to manage the number of Pods of some part of the Voting App.
+
+For more information about the application used all along the course, please refer to the _Exercise App &gt; Voting App_ link in the left panel.
+
+Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
+
+The file developed has to be stored in this directory : `/data/votingapp/02_replicas`
 
 {% tabs %}
 {% tab title="Exercise" %}
-1.
+1. Create a ReplicaSet to replicate the worker Pod to 3.
+2. Ensure the Pod is replicate to 3 and it is up and running
 {% endtab %}
 
 {% tab title="Resolution" %}
-```bash
+Yaml file definition to deploy the Voting App ReplicaSet.
 
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: worker
+  labels:
+    app: voting-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+      - name: worker
+        image: worker
+```
+
+Kubectl command to deploy the Pods based on the previous definition file.
+
+```text
+kubectl create -f /data/votingapp/02_replicas/replicas.yaml
+```
+
+Ensure the Pods is up and running.
+
+```bash
+kubectl get pods,replicaset -n voting-app
 ```
 {% endtab %}
 {% endtabs %}

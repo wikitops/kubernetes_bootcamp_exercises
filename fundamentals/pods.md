@@ -279,7 +279,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/pods`
+The file developed has to be stored in this directory : `/data/votingapp/01_pods`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -315,7 +315,7 @@ spec:
 Kubectl command to deploy the Pods based on the previous definition file.
 
 ```bash
-kubectl create -f /data/votingapp/pods/01_pods.yaml
+kubectl create -f /data/votingapp/01_pods/pods.yaml
 ```
 
 Ensure the Pods is up and running.

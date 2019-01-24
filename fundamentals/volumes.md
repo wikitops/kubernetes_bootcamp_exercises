@@ -242,7 +242,7 @@ Based on your reads, try to do it as simple as possible.
 
 {% tabs %}
 {% tab title="Exercise" %}
-1.
+1. 
 {% endtab %}
 
 {% tab title="Solution" %}

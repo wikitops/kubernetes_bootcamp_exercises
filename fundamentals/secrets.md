@@ -248,7 +248,16 @@ The file developed has to be stored in this directory : `/data/votingapp/06_secr
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. 
+1. Create a Secrets resource to externalize some part of the vote Pods :
+   1. Named the Secrets _db_
+   2. The Secrets must manage those data : 
+      1. `name: voting`
+      2. `password: mypassword`
+      3. `user: voting`
+2. Update the Deployment of the vote Pods to attach the Secrets as environment variables :
+   1. The name of the `name` environment variable has to be POSTGRESQL\_DATABASE
+   2. The name of the `password` environment variable has to be POSTGRESQL\_PASSWORD
+   3. The name of the `user` environment variable has to be POSTGRESQL\_USERNAME
 {% endtab %}
 
 {% tab title="Solution" %}

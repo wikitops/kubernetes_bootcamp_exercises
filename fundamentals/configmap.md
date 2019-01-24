@@ -333,23 +333,10 @@ The file developed has to be stored in this directory : `/data/votingapp/05_conf
 {% endtab %}
 
 {% tab title="Solution" %}
-An example of yaml definition file to create the ConfigMaps.
+A command example to create the Secrets in command line.
 
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: vote
-  namespace: voting-app-prd
-data:
-  option_a: "KUBERNETES"
-  option_b: "SWARM"
-```
-
-Create the ConfigMaps.
-
-```text
-kubectl create -f /data/votingapp/05_configmaps/configmaps.yaml
+```bash
+kubectl create configmap vote -n voting-app --from-literal=option_a=KUBERNETES --from-literal=option_b=SWARM
 ```
 
 An example of yaml definition file to update the Deployments of the vote Pods.

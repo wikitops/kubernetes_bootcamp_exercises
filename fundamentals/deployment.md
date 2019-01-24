@@ -217,13 +217,166 @@ The file developed has to be stored in this directory : `/data/votingapp/03_depl
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. Develop the Deployment yaml file to deploy tha Voting App containers in Pods.
-2. Ensure the app is up and running
+1. Delete the ReplicaSet deployed in the previous module exercise
+2. Develop the Deployment yaml file to deploy the Voting App containers in Pods.
+3. Ensure the app is up and running
 {% endtab %}
 
 {% tab title="Resolution" %}
-```bash
+Delete the previous ReplicaSet created.
 
+```bash
+kubectl delete -f /data/votingapp/02_replicaset/replicaset.yaml
+```
+
+Example of Deployment yaml file to easily manage each part of the Voting App in a single file definition.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: voting-app-prd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: db
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: db
+    spec:
+      containers:
+        - image: centos/postgresql-96-centos7
+          imagePullPolicy: IfNotPresent
+          name: db
+          ports:
+            - name: db
+              containerPort: 5432
+              protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: voting-app-prd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: redis
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: redis
+    spec:
+      containers:
+        - image: redis:alpine
+          imagePullPolicy: IfNotPresent
+          name: redis
+          ports:
+            - containerPort: 6379
+              name: redis
+              protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result
+  namespace: voting-app-prd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: result
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: result
+    spec:
+      containers:
+        - image: wikitops/examplevotingapp-result:1.0
+          imagePullPolicy: IfNotPresent
+          name: result
+          ports:
+            - name: result
+              containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote
+  namespace: voting-app-prd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: vote
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: vote
+    spec:
+      containers:
+        - image: wikitops/examplevotingapp-vote:1.0
+          imagePullPolicy: IfNotPresent
+          name: vote
+          ports:
+            - containerPort: 8080
+              name: vote
+              protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: voting-app-prd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: worker
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: worker
+    spec:
+      containers:
+        - image: wikitops/examplevotingapp-worker:1.0
+          imagePullPolicy: Always
+          name: worker
+```
+
+Run the command to create the Deployments.
+
+```bash
+kubectl create -f /data/votingapp/03_deployments/deployment.yaml
 ```
 {% endtab %}
 {% endtabs %}

@@ -138,7 +138,7 @@ kubectl delete replicaset REPLICASET_NAME -n app-demo
 
 The purpose of this section is to manage each steps of the lifecycle of an application to better understand each concepts of the Kubernetes course.
 
-The main objective in this module is to manage the number of Pods of some part of the Voting App.
+The main objective in this module is to extract each part of the Voting App in a distinct Pod and manage it with a ReplicaSet.
 
 For more information about the application used all along the course, please refer to the _Exercise App &gt; Voting App_ link in the left panel.
 
@@ -148,14 +148,103 @@ The file developed has to be stored in this directory : `/data/votingapp/02_repl
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. Create a ReplicaSet to replicate the worker Pod to 3.
-2. Ensure the Pod is replicate to 3 and it is up and running
+1. Delete the Pods created in the previous module exercise
+2. Create a ReplicaSet to replicate the worker Pod to 1
+3. Ensure the Pod is replicate to 1 and it is up and running
+4. Scale the worker Pods to 3 in command line
+5. Ensure the worker Pod is  the only Pods replicate to 3 and it is up and running
 {% endtab %}
 
 {% tab title="Resolution" %}
+Delete the previous Pods created
+
+```bash
+kubectl delete -f /data/votingapp/01_pods/pods.yaml
+```
+
 Yaml file definition to deploy the Voting App ReplicaSet.
 
 ```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: db
+  labels:
+    app: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: db
+        image: postgresql
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: redis
+  labels:
+    app: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: vote
+  labels:
+    app: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: vote
+  template:
+    metadata:
+      labels:
+        app: vote
+    spec:
+      containers:
+      - name: vote
+        image: vote
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: result
+  labels:
+    app: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: result
+  template:
+    metadata:
+      labels:
+        app: result
+    spec:
+      containers:
+      - name: result
+        image: result
+---
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
@@ -163,7 +252,7 @@ metadata:
   labels:
     app: voting-app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       name: worker

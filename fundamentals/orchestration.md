@@ -387,6 +387,7 @@ Those documentations can help you to go further in this topic :
 * Kubernetes official [command line cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 * Kubernetes official documentation of [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 * Kubernetes official documentation of [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
+* Kubernetes official documentation of [recommended labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)
 * Kubernetes [API reference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.12/) documentation
 * [Kubectl official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) documentation
 

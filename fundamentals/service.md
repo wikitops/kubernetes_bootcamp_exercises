@@ -132,16 +132,97 @@ kubectl delete service SERVICE_NAME
 
 ## Module exercise
 
-Based on your reads, try to do it as simple as possible.
+The purpose of this section is to manage each steps of the lifecycle of an application to better understand each concepts of the Kubernetes course.
+
+The main objective in this module is to understand how to expose a service depending on the security level needed.
+
+For more information about the application used all along the course, please refer to the _Exercise App &gt; Voting App_ link in the left panel.
+
+Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
+
+The file developed has to be stored in this directory : `/data/votingapp/03_services`
 
 {% tabs %}
 {% tab title="Exercise" %}
-1.
+1. Manage the access of each part of the Voting App based on those conditions :
+   1. The PostgreSQL database  Deployment must only be access from the Kubernetes cluster on port 5432.
+   2. The Redis queue Deployment must only be access from the Kubernetes cluster on port 6379.
+   3. The vote and result Deployment must be publicly access on port 8080.
+   4. The worker Pods must not be exposed.
+2. Try to access the vote web site
+3. Try to access the result web site
 {% endtab %}
 
 {% tab title="Resolution" %}
-```bash
+An example of yaml definition file to manage the Pods access with Services resources.
 
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: voting-app-prd
+spec:
+  ports:
+  - name: db
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    name: db
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: voting-app-prd
+spec:
+  ports:
+    - name: redis
+      port: 6379
+      protocol: TCP
+      targetPort: 6379
+  selector:
+    app: redis
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: result
+  namespace: voting-app-prd
+spec:
+  ports:
+  - name: 8080-tcp
+    nodePort: 31001
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    name: result
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote
+  namespace: voting-app-prd
+spec:
+  ports:
+  - name: 8080-tcp
+    nodePort: 31000
+    port: 8080
+    targetPort: 8080
+  selector:
+    name: vote
+  type: NodePort
+```
+
+Create the Services resources based on the previous yaml file definition.
+
+```bash
+kubectl create -f /data/votingapp/04_services/services.yaml
 ```
 {% endtab %}
 {% endtabs %}

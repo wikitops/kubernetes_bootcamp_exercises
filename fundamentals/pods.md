@@ -287,7 +287,7 @@ The file developed has to be stored in this directory : `/data/votingapp/01_pods
 2. Ensure the Pods is up and running.
 {% endtab %}
 
-{% tab title="Resolution" %}
+{% tab title="Solution" %}
 Yaml file definition to deploy the Voting App containers.
 
 ```yaml

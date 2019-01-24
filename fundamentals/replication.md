@@ -155,7 +155,7 @@ The file developed has to be stored in this directory : `/data/votingapp/02_repl
 5. Ensure the worker Pod is  the only Pods replicate to 3 and it is up and running
 {% endtab %}
 
-{% tab title="Resolution" %}
+{% tab title="Solution" %}
 Delete the previous Pods created
 
 ```bash

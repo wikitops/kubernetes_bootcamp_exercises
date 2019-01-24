@@ -222,7 +222,7 @@ The file developed has to be stored in this directory : `/data/votingapp/03_depl
 3. Ensure the app is up and running
 {% endtab %}
 
-{% tab title="Resolution" %}
+{% tab title="Solution" %}
 Delete the previous ReplicaSet created.
 
 ```bash

@@ -133,7 +133,7 @@ Based on your reads, try to do it as simple as possible.
 1.
 {% endtab %}
 
-{% tab title="Resolution" %}
+{% tab title="Solution" %}
 ```bash
 
 ```

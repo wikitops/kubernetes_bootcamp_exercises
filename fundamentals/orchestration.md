@@ -368,7 +368,7 @@ Based on the principles explain in this module, try by your own to handle this s
 4. Ensure each nodes are correctly configured.
 {% endtab %}
 
-{% tab title="Resolution" %}
+{% tab title="Solution" %}
 ```bash
 kubectl get nodes
 kubectl create namespace voting-app

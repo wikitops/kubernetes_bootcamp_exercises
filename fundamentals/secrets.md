@@ -236,16 +236,81 @@ kubectl delete secrets SECRETS_NAME
 
 ## Module exercise
 
-Based on your reads, try to do it as simple as possible.
+The purpose of this section is to manage each steps of the lifecycle of an application to better understand each concepts of the Kubernetes course.
+
+The main objective in this module is to understand how to externalized some sensitive data of an application to simplify the development and the lifecycle of both application and secrets.
+
+For more information about the application used all along the course, please refer to the _Exercise App &gt; Voting App_ link in the left panel.
+
+Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
+
+The file developed has to be stored in this directory : `/data/votingapp/06_secrets`
 
 {% tabs %}
 {% tab title="Exercise" %}
-1.
+1. 
 {% endtab %}
 
-{% tab title="Resolution" %}
-```bash
+{% tab title="Solution" %}
+A command example to create the Secrets in command line.
 
+```bash
+kubectl create secret generic db -n voting-app --from-literal=name=voting --from-literal=password=mypassword --from-literal=user=voting
+```
+
+An example of yaml definition file to update the Deployments of each Pods.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: voting-app-prd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: db
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: db
+    spec:
+      containers:
+        - env:
+            - name: "POSTGRESQL_DATABASE"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: name
+            - name: "POSTGRESQL_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: user
+            - name: "POSTGRESQL_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: password
+          image: centos/postgresql-96-centos7
+          imagePullPolicy: IfNotPresent
+          name: db
+          ports:
+            - name: db
+              containerPort: 5432
+              protocol: TCP
+```
+
+Update the current Deployments resources.
+
+```bash
+kubectl apply -f /data/votingapp/06_secrets/deployments.yaml
 ```
 {% endtab %}
 {% endtabs %}

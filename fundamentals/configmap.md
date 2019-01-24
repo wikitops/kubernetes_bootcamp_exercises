@@ -310,16 +310,96 @@ kubectl delete configmaps CONFIGMAPS_NAME
 
 ## Module exercise
 
-Based on your reads, try to do it as simple as possible.
+The purpose of this section is to manage each steps of the lifecycle of an application to better understand each concepts of the Kubernetes course.
+
+The main objective in this module is to understand how to externalized some configuration part of an application to simplify the development and the lifecycle of both application and configuration.
+
+For more information about the application used all along the course, please refer to the _Exercise App &gt; Voting App_ link in the left panel.
+
+Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
+
+The file developed has to be stored in this directory : `/data/votingapp/05_configmaps`
 
 {% tabs %}
 {% tab title="Exercise" %}
-1.
+1. Create a ConfigMaps resource to externalize some part of the vote Pods :
+   1. Named the ConfigMaps _vote_
+   2. The ConfigMaps must manage those data : 
+      1. `option_a: "KUBERNETES"`
+      2. `option_b: "SWARM"`
+2. Update the Deployment of the vote Pods to attach the ConfigMaps as environment variables :
+   1. The name of the `option_a` environment variable has to be OPTION\_A
+   2. The name of the `option_b` environment variable has to be OPTION\_B
 {% endtab %}
 
-{% tab title="Resolution" %}
-```bash
+{% tab title="Solution" %}
+An example of yaml definition file to create the ConfigMaps.
 
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vote
+  namespace: voting-app-prd
+data:
+  option_a: "KUBERNETES"
+  option_b: "SWARM"
+```
+
+Create the ConfigMaps.
+
+```text
+kubectl create -f /data/votingapp/05_configmaps/configmaps.yaml
+```
+
+An example of yaml definition file to update the Deployments of the vote Pods.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote
+  namespace: voting-app-prd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: vote
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: vote
+    spec:
+      containers:
+        - env:
+            - name: "OPTION_A"
+              valueFrom:
+                configMapKeyRef:
+                  name: vote
+                  key: option_a
+            - name: "OPTION_B"
+              valueFrom:
+                configMapKeyRef:
+                  name: vote
+                  key: option_b
+          image: wikitops/examplevotingapp-vote:1.0
+          imagePullPolicy: IfNotPresent
+          name: vote
+          ports:
+            - containerPort: 8080
+              name: vote
+              protocol: TCP
+```
+
+Update the current Deployments resources.
+
+```bash
+kubectl apply -f /data/votingapp/05_configmaps/deployments.yaml
 ```
 {% endtab %}
 {% endtabs %}

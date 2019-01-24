@@ -153,7 +153,7 @@ The file developed has to be stored in this directory : `/data/votingapp/03_serv
 3. Try to access the result web site
 {% endtab %}
 
-{% tab title="Resolution" %}
+{% tab title="Solution" %}
 An example of yaml definition file to manage the Pods access with Services resources.
 
 ```yaml

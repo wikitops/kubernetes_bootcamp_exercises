@@ -137,7 +137,9 @@ The file developed has to be stored in this directory : `/data/votingapp/11_rout
 
 {% tabs %}
 {% tab title="Exercise" %}
-1.
+1. Expose the vote Services  as an Ingress controller.
+2. Expose the result Services as an Ingress controller.
+3. Ensure that you accessed both services externally.
 {% endtab %}
 
 {% tab title="Solution" %}

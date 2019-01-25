@@ -24,7 +24,7 @@ Readiness probes are configured similarly to liveness probes.
 
 ### Command Check
 
-
+This health check uses a command to attempt to get command return status. If the probe get a response from the specific path, the container is considered healthy, if it can't it is considered a failure. 
 
 #### Exercise n°1
 
@@ -54,9 +54,9 @@ spec:
       periodSeconds: 5
 ```
 
-### Http Request
+### HTTP Request
 
-
+This health check uses HTTP Request to attempt to get a website path on a specified port. If the probe get a response from the specific path, the container is considered healthy, if it can't it is considered a failure. 
 
 #### Exercise n°1
 
@@ -87,7 +87,7 @@ spec:
 
 ### TCP Request
 
-
+This healthcheck uses TCP Socket to attempt to open a socket to a container on a specified port. If a connection is established, the container is considered healthy, if it can't it is considered a failure. 
 
 #### Exercise n°1
 

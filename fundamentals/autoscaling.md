@@ -138,12 +138,17 @@ The file developed has to be stored in this directory : `/data/votingapp/09_auto
 
 {% tabs %}
 {% tab title="Exercise" %}
-1.
+1. Manage the HorizontalPodAutoscaler of the worker Pods to :
+   1. Ensure that the worker has minimum one Pods
+   2. Ensure that the worker has maximum five Pods
+   3. Ensure that the Pods is autoscaled when the CPU is above 80%.
 {% endtab %}
 
 {% tab title="Solution" %}
-```bash
+Create the HorizontalPodAutoscaler to manage the worker workload.
 
+```bash
+kubectl autoscale deployment worker -n voting-app --cpu-percent=80 --min=1 --max=5
 ```
 {% endtab %}
 {% endtabs %}

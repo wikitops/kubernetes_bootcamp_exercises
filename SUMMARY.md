@@ -16,12 +16,12 @@
 * [Autoscaling](fundamentals/autoscaling.md)
 * [Networks](fundamentals/network.md)
 * [Routes](fundamentals/routes.md)
+* [High Availability](fundamentals/high-availability.md)
 * [Roles](fundamentals/roles.md)
 
 ## Cheat Sheets
 
 * [Minikube](cheat-sheets/minikube.md)
-* [Kubeadm](cheat-sheets/kubeadm-1.md)
 * [Kubectl](cheat-sheets/kubectl-1.md)
 * [Etcd](cheat-sheets/etcd.md)
 

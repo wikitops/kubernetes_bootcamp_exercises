@@ -152,6 +152,8 @@ The file developed has to be stored in this directory : `/data/votingapp/08_stor
 {% tab title="AWS - Solution" %}
 Create a StorageClass to consume the AWS Elastic Block Store \(EBS\).
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/08\_storageclass/storageclass.yaml" %}
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -165,15 +167,13 @@ mountOptions:
   - debug
 volumeBindingMode: Immediate
 ```
-
-Create the StorageClass based on the previous yaml file.
-
-```bash
-kubectl create -f /data/votingapp/08_storageclass/storageclass.yaml
-```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Create a PersistentVolumeClaim to consume the StorageClass.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/08\_storageclass/persistentvolumeclaim.yaml" %}
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -188,9 +188,13 @@ spec:
       storage: 5Gi
 storageClassName: aws-ebs-gp2
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Update the database Deployment to consume the previous PersistentVolumeClaim.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/08\_storageclass/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -243,6 +247,14 @@ spec:
         - name: db-data
           persistentVolumeClaim:
             claimName: pvc-database-dynamic
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create and update each part based on the previous yaml file.
+
+```bash
+kubectl apply -f /data/votingapp/08_storageclass/
 ```
 {% endtab %}
 

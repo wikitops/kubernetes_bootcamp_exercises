@@ -135,6 +135,8 @@ The file developed has to be stored in this directory : `/data/votingapp/10_netw
 {% tab title="Solution" %}
 An example yaml file definition to handle the NetworkPolicies.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/10\_networks/networkpolicies.yaml" %}
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -233,6 +235,8 @@ spec:
     - protocol: TCP
       port: 8080
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Create the NetworkPolicies based on the previous yaml file.
 

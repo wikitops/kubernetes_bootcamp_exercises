@@ -341,9 +341,11 @@ kubectl create configmap vote -n voting-app --from-literal=option_a=KUBERNETES -
 
 An example of yaml definition file to update the Deployments of the vote Pods.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/05\_configmaps/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment
 metadata:
   name: vote
   namespace: voting-app-prd
@@ -382,6 +384,8 @@ spec:
               name: vote
               protocol: TCP
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Update the current Deployments resources.
 

@@ -269,6 +269,8 @@ kubectl create secret generic db -n voting-app --from-literal=name=voting --from
 
 An example of yaml definition file to update the Deployments of each Pods.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/06\_secrets/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -315,11 +317,13 @@ spec:
               containerPort: 5432
               protocol: TCP
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Update the current Deployments resources.
 
 ```bash
-kubectl apply -f /data/votingapp/06_secrets/deployments.yaml
+kubectl apply -f /data/votingapp/06_secrets/deployment.yaml
 ```
 {% endtab %}
 {% endtabs %}

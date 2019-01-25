@@ -265,6 +265,8 @@ mkdir /data/votingapp/07_volumes/database/data
 
 Create a PersistentVolume based on this local path.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/07\_volumes/persistentvolume.yaml" %}
 ```yaml
 kind: PersistentVolume
 apiVersion: v1
@@ -281,6 +283,8 @@ spec:
   hostPath:
     path: "/data/votingapp/07_volumes/database/data"
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Create the PersistentVolume based on the yaml file.
 
@@ -290,6 +294,8 @@ kubectl create -f /data/votingapp/07_volumes/persistentvolume.yaml
 
 Create a PersistentVolumeClaim based on the previous PersistentVolume.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/07\_volumes/persistentvolumeclaim.yaml" %}
 ```yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -303,6 +309,8 @@ spec:
     requests:
       storage: 5Gi
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Create the PersistentVolumeClaim based on the yaml file.
 
@@ -312,6 +320,8 @@ kubectl create -f /data/votingapp/07_volumes/persistentvolumeclaim.yaml
 
 Update the database Deployment to attach the PersistentVolumeClaim and persist data.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/07\_volumes/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -365,6 +375,8 @@ spec:
           persistentVolumeClaim:
             claimName: pvc-database-local
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Update the Deployment based on the yaml file.
 

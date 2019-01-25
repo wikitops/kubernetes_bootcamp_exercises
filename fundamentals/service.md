@@ -140,7 +140,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/03_services`
+The file developed has to be stored in this directory : `/data/votingapp/04_services`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -156,10 +156,12 @@ The file developed has to be stored in this directory : `/data/votingapp/03_serv
 {% tab title="Solution" %}
 An example of yaml definition file to manage the Pods access with Services resources.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/04\_services/services.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Service
-metadata:
+metadata:
   name: db
   namespace: voting-app-prd
 spec:
@@ -218,6 +220,8 @@ spec:
     name: vote
   type: NodePort
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Create the Services resources based on the previous yaml file definition.
 

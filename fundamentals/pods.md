@@ -290,6 +290,8 @@ The file developed has to be stored in this directory : `/data/votingapp/01_pods
 {% tab title="Solution" %}
 Yaml file definition to deploy the Voting App containers.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/01\_pods/pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -311,6 +313,8 @@ spec:
   - name: worker
     image: worker
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Kubectl command to deploy the Pods based on the previous definition file.
 

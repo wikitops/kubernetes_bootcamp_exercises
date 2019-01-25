@@ -164,6 +164,8 @@ kubectl delete -f /data/votingapp/01_pods/pods.yaml
 
 Yaml file definition to deploy the Voting App ReplicaSet.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/02\_replicas/replicaset.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: ReplicaSet
@@ -265,11 +267,13 @@ spec:
       - name: worker
         image: worker
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Kubectl command to deploy the Pods based on the previous definition file.
 
 ```text
-kubectl create -f /data/votingapp/02_replicas/replicas.yaml
+kubectl create -f /data/votingapp/02_replicas/replicaset.yaml
 ```
 
 Ensure the Pods is up and running.

@@ -231,6 +231,8 @@ kubectl delete -f /data/votingapp/02_replicaset/replicaset.yaml
 
 Example of Deployment yaml file to easily manage each part of the Voting App in a single file definition.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/03\_deployments/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -372,6 +374,8 @@ spec:
           imagePullPolicy: Always
           name: worker
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Run the command to create the Deployments.
 

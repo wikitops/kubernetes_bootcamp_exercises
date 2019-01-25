@@ -294,7 +294,7 @@ Create a PersistentVolumeClaim based on the previous PersistentVolume.
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-database
+  name: pvc-database-local
 spec:
   storageClassName: manual
   accessModes:
@@ -363,7 +363,7 @@ spec:
       volumes:
         - name: db-data
           persistentVolumeClaim:
-          claimName: db
+            claimName: pvc-database-local
 ```
 
 Update the Deployment based on the yaml file.

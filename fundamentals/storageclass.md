@@ -166,8 +166,83 @@ mountOptions:
 volumeBindingMode: Immediate
 ```
 
+Create the StorageClass based on the previous yaml file.
+
 ```bash
 kubectl create -f /data/votingapp/08_storageclass/storageclass.yaml
+```
+
+Create a PersistentVolumeClaim to consume the StorageClass.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-database-dynamic
+  namespace: voting-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+storageClassName: aws-ebs-gp2
+```
+
+Update the database Deployment to consume the previous PersistentVolumeClaim.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: db
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: db
+    spec:
+      containers:
+        - env:
+            - name: "POSTGRESQL_DATABASE"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-name
+            - name: "POSTGRESQL_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-user
+            - name: "POSTGRESQL_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-password
+          image: centos/postgresql-96-centos7
+          imagePullPolicy: IfNotPresent
+          name: db
+          ports:
+            - name: db
+              containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: db-data
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: pvc-database-dynamic
 ```
 {% endtab %}
 
@@ -185,6 +260,85 @@ parameters:
   location: eastus
   storageAccount: azure_storage_account_name
 ```
+
+Create the StorageClass based on the previous yaml file.
+
+```bash
+kubectl create -f /data/votingapp/08_storageclass/storageclass.yaml
+```
+
+Create a PersistentVolumeClaim to consume the StorageClass.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-database-dynamic
+  namespace: voting-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+storageClassName: azure-disk-slow
+```
+
+Update the database Deployment to consume the previous PersistentVolumeClaim.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: db
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: db
+    spec:
+      containers:
+        - env:
+            - name: "POSTGRESQL_DATABASE"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-name
+            - name: "POSTGRESQL_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-user
+            - name: "POSTGRESQL_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-password
+          image: centos/postgresql-96-centos7
+          imagePullPolicy: IfNotPresent
+          name: db
+          ports:
+            - name: db
+              containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: db-data
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: pvc-database-dynamic
+```
 {% endtab %}
 
 {% tab title="GCP - Solution" %}
@@ -199,6 +353,85 @@ provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-standard
   replication-type: none
+```
+
+Create the StorageClass based on the previous yaml file.
+
+```bash
+kubectl create -f /data/votingapp/08_storageclass/storageclass.yaml
+```
+
+Create a PersistentVolumeClaim to consume the StorageClass.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-database-dynamic
+  namespace: voting-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+storageClassName: gcp-gce-slow
+```
+
+Update the database Deployment to consume the previous PersistentVolumeClaim.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: db
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: db
+    spec:
+      containers:
+        - env:
+            - name: "POSTGRESQL_DATABASE"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-name
+            - name: "POSTGRESQL_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-user
+            - name: "POSTGRESQL_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-password
+          image: centos/postgresql-96-centos7
+          imagePullPolicy: IfNotPresent
+          name: db
+          ports:
+            - name: db
+              containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: db-data
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: pvc-database-dynamic
 ```
 {% endtab %}
 {% endtabs %}

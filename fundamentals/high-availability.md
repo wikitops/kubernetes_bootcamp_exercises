@@ -16,9 +16,9 @@ At the end of this module, you will :
 
 ## Liveness / Readiness Probe
 
-Many applications running for long periods of time eventually transition to broken states, and cannot recover except by being restarted. Kubernetes provides liveness probes to detect and remedy such situations.
+Many applications running for long periods of time eventually transition to broken states, and cannot recover except by being restarted. Kubernetes provides _**liveness**_ probes to detect and remedy such situations.
 
-Sometimes, applications are temporarily unable to serve traffic. For example, an application might need to load large data or configuration files during startup, or depend on external services after startup. In such cases, the Pods must not be killed and no data has to be send. Kubernetes provides readiness probes to detect and mitigate these situations. A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services.
+Sometimes, applications are temporarily unable to serve traffic. For example, an application might need to load large data or configuration files during startup, or depend on external services after startup. In such cases, the Pods must not be killed and no data has to be send. Kubernetes provides _**readiness**_ probes to detect and mitigate these situations. A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services.
 
 Readiness probes are configured similarly to liveness probes.
 

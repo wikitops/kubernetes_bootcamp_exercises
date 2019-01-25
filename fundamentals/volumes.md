@@ -240,7 +240,7 @@ kubectl delete persistentvolume VOLUME_NAME
 
 The purpose of this section is to manage each steps of the lifecycle of an application to better understand each concepts of the Kubernetes course.
 
-The main objective in this module is to understand how to persist data of Pods and how to exchange data between Pods.
+The main objective in this module is to understand how to share a statis storage object to persist and share data of Pods.
 
 For more information about the application used all along the course, please refer to the _Exercise App &gt; Voting App_ link in the left panel.
 

@@ -107,7 +107,15 @@ kubectl delete networkpolicy NETWORKPOLICY_NAME
 
 ## Module exercise
 
-Based on your reads, try to do it as simple as possible.
+The purpose of this section is to manage each steps of the lifecycle of an application to better understand each concepts of the Kubernetes course.
+
+The main objective in this module is to understand how to secure the communication between Pods.
+
+For more information about the application used all along the course, please refer to the _Exercise App &gt; Voting App_ link in the left panel.
+
+Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
+
+The file developed has to be stored in this directory : `/data/votingapp/10_networks`
 
 {% tabs %}
 {% tab title="Exercise" %}

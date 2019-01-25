@@ -119,12 +119,125 @@ The file developed has to be stored in this directory : `/data/votingapp/10_netw
 
 {% tabs %}
 {% tab title="Exercise" %}
-1.
+1. Create the default NetworkPolices of the voting-app namespace to :
+   1. Deny all Ingress traffic
+   2. Allow all Egress traffic
+2. Create the NetworkPolicies of the database Pods to :
+   1. Allow the Ingress traffic on port 5432 only from the result and worker Pods
+3. Create the NetworkPolicies of the redis Pods to :
+   1. Allow the Ingress traffic on port 6379 only from the vote and worker Pods
+4. Create the NetworkPolicies of the result Pods to :
+   1. Allow the Ingress traffic on port 8080 only from everywhere
+5. Create the NetworkPolicies of the vote Pods to :
+   1. Allow the Ingress traffic on port 8080 only from everywhere
 {% endtab %}
 
 {% tab title="Solution" %}
-```bash
+An example yaml file definition to handle the NetworkPolicies.
 
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: voting
+  namespace: voting-app
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  egress:
+    - {}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: db
+  namespace: voting-app
+spec:
+  podSelector:
+    matchLabels:
+      name: db
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          name: result
+    - podSelector:
+        matchLabels:
+          name: worker
+    ports:
+    - protocol: TCP
+      port: 5432
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: redis
+  namespace: voting-app
+spec:
+  podSelector:
+    matchLabels:
+      name: redis
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          name: vote
+    - podSelector:
+        matchLabels:
+          name: worker
+    ports:
+    - protocol: TCP
+      port: 6379
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: result
+  namespace: voting-app
+spec:
+  podSelector:
+    matchLabels:
+      name: result
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: vote
+  namespace: voting-app
+spec:
+  podSelector:
+    matchLabels:
+      name: vote
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 8080
+```
+
+Create the NetworkPolicies based on the previous yaml file.
+
+```bash
+kubectl create -f /data/votingapp/10_networks/networkpolicies.yaml
 ```
 {% endtab %}
 {% endtabs %}

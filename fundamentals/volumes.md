@@ -146,15 +146,15 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each services :
 
-* name : the name of the newly created resource
-* capacity : the storage capacity available in the volume
-* access modes : the access modes available \(read, write, owner\)
-* reclaim policy :  the management of the resource when pod is deleted
-* status : the status of the resource
-* claim : the claim object associated
-* storageclass : the storage class used to create the new resource
-* reason : the reason of the resource creation
-* age : the age since the creation resource 
+* Name : the name of the newly created resource
+* Capacity : the storage capacity available in the volume
+* Access modes : the access modes available \(read, write, owner\)
+* Reclaim policy :  the management of the resource when pod is deleted
+* Status : the status of the resource
+* Claim : the claim object associated
+* Storageclass : the storage class used to create the new resource
+* Reason : the reason of the resource creation
+* Age : the age since the creation resource 
 
 #### Exercise n°1
 

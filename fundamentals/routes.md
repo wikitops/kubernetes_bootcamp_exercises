@@ -61,11 +61,11 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each services :
 
-* name : the name of the newly created resource
-* hosts : the host to apply the newly created resource
-* address : the address exposed by the newly created resource
-* ports : the ports exposed by the resource
-* age : the age since the creation of the resource
+* Name : the name of the newly created resource
+* Hosts : the host to apply the newly created resource
+* Address : the address exposed by the newly created resource
+* Ports : the ports exposed by the resource
+* Age : the age since the creation of the resource
 
 #### Exercise n°1
 

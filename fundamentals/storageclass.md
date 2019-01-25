@@ -49,9 +49,9 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each services :
 
-* name : the name of the newly created resource
-* provisioner : the target storage provisioner used to create the futur volumes
-* age : the age of the object from his creation
+* Name : the name of the newly created resource
+* Provisioner : the target storage provisioner used to create the futur volumes
+* Age : the age of the object from his creation
 
 #### Exercise n°1
 

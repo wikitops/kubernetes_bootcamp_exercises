@@ -123,11 +123,11 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each services :
 
-* name : the name of the newly created resource
-* ready : the amount of container ready in the Pods
-* staus : the deployment status
-* restarts : the count that the Pods has restarted from his creation
-* age : the age since the Pods creation
+* Name : the name of the newly created resource
+* Ready : the amount of container ready in the Pods
+* Staus : the deployment status
+* Restarts : the count that the Pods has restarted from his creation
+* Age : the age since the Pods creation
 
 #### Exercise n°1
 

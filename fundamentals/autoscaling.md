@@ -45,13 +45,13 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each services :
 
-* name : The name for the newly created object.
-* reference : The object managed by the autoscaler, like  Pod name, a Deployment name ...
-* targets : The metrics defined to autoscale the referenced resource
-* minpods : The lower limit for the number of pods that can be set by the autoscaler.
-* maxpods : The upper limit for the number of pods that can be set by the autoscaler.
-* replicas : Current replicas number
-* age : the age of the object from his creation
+* Name : The name for the newly created object.
+* Reference : The object managed by the autoscaler, like  Pod name, a Deployment name ...
+* Targets : The metrics defined to autoscale the referenced resource
+* Minpods : The lower limit for the number of pods that can be set by the autoscaler.
+* Maxpods : The upper limit for the number of pods that can be set by the autoscaler.
+* Replicas : Current replicas number
+* Age : the age of the object from his creation
 
 #### Exercise n°1
 

@@ -47,9 +47,9 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each services :
 
-* name : the name of the newly created resource
-* pod-selector : the labels used to associate the Network Policy with the Pods
-* age :  the age from the resource creation
+* Name : the name of the newly created resource
+* Pod-selector : the labels used to associate the Network Policy with the Pods
+* Age :  the age from the resource creation
 
 #### Exercise n°1
 

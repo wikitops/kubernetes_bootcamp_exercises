@@ -144,12 +144,61 @@ The file developed has to be stored in this directory : `/data/votingapp/08_stor
 
 {% tabs %}
 {% tab title="Exercise" %}
-1.
+1. Create a StorageClass based on the cloud provider.
+2. Create a PersistentVolumeClaim to consume that StorageClass and create a storage object capacity of 10Gi.
+3. Update the database Deployment to attach the previous PersistentVolumeClaim created.
 {% endtab %}
 
-{% tab title="Solution" %}
-```bash
+{% tab title="AWS - Solution" %}
+Create a StorageClass to consume the AWS Elastic Block Store \(EBS\).
 
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: aws-ebs-gp2
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: aws-ebs-gp2
+reclaimPolicy: Retain
+mountOptions:
+  - debug
+volumeBindingMode: Immediate
+```
+
+```bash
+kubectl create -f /data/votingapp/08_storageclass/storageclass.yaml
+```
+{% endtab %}
+
+{% tab title="Azure - Solution" %}
+Create a StorageClass to consume the Azure Storage Disk.
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: azure-disk-slow
+provisioner: kubernetes.io/azure-disk
+parameters:
+  skuName: Standard_LRS
+  location: eastus
+  storageAccount: azure_storage_account_name
+```
+{% endtab %}
+
+{% tab title="GCP - Solution" %}
+Create a StorageClass to consume the GCP Persistent Disk \(GCEPersistentDisk\).
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gcp-gce-slow
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-standard
+  replication-type: none
 ```
 {% endtab %}
 {% endtabs %}

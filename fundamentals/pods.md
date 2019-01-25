@@ -18,12 +18,6 @@ At the end of this module, you will :
 
 The _run_ command creates a Pod based on the parameters specified, such as the image or the environment variables. This deployment is issued to the Kubernetes master which launches the Pods and containers required. Kubectl run is similar to _docker run_ but at a cluster level.
 
-The format of the command is :
-
-```bash
-kubectl run <pod_name> <properties>
-```
-
 #### Exercise n°1
 
 Run a busybox pod on the default namespace.

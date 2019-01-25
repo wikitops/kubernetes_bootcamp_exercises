@@ -250,12 +250,126 @@ The file developed has to be stored in this directory : `/data/votingapp/07_volu
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. 
+1. On the node labelized _type=database_, create this directory : `/data/votingapp/07_volumes/database/data`
+2. Create a PersistentVolume based on that local directory previously created. The storage capacity of this volume has to be 10Gi. 
+3. Create the PersistentVolumeClaim to consume the PersistentVolume previously created. Manage this object to claim only 5Gi of the PersistentVolume.
+4. Attach the volume to the database Pods
 {% endtab %}
 
 {% tab title="Solution" %}
-```bash
+Create the directory needed to store the data of the database Pods.
 
+```bash
+mkdir /data/votingapp/07_volumes/database/data
+```
+
+Create a PersistentVolume based on this local path.
+
+```yaml
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-database
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/votingapp/07_volumes/database/data"
+```
+
+Create the PersistentVolume based on the yaml file.
+
+```bash
+kubectl create -f /data/votingapp/07_volumes/persistentvolume.yaml
+```
+
+Create a PersistentVolumeClaim based on the previous PersistentVolume.
+
+```yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-database
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+```
+
+Create the PersistentVolumeClaim based on the yaml file.
+
+```bash
+kubectl create -f /data/votingapp/07_volumes/persistentvolumeclaim.yaml
+```
+
+Update the database Deployment to attach the PersistentVolumeClaim and persist data.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: db
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: db
+    spec:
+      containers:
+        - env:
+            - name: "POSTGRESQL_DATABASE"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-name
+            - name: "POSTGRESQL_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-user
+            - name: "POSTGRESQL_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: database-password
+          image: centos/postgresql-96-centos7
+          imagePullPolicy: IfNotPresent
+          name: db
+          ports:
+            - name: db
+              containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: db-data
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+          claimName: db
+```
+
+Update the Deployment based on the yaml file.
+
+```bash
+kubectl apply -f /data/votingapp/07_volumes/deployment.yaml
 ```
 {% endtab %}
 {% endtabs %}

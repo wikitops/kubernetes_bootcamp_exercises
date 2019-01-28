@@ -288,5 +288,6 @@ kubectl get pods,replicaset -n voting-app
 
 Those documentations can help you to go further in this topic :
 
-* Kubernetes official documentation on [replicaset](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
+* Kubernetes official documentation on [ReplicaSet](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
+* Kubernetes official documentation on [label selector](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors) to understand difference between ReplicationController and ReplicaSet
 

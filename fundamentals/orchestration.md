@@ -390,4 +390,6 @@ Those documentations can help you to go further in this topic :
 * Kubernetes official documentation of [recommended labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)
 * Kubernetes [API reference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.12/) documentation
 * [Kubectl official Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete) documentation
+* Kubernetes official documentation on [declarative object management](https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/)
+* Kubernetes official documentation on [imperative object management](https://kubernetes.io/docs/concepts/overview/object-management-kubectl/imperative-config/)
 

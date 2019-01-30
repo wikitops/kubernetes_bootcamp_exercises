@@ -333,4 +333,5 @@ kubectl apply -f /data/votingapp/06_secrets/deployment.yaml
 Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
+* Kubernetes official documentation to [distribute credentials securely with Secrets](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/)
 

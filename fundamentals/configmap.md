@@ -48,14 +48,14 @@ kubectl create configmap CONFIGMAP_NAME --from-literal=KEY_NAME=VALUE
 
 #### Exercise n°1
 
-Create a ConfigMap named MySimpleConfigMap with those key / value pairs :
+Create a ConfigMap named mysimpleconfigmap with those key / value pairs :
 
 * course=kubernetes
 * subject=configmap
-* subject.title=MySimpleConfigMap
+* subject.title=mysimpleconfigmap
 
 ```bash
-kubectl create configmap MySimpleConfigMap --from-literal=course=kubernetes --from-literal=subject=configmap --from-literal=subject.title=MySimpleConfigMap
+kubectl create configmap mysimpleconfigmap --from-literal=course=kubernetes --from-literal=subject=configmap --from-literal=subject.title=MySimpleConfigMap
 ```
 
 {% hint style="info" %}
@@ -71,20 +71,23 @@ In this particular method, the key of the ConfigMap will be the name of the file
 The command line for this kind of ConfigMaps creation should look like this :
 
 ```bash
-kubectl create configmap CONFIGMAP_NAME --from-directory=PATH_TO_DIRECTORY
+kubectl create configmap CONFIGMAP_NAME --from-file=PATH_TO_DIRECTORY
 ```
 
 #### Exercise n°1
 
-1. Create a directory
-2. Create a properties file in this directory
-3. Copy / paste the content below in the new file
-4. Create a ConfigMap based on the directory
+1. Create this file : `/data/configmaps/directory/configmap.properties`
+2. Copy / paste the content below in the new file
+3. Create a ConfigMap based on the directory
 
 ```bash
 course=kubernetes
 subject=configmaps
-subject.title=My first ConfigMap
+subject.title=mysecondconfigmap
+```
+
+```bash
+kubectl create configmap myconfigmapdir --from-file=/data/configmaps/directory/
 ```
 
 ### From a file
@@ -105,12 +108,12 @@ kubectl create configmap CONFIGMAP_NAME --from-file=KEY_NAME=PATH_TO_FILENAME
 
 #### Exercise n°1
 
-1. Create two files
+1. Create two properties files in this path : `/data/configmaps/directory/`
 2. Put some properties in each one
 3. Create a ConfigMap based on the two property files created
 
 ```bash
-kubectl create configmap CONFIGMAP_NAME --from-file=PATH_FILE1 --from-file=PATH_FILE2
+kubectl create configmap myconfigmapfile --from-file=PATH_FILE1 --from-file=PATH_FILE2
 ```
 
 ## Get
@@ -144,7 +147,7 @@ This command is really useful to introspect and debug an object deployed in a cl
 Describe one of the ConfigMaps deployed in the default namespace.
 
 ```bash
-kubectl describe configmaps CONFIGMAPS_NAME
+kubectl describe configmaps myconfigmapdir
 ```
 
 ## Attach
@@ -171,11 +174,13 @@ Depending of the ConfigMap content, defining each variable individually can be m
 
 Based on the previous ConfigMaps created, create a Pod using the busybox image to display some part of the ConfigMap in single environment variables.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/configmap/01\_pod.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: myFirstConfigMapEnv1
+  name: myfirstconfigmapenv1
 spec:
   containers:
     - name: busybox
@@ -185,25 +190,40 @@ spec:
         - name: CM_COURSE
           valueFrom:
             configMapKeyRef:
-              name: MySimpleConfigMap
+              name: mysimpleconfigmap
               key: course
         - name: CM_SUBJECT_TITLE
           valueFrom:
             configMapKeyRef:
-              name: MySimpleConfigMap
+              name: mysimpleconfigmap
               key: subject.title
-  restartPolicy: Never
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the Pod to attach the ConfigMap.
+
+```bash
+kubectl create -f /data/configmap/01_pod.yaml
+```
+
+Get the logs to ensure the Pods is running and configured.
+
+```bash
+kubectl logs myfirstconfigmapenv1
 ```
 
 #### Exercise n°2
 
 Based on the previous ConfigMaps created, create a Pod using the busybox image to display the entire ConfigMap in environment variables automatically.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/configmap/02\_pod.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: myFirstConfigMapEnv2
+  name: myfirstconfigmapenv2
 spec:
   containers:
     - name: busybox
@@ -211,8 +231,21 @@ spec:
       command: [ "/bin/sh", "-c", "env" ]
       envFrom:
       - configMapRef:
-          name: MySimpleConfigMap
-  restartPolicy: Never
+          name: mysimpleconfigmap
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the Pod to attach the ConfigMap.
+
+```bash
+kubectl create -f /data/configmap/02_pod.yaml
+```
+
+Get the logs to ensure the Pods is running and configured.
+
+```bash
+kubectl logs myfirstconfigmapenv2
 ```
 
 ### In file path
@@ -229,27 +262,42 @@ Be careful in the path used to mount the volumes, if a file already exist, it wi
 
 Based on the previous ConfigMaps created, create a Pod using the busybox image to display some keys of the ConfigMap mounted as Volumes.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/configmap/03\_pod.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: myFirstConfigMapFile01
+  name: myfirstconfigmapfile1
 spec:
   containers:
     - name: busybox
       image: k8s.gcr.io/busybox
       command: [ "/bin/sh","-c","cat /tmp/myconfigmap/mycourse" ]
       volumeMounts:
-      - name: myConfigMap
+      - name: myconfigmap
         mountPath: /tmp/myconfigmap
   volumes:
-    - name: myConfigMap
+    - name: myconfigmap
       configMap:
-        name: MySimpleConfigMap
+        name: mysimpleconfigmap
         items:
         - key: course
           path: mycourse
-  restartPolicy: Never
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the Pod to attach the ConfigMap.
+
+```bash
+kubectl create -f /data/configmap/03_pod.yaml
+```
+
+Get the logs to ensure the Pods is running and configured.
+
+```bash
+kubectl logs myfirstconfigmapfile1
 ```
 
 #### Exercise n°2
@@ -260,20 +308,31 @@ Based on the previous ConfigMaps created, create a Pod using the busybox image t
 apiVersion: v1
 kind: Pod
 metadata:
-  name: myFirstConfigMapFile02
+  name: myfirstconfigmapfile2
 spec:
   containers:
     - name: busybox
       image: k8s.gcr.io/busybox
       command: [ "/bin/sh","-c","cat /tmp/myconfigmap" ]
       volumeMounts:
-      - name: myConfigMap
+      - name: myconfigmap
         mountPath: /tmp/myconfigmap
   volumes:
-    - name: myConfigMap
+    - name: myconfigmap
       configMap:
-        name: MySimpleConfigMap
-  restartPolicy: Never
+        name: mysimpleconfigmap
+```
+
+Create the Pod to attach the ConfigMap.
+
+```bash
+kubectl create -f /data/configmap/04_pod.yaml
+```
+
+Get the logs to ensure the Pods is running and configured.
+
+```bash
+kubectl logs myfirstconfigmapfile2
 ```
 
 ## Explain
@@ -287,7 +346,7 @@ The _explain_ command allows to directly ask the API resource via the command li
 Get the documentation of a specific field of a resource.
 
 ```bash
-kubectl explain configmaps.spec
+kubectl explain configmap
 ```
 
 Add the --recursive flag to display all of the fields at once without descriptions.
@@ -345,10 +404,10 @@ An example of yaml definition file to update the Deployments of the vote Pods.
 {% code-tabs-item title="/data/votingapp/05\_configmaps/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment
 metadata:
   name: vote
-  namespace: voting-app-prd
+  namespace: voting-app
 spec:
   replicas: 1
   selector:
@@ -366,16 +425,16 @@ spec:
     spec:
       containers:
         - env:
-            - name: "OPTION_A"
-              valueFrom:
-                configMapKeyRef:
-                  name: vote
-                  key: option_a
-            - name: "OPTION_B"
-              valueFrom:
-                configMapKeyRef:
-                  name: vote
-                  key: option_b
+           - name: "OPTION_A"
+             valueFrom:
+               configMapKeyRef:
+                 name: vote
+                 key: option_a
+           - name: "OPTION_B"
+             valueFrom:
+               configMapKeyRef:
+                 name: vote
+                 key: option_b
           image: wikitops/examplevotingapp-vote:1.0
           imagePullPolicy: IfNotPresent
           name: vote

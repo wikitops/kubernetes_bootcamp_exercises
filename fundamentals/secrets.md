@@ -50,10 +50,10 @@ kubectl create secret generic SECRET_NAME --from-literal=KEY=NAME
 
 #### Exercise n°1
 
-Create a Secret called myFirstSecret in command line from a literal value to encode the key / value pair : password=myclearpassword
+Create a Secret called myfirstsecret in command line from a literal value to encode the key / value pair : password=myclearpassword
 
 ```bash
-kubectl create secret generic myFirstSecret --from-literal=password=myclearpassword
+kubectl create secret generic myfirstsecret --from-literal=password=myclearpassword
 ```
 
 {% hint style="info" %}
@@ -72,11 +72,16 @@ kubectl create secret generic SECRET_NAME --from-file=PATH_FILE
 
 #### Exercise n°1
 
-1. Create on or more file with some sensitive data in.
+1. Create on or more file with some sensitive data.
 2. Create a unique Secret based on the files created
 
 ```bash
-kubectl create secret generic SECRET_NAME --from-file=PATH_FILE1 --from-file=PATH_FILE2
+# Create files needed for rest of example.
+echo -n 'admin' > /data/secrets/data/username.txt
+echo -n '1f2d1e2e67df' > /data/secrets/data/password.txt
+
+# Create the Secrets based on the files created
+kubectl create secret generic myfirstsecretfile --from-file=/data/secrets/data/username.txt --from-file=/data/secrets/data/password.txt
 ```
 
 ### Manually
@@ -89,15 +94,25 @@ Pay attention to the format of data in the yaml file definition, the content has
 
 Create a Secret manually in declarative mode.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/secrets/01\_secrets.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: myFirstManualSecret
+  name: myfirstsecretmanual
 type: Opaque
 data:
   username: YWRtaW4=          # echo -n 'admin' | base64
   password: MWYyZDFlMmU2N2Rm  # echo -n '1f2d1e2e67df' | base64
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the Secrets based on the previous yaml file.
+
+```bash
+kubectl create -f /data/secrets/01_secrets.yaml
 ```
 
 ## Get
@@ -132,7 +147,7 @@ This command is really useful to introspect and debug an object deployed in a cl
 Describe one of the existing Secrets in the default namespace.
 
 ```bash
-kubectl describe secrets SECRETS_NAME
+kubectl describe secrets myfirstsecretfile
 ```
 
 ## Attach
@@ -148,7 +163,7 @@ Multiple Secrets can be defined in a Pod, this is useful when the configuration 
 
 ### In environment variable
 
-
+Inside a container that consumes a secret in an environment variables, the secret keys appear as normal environment variables containing the base-64 decoded values of the secret data.
 
 #### Exercise n°1
 
@@ -158,23 +173,29 @@ Based on the previous Secrets created, create a Pod using the busybox image to d
 apiVersion: v1
 kind: Pod
 metadata:
-  name: myFirstSecretEnv
+  name: myfirstsecretenv
 spec:
   containers:
   - name: busybox
     image: busybox
+    command: [ "/bin/sh", "-c", "env" ]
     env:
       - name: SECRET_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: myFirstSecret
+            name: myfirstsecretmanual
             key: password
-  restartPolicy: Never
+```
+
+Get the environment variable to ensure the configuration.
+
+```bash
+kubectl exec -it myfirstsecretenv env | grep SECRET_PASSWORD
 ```
 
 ### In file path
 
-
+With this method, the data of a Secrets is directly connected as a Volume to a Pod in a specific path in the container to be readable by the application deployed.
 
 #### Exercise n°1
 
@@ -184,22 +205,28 @@ Based on the previous Secrets created, create a Pod using the busybox image to d
 apiVersion: v1
 kind: Pod
 metadata:
-  name: myFirstSecretFile
+  name: myfirstsecretfile
 spec:
   containers:
-  - name: busybox
-    image: busybox
+  - name: nginx
+    image: nginx
     volumeMounts:
-    - name: myFirstSecretMount
+    - name: myfirstsecretmount
       mountPath: "/data/sensitive"
       readOnly: true
   volumes:
-  - name: myFirstSecretMount
+  - name: myfirstsecretmount
     secret:
-      secretName: myFirstSecret
+      secretName: myfirstsecretmanual
       items:
       - key: password
         path: myapp/my-password
+```
+
+Get the volume mount information.
+
+```bash
+kubectl exec -it myfirstsecretfile cat /data/sensitive/myapp/my-password
 ```
 
 ## Explain
@@ -231,7 +258,10 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous Secrets created.
 
 ```bash
-kubectl delete secrets SECRETS_NAME
+# Delete Pods created
+kubectl delete pods myfirstsecretenv myfirstsecretenv
+# Delete Secrets created
+kubectl delete secrets myfirstsecret myfirstsecretfile myfirstsecretmanual
 ```
 
 ## Module exercise
@@ -276,7 +306,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: db
-  namespace: voting-app-prd
+  namespace: voting-app
 spec:
   replicas: 1
   selector:
@@ -294,28 +324,113 @@ spec:
     spec:
       containers:
         - env:
-            - name: "POSTGRESQL_DATABASE"
+            - name: "DB_NAME"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: name
-            - name: "POSTGRESQL_USER"
+            - name: "DB_USERNAME"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: user
-            - name: "POSTGRESQL_PASSWORD"
+            - name: "DB_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: password
-          image: centos/postgresql-96-centos7
+          image: postgres:9.4
           imagePullPolicy: IfNotPresent
           name: db
           ports:
             - name: db
               containerPort: 5432
               protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result
+  namespace: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: result
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: result
+    spec:
+      containers:
+        - env:
+            - name: "DB_NAME"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: name
+            - name: "DB_USERNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: user
+            - name: "DB_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: password
+          image: wikitops/examplevotingapp-result:1.0
+          imagePullPolicy: IfNotPresent
+          name: result
+          ports:
+            - name: result
+              containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: worker
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: worker
+    spec:
+      containers:
+        - env:
+            - name: "DB_NAME"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: name
+            - name: "DB_USERNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: user
+            - name: "DB_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: password
+          image: wikitops/examplevotingapp-worker:1.0
+          imagePullPolicy: Always
+          name: worker
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

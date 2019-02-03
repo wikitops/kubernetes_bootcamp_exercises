@@ -144,11 +144,11 @@ The rolling update method does not apply only to the _Deployment_ object but to 
 5. Check the history of the deployment to note the new entry
 
 ```bash
-kubectl rollout history deployment mynginxdeploymentcli
-kubectl get deployment mynginxdeploymentcli -o=jsonpath='{$.spec.template.spec.containers[:1].image}'
-kubectl set image deployment/mynginxdeploymentcli nginx=nginx:1.9.1
-kubectl get deployment mynginxdeploymentcli -o=jsonpath='{$.spec.template.spec.containers[:1].image}'
-kubectl rollout history deployment mynginxdeploymentcli
+kubectl rollout history deployment mynginxdeploymentyaml
+kubectl get deployment mynginxdeploymentyaml -o=jsonpath='{$.spec.template.spec.containers[:1].image}'
+kubectl set image deployment/mynginxdeploymentyaml nginx=nginx:1.9.1
+kubectl get deployment mynginxdeploymentyaml -o=jsonpath='{$.spec.template.spec.containers[:1].image}'
+kubectl rollout history deployment mynginxdeploymentyaml
 ```
 
 #### Exercise n°2
@@ -161,18 +161,18 @@ Do the same operation to update Nginx in the 1.12.3 version but with a yaml file
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mynginxdeploymentcli
+  name: mynginxdeploymentyaml
   labels:
-    name: mynginxdeploymentcli
+    app: mynginxdeploymentyaml
 spec:
   replicas: 3
   selector:
     matchLabels:
-      name: mynginxdeploymentcli
+      app: mynginxdeploymentyaml
   template:
     metadata:
       labels:
-        name: mynginxdeploymentcli
+        app: mynginxdeploymentyaml
     spec:
       containers:
       - name: nginx
@@ -204,7 +204,7 @@ The rolling update method does not apply only to the _Deployment_ object but to 
 Rollback the Nginx deployment to the previous revision and check that the version of Nginx is back to 1.9.1.
 
 ```bash
-kubectl rollout undo deployment mynginxdeploymentcli --to-revision=3
+kubectl rollout undo deployment mynginxdeploymentyaml --to-revision=2
 ```
 
 ## Delete
@@ -246,7 +246,7 @@ The file developed has to be stored in this directory : `/data/votingapp/03_depl
 Delete the previous ReplicaSet created.
 
 ```bash
-kubectl delete -f /data/votingapp/03_deployments/deployment.yaml
+kubectl delete -f /data/votingapp/02_replicaset/replicaset.yaml
 ```
 
 Example of Deployment yaml file to easily manage each part of the Voting App in a single file definition.
@@ -275,7 +275,14 @@ spec:
         name: db
     spec:
       containers:
-        - image: centos/postgresql-96-centos7
+        - env:
+          - name: "DB_NAME"
+            value: "voting"
+          - name: "DB_USERNAME"
+            value: "voting"
+          - name: "DB_PASSWORD"
+            value: "password"
+          image: postgres:9.4
           imagePullPolicy: IfNotPresent
           name: db
           ports:
@@ -333,7 +340,14 @@ spec:
         name: result
     spec:
       containers:
-        - image: wikitops/examplevotingapp-result:1.0
+        - env:
+          - name: "DB_NAME"
+            value: "voting"
+          - name: "DB_USERNAME"
+            value: "voting"
+          - name: "DB_PASSWORD"
+            value: "password"
+          image: wikitops/examplevotingapp-result:1.0
           imagePullPolicy: IfNotPresent
           name: result
           ports:
@@ -361,7 +375,12 @@ spec:
         name: vote
     spec:
       containers:
-        - image: wikitops/examplevotingapp-vote:1.0
+        - env:
+          - name: "OPTION_A"
+            value: "SWARM"
+          - name: "OPTION_B"
+            value: "KUBERNETES"
+          image: wikitops/examplevotingapp-vote:1.0
           imagePullPolicy: IfNotPresent
           name: vote
           ports:
@@ -390,7 +409,14 @@ spec:
         name: worker
     spec:
       containers:
-        - image: wikitops/examplevotingapp-worker:1.0
+        - env:
+          - name: "DB_NAME"
+            value: "voting"
+          - name: "DB_USERNAME"
+            value: "voting"
+          - name: "DB_PASSWORD"
+            value: "password"
+          image: wikitops/examplevotingapp-worker:1.0
           imagePullPolicy: Always
           name: worker
 ```

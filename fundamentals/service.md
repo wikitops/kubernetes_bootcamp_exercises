@@ -33,34 +33,47 @@ The _create_ command can directly ask the API resource to create a Service in co
 
 #### Exercise n°1
 
-Expose the Nginx Pod in the namespace app-demo to be able to access it from the local network on HTTP \(80\) port in command line.
+Create an Nginx Deployement and expose the Nginx Deployemnt to be able to access it from the local network on HTTP \(80\) port in command line.
 
 ```bash
-kubectl create service --type=NodePort --port=80
+# Create an Nginx Pods
+kubectl run nginx --image=nginx --port=80
+# Expose the Nginx Pods on port 80
+kubectl expose pod nginx --port=80 --type=NodePort
 ```
 
 #### Exercise n°2
 
 Update the Nginx Pod in the namespace app-demo to be able to access it on HTTP \(80\) and HTTPS \(443\) port thanks to a YAML file.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/services/01\_service.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: nginx
 spec:
-  type: NodePort
   ports:
-  - port: 80
+  - name: http
+    port: 80
+    protocol: TCP
     targetPort: 80
-  - port: 443
+  - name: https
+    port: 443
+    protocol: TCP
     targetPort: 443
   selector:
-    app: nginx
+    run: nginx
+  type: NodePort
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Update the service with the new yaml file definition.
 
 ```bash
-kubectl apply -f FILENAME
+kubectl apply -f /data/services/01_service.yaml
 ```
 
 ## Get
@@ -95,7 +108,7 @@ This command is really useful to introspect and debug an object deployed in a cl
 Describe one of the existing service in the default namespace.
 
 ```bash
-kubectl describe service SERVICE_NAME
+kubectl describe service nginx
 ```
 
 ## Explain
@@ -124,10 +137,14 @@ Note that the delete command does NOT do resource version checks, so if someone 
 
 #### Exercise n°1
 
-Delete the service Nginx deployed previously in the default namespace.
+Delete the service and the deployment created previously in the default namespace.
 
 ```bash
-kubectl delete service SERVICE_NAME
+# Delete the service previously created
+kubectl delete service nginx
+
+# Delete the previous deployment created
+kubectl delete deployment nginx
 ```
 
 ## Module exercise
@@ -163,7 +180,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: db
-  namespace: voting-app-prd
+  namespace: voting-app
 spec:
   ports:
   - name: db
@@ -178,7 +195,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis
-  namespace: voting-app-prd
+  namespace: voting-app
 spec:
   ports:
     - name: redis
@@ -193,7 +210,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: result
-  namespace: voting-app-prd
+  namespace: voting-app
 spec:
   ports:
   - name: 8080-tcp
@@ -209,7 +226,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: vote
-  namespace: voting-app-prd
+  namespace: voting-app
 spec:
   ports:
   - name: 8080-tcp

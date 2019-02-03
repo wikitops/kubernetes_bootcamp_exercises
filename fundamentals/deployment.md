@@ -22,36 +22,46 @@ The _create_ command can directly ask the API resource to create a Deployment in
 
 #### Exercise n°1
 
-Create a Deployment object in command line named myNginxDeploymentCli to deploy an Nginx Pod.
+Create a Deployment object in command line named mynginxdeploymentcli to deploy an Nginx Pod.
 
 ```bash
-kubectl create deployment myNginxDeploymet02 --image=nginx
+kubectl create deployment mynginxdeploymentcli --image=nginx
 ```
 
 #### Exercise n°2
 
 Deploy an Nginx Pod in a declarative way with a Deployment object and scale it to 3.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/deployment/01\_deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myNginxDeploymentYaml
+  name: mynginxdeploymentyaml
   labels:
-    app: myNginxDeploymentYaml
+    app: mynginxdeploymentyaml
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: myNginxDeploymentYaml
+      app: mynginxdeploymentyaml
   template:
     metadata:
       labels:
-        app: myNginxDeploymentYaml
+        app: mynginxdeploymentyaml
     spec:
       containers:
       - name: nginx
         image: nginx
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the Deployment in command line.
+
+```bash
+kubectl create -f /data/deployment/01_deployment.yaml
 ```
 
 ## Get
@@ -86,7 +96,7 @@ This command is really useful to introspect and debug an object deployed in a cl
 Describe a deployment in the default namespace.
 
 ```bash
-kubectl describe deployment DEPLOYMENT_NAME
+kubectl describe deployment mynginxdeploymentcli
 ```
 
 ## Explain
@@ -134,37 +144,47 @@ The rolling update method does not apply only to the _Deployment_ object but to 
 5. Check the history of the deployment to note the new entry
 
 ```bash
-kubectl rollout history deployment DEPLOYMENT_NAME
-kubectl describe deployment DEPLOYMENT_NAME | grep image
-kubectl set image deployment/DEPLOYMENT_NAME nginx=nginx:1.9.1
-kubectl describe deployment DEPLOYMENT_NAME | grep image
-kubectl rollout history deployment DEPLOYMENT_NAME
+kubectl rollout history deployment mynginxdeploymentcli
+kubectl get deployment mynginxdeploymentcli -o=jsonpath='{$.spec.template.spec.containers[:1].image}'
+kubectl set image deployment/mynginxdeploymentcli nginx=nginx:1.9.1
+kubectl get deployment mynginxdeploymentcli -o=jsonpath='{$.spec.template.spec.containers[:1].image}'
+kubectl rollout history deployment mynginxdeploymentcli
 ```
 
 #### Exercise n°2
 
 Do the same operation to update Nginx in the 1.12.3 version but with a yaml file and add the `--record` parameter to the command. Get the deployment history to understand the difference between an update with or without the `--record` parameter.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/deployment/02\_deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mynginxdeployment
+  name: mynginxdeploymentcli
   labels:
-    app: mynginxdeployment
+    name: mynginxdeploymentcli
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: mynginxdeployment
+      name: mynginxdeploymentcli
   template:
     metadata:
       labels:
-        app: mynginxdeployment
+        name: mynginxdeploymentcli
     spec:
       containers:
       - name: nginx
         image: nginx:1.12.3
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Update the Deployment in command line.
+
+```bash
+kubectl apply -f /data/deployment/02_deployment.yaml --record
 ```
 
 ### Rollback
@@ -184,7 +204,7 @@ The rolling update method does not apply only to the _Deployment_ object but to 
 Rollback the Nginx deployment to the previous revision and check that the version of Nginx is back to 1.9.1.
 
 ```bash
-kubectl rollout undo deployment DEPLOYMENT_NAME --to-revision=3
+kubectl rollout undo deployment mynginxdeploymentcli --to-revision=3
 ```
 
 ## Delete
@@ -200,7 +220,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous deployment in command line.
 
 ```bash
-kubectl delete deployment DEPLOYMENT_NAME
+kubectl delete deployment mynginxdeploymentcli mynginxdeploymentyaml
 ```
 
 ## Module exercise
@@ -226,7 +246,7 @@ The file developed has to be stored in this directory : `/data/votingapp/03_depl
 Delete the previous ReplicaSet created.
 
 ```bash
-kubectl delete -f /data/votingapp/02_replicaset/replicaset.yaml
+kubectl delete -f /data/votingapp/03_deployments/deployment.yaml
 ```
 
 Example of Deployment yaml file to easily manage each part of the Voting App in a single file definition.
@@ -238,7 +258,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: db
-  namespace: voting-app-prd
+  namespace: voting-app
 spec:
   replicas: 1
   selector:
@@ -267,7 +287,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
-  namespace: voting-app-prd
+  namespace: voting-app
 spec:
   replicas: 1
   selector:
@@ -296,7 +316,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: result
-  namespace: voting-app-prd
+  namespace: voting-app
 spec:
   replicas: 1
   selector:
@@ -324,7 +344,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vote
-  namespace: voting-app-prd
+  namespace: voting-app
 spec:
   replicas: 1
   selector:
@@ -353,7 +373,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: worker
-  namespace: voting-app-prd
+  namespace: voting-app
 spec:
   replicas: 1
   selector:

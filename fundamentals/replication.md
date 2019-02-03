@@ -24,6 +24,8 @@ The _create_ command create a ReplicaSet object based on a yaml file definition 
 
 Create a ReplicaSet object to scale an Nginx Pod with 3 replicas.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/replicaset/01\_replicaset.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: ReplicaSet
@@ -49,9 +51,11 @@ spec:
       - name: nginx
         image: nginx
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ```bash
-kubectl create -f FILENAME
+kubectl create -f /data/replicaset/01_replicaset.yaml
 ```
 
 ## Get
@@ -66,10 +70,10 @@ The default output of a get ReplicaSet command display three replicas status :
 
 #### Exercise n°1
 
-List the ReplicaSet created in the namespace app-demo.
+List the ReplicaSet created in the default namespace.
 
 ```bash
-kubectl get replicaset -n app-demo
+kubectl get replicaset
 ```
 
 ## Describe
@@ -82,10 +86,10 @@ This command is really useful to introspect and debug an object deployed in a cl
 
 #### Exercise n°1
 
-Describe the ReplicaSet of the Nginx Pod in the namespace app-demo.
+Describe the ReplicaSet created in the default namespace.
 
 ```bash
-kubectl describe replicaset REPLICASET_NAME -n app-demo
+kubectl describe replicaset mynginxreplicaset
 ```
 
 ## Explain
@@ -112,10 +116,10 @@ The command line management has to be used only for debug purpose. In production
 
 #### Exercise n°1
 
-Scale the Nginx Pod in the namespace app-demo to 5 with the command line.
+Scale the ReplicaSet mynginxreplicaset to 5 in command line.
 
 ```bash
-kubectl scale --replicas=5 -n app-demo POD_NAME
+kubectl scale replicaset mynginxreplicaset --replicas=5
 ```
 
 ## Delete
@@ -128,10 +132,10 @@ Note that the delete command does NOT do resource version checks, so if someone 
 
 #### Exercise n°1
 
-Delete the ReplicaSet of the Nginx Pod in the namespace app-demo.
+Delete the ReplicaSet mynginxreplicaset in command line.
 
 ```bash
-kubectl delete replicaset REPLICASET_NAME -n app-demo
+kubectl delete replicaset mynginxreplicaset
 ```
 
 ## Module exercise
@@ -171,6 +175,7 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: db
+  namespace: voting-app
   labels:
     app: voting-app
 spec:
@@ -181,16 +186,17 @@ spec:
   template:
     metadata:
       labels:
-        app: db
+        name: db
     spec:
       containers:
       - name: db
-        image: postgresql
+        image: postgres:9.4
 ---
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: redis
+  namespace: voting-app
   labels:
     app: voting-app
 spec:
@@ -201,7 +207,7 @@ spec:
   template:
     metadata:
       labels:
-        app: redis
+        name: redis
     spec:
       containers:
       - name: redis
@@ -211,6 +217,7 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: vote
+  namespace: voting-app
   labels:
     app: voting-app
 spec:
@@ -221,16 +228,17 @@ spec:
   template:
     metadata:
       labels:
-        app: vote
+        name: vote
     spec:
       containers:
       - name: vote
-        image: vote
+        image: dockersamples/examplevotingapp_vote:before
 ---
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: result
+  namespace: voting-app
   labels:
     app: voting-app
 spec:
@@ -241,16 +249,17 @@ spec:
   template:
     metadata:
       labels:
-        app: result
+        name: result
     spec:
       containers:
       - name: result
-        image: result
+        image: dockersamples/examplevotingapp_result:before
 ---
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: worker
+  namespace: voting-app
   labels:
     app: voting-app
 spec:
@@ -261,11 +270,11 @@ spec:
   template:
     metadata:
       labels:
-        app: worker
+        name: worker
     spec:
       containers:
       - name: worker
-        image: worker
+        image: dockersamples/examplevotingapp_worker
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

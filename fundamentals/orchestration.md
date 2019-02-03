@@ -319,7 +319,11 @@ Remember, when a namespace is deleted, each dependent objects are also deleted.
 {% endhint %}
 
 ```bash
-kubectl delete namespace another-demo
+# In command line
+kubectl delete namespace app-demo
+
+# With declarative file
+kubectl delete -f namespace-demo.yaml
 ```
 
 ## Labels

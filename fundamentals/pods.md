@@ -23,7 +23,7 @@ The _run_ command creates a Pod based on the parameters specified, such as the i
 Run a busybox pod on the default namespace.
 
 ```bash
-kubectl run busybox --image=busybox -n default
+kubectl run busybox --image=busybox -n default --restart=Never
 ```
 
 ## Create
@@ -40,11 +40,13 @@ Create a pod that contain a single nginx container with a simple YAML file.
 The file created in this exercise will be reused, do not delete it.
 {% endhint %}
 
+{% code-tabs %}
+{% code-tabs-item title="/data/pods/01\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: my-single-app
+  name: my-single-nginx
   labels:
     env: formation
 spec:
@@ -52,23 +54,19 @@ spec:
   - name: nginx
     image: nginx
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ```bash
-kubectl create -f FILENAME
+kubectl create -f /data/pods/01_pods.yaml
 ```
 
 #### Exercise n°2
 
-Do the same things using another syntax.
-
-```bash
-kubectl create deployment busybox --image busybox
-```
-
-#### Exercise n°3
-
 Create a pod that contain multiple containers : nginx, redis, postgres with a single YAML file.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/pods/02\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -85,9 +83,11 @@ spec:
   - name: redis
     image: redis
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ```bash
-kubectl create -f FILENAME
+kubectl create -f /data/pods/02_pods.yaml
 ```
 
 ## Apply
@@ -100,11 +100,13 @@ The _apply_ command manage the status of resources in the Kubernetes cluster. It
 
 Update the image version of the previous nginx pods.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/pods/03\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: my-single-app
+  name: my-single-nginx14
   labels:
     env: formation
 spec:
@@ -112,9 +114,11 @@ spec:
   - name: nginx
     image: nginx:1.14-alpine
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ```bash
-kubectl apply -f FILENAME
+kubectl apply -f /data/pods/03_pods.yaml
 ```
 
 ## Get
@@ -171,10 +175,10 @@ This command is really useful to introspect and debug a container deployed in a 
 
 #### Exercise n°1
 
-Get the information of the pod nginx deployed on the namespace app-demo
+Get the information of the pod busybox deployed on the default namespace.
 
 ```bash
-kubectl describe po nginx -n app-demo
+kubectl describe po busybox
 ```
 
 ## Exec
@@ -187,18 +191,18 @@ Usually, the format is : _kubectl exec -it POD\_NAME -c CONTAINER\_NAME_
 
 #### Exercise n°1
 
-Connect to the pod _nginx_ in the namespace _app-demo_.
+Connect to the pod _busybox_ in the namespace _default_.
 
 ```bash
-kubectl exec -it nginx -n app-demo
+kubectl exec -it busybox
 ```
 
 #### Exercise n°2
 
-Connect to the postgres container in the _my-multi-app_ pod in the namespace _app-demo._
+Connect to the postgres container in the _my-multi-app_ pod in the namespace default_._
 
 ```bash
-kubectl exec -it -c postgres my-multi-app -n app-demo
+kubectl exec -it my-multi-app -c postgres env
 ```
 
 ## Edit
@@ -209,18 +213,10 @@ The _edit_ command allows to directly edit any API resource retrieve via the com
 
 #### Exercise n°1
 
-Edit the _nginx_ pods to update the image.
+Edit the my-single-app pods to update the image.
 
 ```bash
-kubectl edit POD_NAME
-```
-
-#### Exercise n°2
-
-Edit the _nginx_ pods with _nano_ editor.
-
-```bash
-KUBE_EDITOR="nano" kubectl edit POD_NAME
+KUBE_EDITOR="nano" kubectl edit pods my-single-app
 ```
 
 ## Explain
@@ -260,7 +256,7 @@ kubectl delete pods busybox -n default
 Delete the nginx pod deployed previously in the default namespace with declarative method.
 
 ```bash
-kubectl delete -f FILENAME
+kubectl delete -f /data/pods
 ```
 
 ## Module exercise
@@ -301,11 +297,11 @@ spec:
   - name: redis
     image: redis
   - name: result-app
-    image: result
+    image: dockersamples/examplevotingapp_result:before
   - name: voting-app
-    image: vote
+    image: dockersamples/examplevotingapp_vote:before
   - name: worker
-    image: worker
+    image: dockersamples/examplevotingapp_worker
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

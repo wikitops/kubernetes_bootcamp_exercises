@@ -71,7 +71,7 @@ HostPath volumes should not be used in a production cluster. Instead a cluster a
 
 #### Exercise n°1
 
-Create an hostPath volume based on that directory : /data/nginx/conf
+Create an hostPath volume based on that directory :`/data/nginx/conf`
 
 ```yaml
 kind: PersistentVolume
@@ -198,10 +198,10 @@ Describe one of the existing Volumes in the default namespace.
 
 ```bash
 # Describe a persistent volume
-kubectl describe persistentvolume VOLUME_NAME
+kubectl describe persistentvolume myfirsthostpathvolume
 
 # Describe the persistent volume claim associated
-kubectl describe persitentvolumeclaim PVC_NAME
+kubectl describe persistentvolumeclaim myfirsthostpathvolumeclaim
 ```
 
 ## Explain
@@ -233,7 +233,14 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous volumes deployed in the default namespace.
 
 ```bash
-kubectl delete persistentvolume VOLUME_NAME
+# Delete the Pods previously created
+kubeclt delete pods myfirsthostpathpod
+
+# Delete the PVC previously created
+kubectl delete persistentvolumeclaim myfirsthostpathvolume
+
+# Delete the volume previously created
+kubectl delete persistentvolume myfirsthostpathvolume
 ```
 
 ## Module exercise
@@ -260,7 +267,7 @@ The file developed has to be stored in this directory : `/data/votingapp/07_volu
 Create the directory needed to store the data of the database Pods.
 
 ```bash
-mkdir /data/votingapp/07_volumes/database/data
+mkdir -p /data/votingapp/07_volumes/database/data
 ```
 
 Create a PersistentVolume based on this local path.
@@ -272,6 +279,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: pv-database
+  namespace: voting-app
   labels:
     type: local
 spec:
@@ -301,6 +309,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pvc-database-local
+  namespace: voting-app
 spec:
   storageClassName: manual
   accessModes:
@@ -345,22 +354,22 @@ spec:
     spec:
       containers:
         - env:
-            - name: "POSTGRESQL_DATABASE"
+            - name: "DB_NAME"
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: database-name
-            - name: "POSTGRESQL_USER"
+                  key: name
+            - name: "DB_USERNAME"
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: database-user
-            - name: "POSTGRESQL_PASSWORD"
+                  key: user
+            - name: "DB_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: database-password
-          image: centos/postgresql-96-centos7
+                  key: password
+          image: postgres:9.4
           imagePullPolicy: IfNotPresent
           name: db
           ports:

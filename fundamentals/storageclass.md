@@ -33,7 +33,7 @@ Create a StorageClass object to automatically use the AWS EBS volumes.
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: standard
+  name: aws-ebs-gp2
 provisioner: kubernetes.io/aws-ebs
 parameters:
   type: gp2
@@ -58,7 +58,7 @@ The default output display some useful information about each services :
 Get the information of a Storage Class deployed in the default namespace.
 
 ```bash
-kubectl get storageclass STORAGECLASS_NAME
+kubectl get storageclass aws-ebs-gp2
 ```
 
 ## Describe
@@ -74,7 +74,7 @@ This command is really useful to introspect and debug an object deployed in a cl
 Describe one of the existing StorageClass in the default namespace.
 
 ```bash
-kubectl describe storageclass STORAGECLASS_NAME
+kubectl describe storageclass aws-ebs-gp2
 ```
 
 ## Explain
@@ -88,7 +88,7 @@ The _explain_ command allows to directly ask the API resource via the command li
 Get the documentation of a specific field of a resource.
 
 ```bash
-kubectl explain storageclasses.spec
+kubectl explain storageclasses
 ```
 
 Add the --recursive flag to display all of the fields at once without descriptions.
@@ -127,7 +127,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous storage class in command line.
 
 ```bash
-kubectl delete storageclasses STORAGECLASS_NAME
+kubectl delete storageclasses aws-ebs-gp2
 ```
 
 ## Module exercise

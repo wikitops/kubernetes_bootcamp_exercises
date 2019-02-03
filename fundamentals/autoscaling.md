@@ -89,7 +89,7 @@ This command is really useful to introspect and debug an object deployed in a cl
 Describe one of the existing Autoscaler in the default namespace.
 
 ```bash
-kubectl describe horizontalpodautoscaler HPA_NAME
+kubectl describe horizontalpodautoscaler php-apache
 ```
 
 ## Explain
@@ -121,7 +121,11 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous autoscaling group in command line.
 
 ```bash
-kubectl delete hpa AUTOSCALE_NAME
+# Delete the HorizontalPodAutoscaler
+kubectl delete hpa php-apache
+
+# Delete the Pods
+kubectl delete pods php-apache
 ```
 
 ## Module exercise
@@ -149,6 +153,30 @@ Create the HorizontalPodAutoscaler to manage the worker workload.
 
 ```bash
 kubectl autoscale deployment worker -n voting-app --cpu-percent=80 --min=1 --max=5
+```
+
+This can be done with a yaml file definition :
+
+```yaml
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: worker
+  namespace: voting-app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: worker
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
 ```
 {% endtab %}
 {% endtabs %}

@@ -36,6 +36,10 @@ The purpose of this bootcamp is to explain how to deploy this kind of applicatio
 
 Each part of this architecture is an answer to some principles mentioned previously.
 
+### Docker Images
+
+Each part of the application has his own Docker image :
+
 | Service | Pods Name | Image |
 | :--- | :--- | :--- |
 | Database | db | postgres |

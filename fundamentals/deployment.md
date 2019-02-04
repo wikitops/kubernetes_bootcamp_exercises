@@ -416,6 +416,10 @@ spec:
             value: "voting"
           - name: "DB_PASSWORD"
             value: "password"
+          - name: "REDIS_SERVICE_NAME"
+            value: "redis"
+          - name: "DB_SERVICE_NAME"
+            value: "db"
           image: wikitops/examplevotingapp-worker:1.0
           imagePullPolicy: Always
           name: worker

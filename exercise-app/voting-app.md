@@ -34,11 +34,15 @@ The purpose of this bootcamp is to explain how to deploy this kind of applicatio
 * Persitency : The data collected during the updates has to be persisted to not lose data
 * Security : The application has to be deployed in a secure environment
 
-To do that, the bootcamp will guide you to the deployment of this kind of architecture :
-
-SCHEMA TO DO
-
 Each part of this architecture is an answer to some principles mentioned previously.
+
+| Service | Pods Name | Image |
+| :--- | :--- | :--- |
+| Database | db | postgres |
+| Queue | redis | redis |
+| Vote | vote | wikitops/examplevotingapp-vote:1.0 |
+| Result | result | wikitops/examplevotingapp-result:1.0 |
+| Worker | worker | wikitops/examplevotingapp-worker:1.0 |
 
 ## External documentation
 

@@ -293,7 +293,7 @@ metadata:
 spec:
   containers:
   - name: db
-    image: postgres
+    image: centos/postgresql-96-centos7
   - name: redis
     image: redis
   - name: result-app

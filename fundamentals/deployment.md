@@ -276,13 +276,13 @@ spec:
     spec:
       containers:
         - env:
-          - name: "DB_NAME"
+          - name: "POSTGRESQL_DATABASE"
             value: "voting"
-          - name: "DB_USERNAME"
+          - name: "POSTGRESQL_USER"
             value: "voting"
-          - name: "DB_PASSWORD"
+          - name: "POSTGRESQL_PASSWORD"
             value: "password"
-          image: postgres:9.4
+          image: centos/postgresql-96-centos7
           imagePullPolicy: IfNotPresent
           name: db
           ports:

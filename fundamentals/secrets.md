@@ -324,22 +324,22 @@ spec:
     spec:
       containers:
         - env:
-            - name: "DB_NAME"
+            - name: "POSTGRESQL_DATABASE"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: name
-            - name: "DB_USERNAME"
+            - name: "POSTGRESQL_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: user
-            - name: "DB_PASSWORD"
+            - name: "POSTGRESQL_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: password
-          image: postgres:9.4
+          image: centos/postgresql-96-centos7
           imagePullPolicy: IfNotPresent
           name: db
           ports:

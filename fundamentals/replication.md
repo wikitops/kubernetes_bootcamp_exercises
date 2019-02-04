@@ -190,7 +190,7 @@ spec:
     spec:
       containers:
       - name: db
-        image: postgres:9.4
+        image: centos/postgresql-96-centos7
 ---
 apiVersion: apps/v1
 kind: ReplicaSet

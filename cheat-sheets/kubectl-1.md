@@ -37,6 +37,45 @@ EOF
 yum install -y kubectl
 ```
 {% endtab %}
+
+{% tab title="MacOS" %}
+#### From Brew
+
+```bash
+brew install kubernetes-cli
+```
+
+#### From binary
+
+```text
+# Download the binary
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+
+# Manage the execution right to the binary
+chmod +x ./kubectl
+
+# Move the binary to the PATH 
+sudo mv ./kubectl /usr/local/bin/kubectl
+```
+{% endtab %}
+
+{% tab title="Windows" %}
+#### From Chocolatey
+
+```bash
+choco install kubernetes-cli
+```
+
+#### From binary
+
+Download the EXE binary.
+
+```bash
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/windows/amd64/kubectl.exe
+```
+
+Add the EXE binary to the PATH.
+{% endtab %}
 {% endtabs %}
 
 For further information about Kubectl installation method, please refer to the [Kubernetes documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl/).

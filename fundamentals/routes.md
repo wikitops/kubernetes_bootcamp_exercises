@@ -88,7 +88,7 @@ This command is really useful to introspect and debug an object deployed in a cl
 Describe one of the existing Ingress in the default namespace.
 
 ```bash
-kubectl describe ingress INGRESS_NAME
+kubectl describe ingress myfirstingress
 ```
 
 ## Explain
@@ -120,7 +120,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous ingress in command line.
 
 ```bash
-kubectl delete ingress INGRESS_NAME
+kubectl delete ingress myfirstingress
 ```
 
 ## Module exercise

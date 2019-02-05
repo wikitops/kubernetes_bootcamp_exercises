@@ -70,7 +70,7 @@ This command is really useful to introspect and debug an object deployed in a cl
 Describe one of the existing Network Policy in the default namespace.
 
 ```bash
-kubectl describe networkpolicy NETWORK_POLICY_NAME
+kubectl describe networkpolicy defaultNetworkPolicy
 ```
 
 ## Explain
@@ -102,7 +102,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous network policy in command line.
 
 ```bash
-kubectl delete networkpolicy NETWORKPOLICY_NAME
+kubectl delete networkpolicy defaultNetworkPolicy
 ```
 
 ## Module exercise

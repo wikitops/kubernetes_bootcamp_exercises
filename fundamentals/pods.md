@@ -273,7 +273,7 @@ The file developed has to be stored in this directory : `/data/votingapp/01_pods
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. Deploy each containers of the Voting App in a single Pod called `voting-app-pod` in his dedicated namespace created in the previous module.
+1. Deploy each containers of the Voting App in a single Pod called `voting-app` in his dedicated namespace created in the previous module.
 2. Ensure the Pods is up and running.
 {% endtab %}
 
@@ -286,20 +286,50 @@ Yaml file definition to deploy the Voting App containers.
 apiVersion: v1
 kind: Pod
 metadata:
-  name: voting-app-pod
+  name: voting-app
   namespace: voting-app
-  labels:
-    env: formation
 spec:
   containers:
   - name: db
     image: centos/postgresql-96-centos7
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: voting-app
+  namespace: voting-app
+spec:
+  containers:
   - name: redis
     image: redis
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: voting-app
+  namespace: voting-app
+spec:
+  containers:
   - name: result-app
     image: dockersamples/examplevotingapp_result:before
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: voting-app
+  namespace: voting-app
+spec:
+  containers:
   - name: voting-app
     image: dockersamples/examplevotingapp_vote:before
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: voting-app
+  namespace: voting-app
+spec:
+  containers:
   - name: worker
     image: dockersamples/examplevotingapp_worker
 ```

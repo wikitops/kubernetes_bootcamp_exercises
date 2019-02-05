@@ -43,6 +43,11 @@ metadata:
     app: mynginxdeploymentyaml
 spec:
   replicas: 3
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   selector:
     matchLabels:
       app: mynginxdeploymentyaml

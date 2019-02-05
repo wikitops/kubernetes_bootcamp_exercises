@@ -143,8 +143,48 @@ The file developed has to be stored in this directory : `/data/votingapp/11_rout
 {% endtab %}
 
 {% tab title="Solution" %}
-```bash
+Create the yaml file definition to expose the vote service.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/11\_routes/routes.yaml" %}
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: vote
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: vote
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: vote
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: result
+          servicePort: 80
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the yaml file definition to expose the result service.
+
+```bash
+kubectl create -f /data/votingapp/11_routes/routes.yaml
 ```
 {% endtab %}
 {% endtabs %}

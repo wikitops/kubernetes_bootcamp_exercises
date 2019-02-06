@@ -478,13 +478,13 @@ The file developed has to be stored in this directory : `/data/votingapp/13_role
 Create the votingapp role based on the prerequisites.
 
 ```bash
-kubectl create role votingapp --verb=get,list,watch --resource=secrets,configmaps,persistentvolume,persistentvolumeclaim
+kubectl create role votingapp --verb=get,list,watch --resource=secrets,configmaps,persistentvolume,persistentvolumeclaim -n voting-app
 ```
 
 Bind the votingapp role to the vote and result service accounts.
 
 ```bash
-kubectl create rolebinding votingapp --user=vote,result --role=votingapp
+kubectl create rolebinding votingapp --user=vote,result --role=votingapp -n voting-app
 ```
 {% endtab %}
 {% endtabs %}

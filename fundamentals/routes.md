@@ -46,12 +46,27 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  backend:
+    serviceName: default-http-backend
+    servicePort: 80
   rules:
-  - http:
+  - host: myfirstpath.info
+    http:
       paths:
-      - path: /foo
+      - path: /
         backend:
-          serviceName: <service_name>
+          serviceName: myfirstpathsvc1
+          servicePort: 8080
+  - host: mysecondpath.com
+    http:
+      paths:
+      - path: /path1
+        backend:
+          serviceName: mysecondpathsvc1
+          servicePort: 80
+      - path: /path2
+        backend:
+          serviceName: mysecondpathsvc2
           servicePort: 80
 ```
 

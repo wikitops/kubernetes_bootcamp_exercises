@@ -66,7 +66,7 @@ Create a Pods based on nginx Docker image and configure his liveness and readine
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx
+  name: livenesshttp
 spec:
   containers:
   - name: nginx
@@ -97,7 +97,7 @@ Create a Pods based on nginx Docker image and configure his liveness and readine
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx
+  name: livenesstcp
 spec:
   containers:
   - name: nginx

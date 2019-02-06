@@ -467,12 +467,24 @@ The file developed has to be stored in this directory : `/data/votingapp/13_role
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. 
+1. Create a votingapp called vote in the namespace voting-app to limit his access to :
+   1. Get, list, watch Secrets
+   2. Get, list, watch ConfigMaps
+   3. Get, list, watch PersistentVolumes and PersistentVolumeClaims
+2. Bind the role votingapp to the service account vote and result
 {% endtab %}
 
 {% tab title="Solution" %}
-```bash
+Create the votingapp role based on the prerequisites.
 
+```bash
+kubectl create role votingapp --verb=get,list,watch --resource=secrets,configmaps,persistentvolume,persistentvolumeclaim
+```
+
+Bind the votingapp role to the vote and result service accounts.
+
+```bash
+kubectl create rolebinding votingapp --user=vote,result --role=votingapp
 ```
 {% endtab %}
 {% endtabs %}

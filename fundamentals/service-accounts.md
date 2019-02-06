@@ -203,13 +203,97 @@ kubectl create serviceaccount result
 Configure the vote Pods to use the vote service account.
 
 ```yaml
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote
+  namespace: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: vote
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: vote
+    spec:
+      serviceAccountName: vote
+      automountServiceAccountToken: false
+      containers:
+        - env:
+           - name: "OPTION_A"
+             valueFrom:
+               configMapKeyRef:
+                 name: vote
+                 key: option_a
+           - name: "OPTION_B"
+             valueFrom:
+               configMapKeyRef:
+                 name: vote
+                 key: option_b
+          image: wikitops/examplevotingapp-vote:1.0
+          imagePullPolicy: IfNotPresent
+          name: vote
+          ports:
+            - containerPort: 8080
+              name: vote
+              protocol: TCP
 ```
 
-Configure the vote Pods to use the result service account.
+Configure the result Pods to use the result service account.
 
 ```yaml
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result
+  namespace: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: result
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: result
+    spec:
+      serviceAccountName: result
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: "DB_NAME"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: name
+            - name: "DB_USERNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: user
+            - name: "DB_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: password
+          image: wikitops/examplevotingapp-result:1.0
+          imagePullPolicy: IfNotPresent
+          name: result
+          ports:
+            - name: result
+              containerPort: 8080
 ```
 {% endtab %}
 {% endtabs %}

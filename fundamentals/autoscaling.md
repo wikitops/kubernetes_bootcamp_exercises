@@ -98,6 +98,10 @@ php-apache   Deployment/php-apache   76%/50%   3         10        5          17
 {% endtab %}
 {% endtabs %}
 
+{% hint style="info" %}
+Scale the load-generator if you want to stress the php-apache Pods quickly.
+{% endhint %}
+
 #### Exercise n°3
 
 Stop to stress the Pod previously created and check that the autoscaler come back to normal.

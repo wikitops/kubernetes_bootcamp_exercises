@@ -28,17 +28,25 @@ The _create_ command can create a NetworkPolicy object based on a yaml file defi
 
 Deploy a default Network Policy for each resources in the default namespace to deny all ingress and egress traffic.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/networkpolicy/networkpolicy.yaml" %}
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: defaultNetworkPolicy
+  name: defaultnetworkpolicy
   namespace: default
 spec:
   podSelector: {}
   policyTypes:
   - Ingress
   - Egress
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+```bash
+kubectl create -f /data/networkpolicy/networkpolicy.yaml
 ```
 
 ## Get
@@ -53,9 +61,20 @@ The default output display some useful information about each services :
 
 #### Exercise n°1
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get networkpolicy
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME                   POD-SELECTOR   AGE
+defaultnetworkpolicy   <none>         44s
+```
+{% endtab %}
+{% endtabs %}
 
 ## Describe
 
@@ -69,9 +88,30 @@ This command is really useful to introspect and debug an object deployed in a cl
 
 Describe one of the existing Network Policy in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
-kubectl describe networkpolicy defaultNetworkPolicy
+kubectl describe networkpolicy defaultnetworkpolicy
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:         defaultnetworkpolicy
+Namespace:    default
+Created on:   2019-02-06 11:21:15 -0500 EST
+Labels:       <none>
+Annotations:  kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"networking.k8s.io/v1","kind":"NetworkPolicy","metadata":{"annotations":{},"name":"default","namespace":"default"},"spec":{"podSelector":...
+Spec:
+  PodSelector:     <none> (Allowing the specific traffic to all pods in this namespace)
+  Allowing ingress traffic:
+    <none> (Selected pods are isolated for ingress connectivity)
+  Allowing egress traffic:
+    <none> (Selected pods are isolated for egress connectivity)
+  Policy Types: Ingress, Egress
+```
+{% endtab %}
+{% endtabs %}
 
 ## Explain
 
@@ -83,9 +123,68 @@ The _explain_ command allows to directly ask the API resource via the command li
 
 Get the documentation of a specific field of a resource.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl explain networkpolicy.spec
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+KIND:     NetworkPolicy
+VERSION:  extensions/v1beta1
+
+RESOURCE: spec <Object>
+
+DESCRIPTION:
+     Specification of the desired behavior for this NetworkPolicy.
+
+     DEPRECATED 1.9 - This group version of NetworkPolicySpec is deprecated by
+     networking/v1/NetworkPolicySpec.
+
+FIELDS:
+   egress	<[]Object>
+     List of egress rules to be applied to the selected pods. Outgoing traffic
+     is allowed if there are no NetworkPolicies selecting the pod (and cluster
+     policy otherwise allows the traffic), OR if the traffic matches at least
+     one egress rule across all of the NetworkPolicy objects whose podSelector
+     matches the pod. If this field is empty then this NetworkPolicy limits all
+     outgoing traffic (and serves solely to ensure that the pods it selects are
+     isolated by default). This field is beta-level in 1.8
+
+   ingress	<[]Object>
+     List of ingress rules to be applied to the selected pods. Traffic is
+     allowed to a pod if there are no NetworkPolicies selecting the pod OR if
+     the traffic source is the pod's local node, OR if the traffic matches at
+     least one ingress rule across all of the NetworkPolicy objects whose
+     podSelector matches the pod. If this field is empty then this NetworkPolicy
+     does not allow any traffic (and serves solely to ensure that the pods it
+     selects are isolated by default).
+
+   podSelector	<Object> -required-
+     Selects the pods to which this NetworkPolicy object applies. The array of
+     ingress rules is applied to any pods selected by this field. Multiple
+     network policies can select the same set of pods. In this case, the ingress
+     rules for each are combined additively. This field is NOT optional and
+     follows standard label selector semantics. An empty podSelector matches all
+     pods in this namespace.
+
+   policyTypes	<[]string>
+     List of rule types that the NetworkPolicy relates to. Valid options are
+     Ingress, Egress, or Ingress,Egress. If this field is not specified, it will
+     default based on the existence of Ingress or Egress rules; policies that
+     contain an Egress section are assumed to affect Egress, and all policies
+     (whether or not they contain an Ingress section) are assumed to affect
+     Ingress. If you want to write an egress-only policy, you must explicitly
+     specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy
+     that specifies that no egress is allowed, you must specify a policyTypes
+     value that include "Egress" (since such a policy would not include an
+     Egress section and would otherwise default to just [ "Ingress" ]). This
+     field is beta-level in 1.8
+```
+{% endtab %}
+{% endtabs %}
 
 Add the --recursive flag to display all of the fields at once without descriptions.
 

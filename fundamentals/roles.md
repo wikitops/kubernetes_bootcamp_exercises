@@ -467,7 +467,7 @@ The file developed has to be stored in this directory : `/data/votingapp/13_role
 
 {% tabs %}
 {% tab title="Exercise" %}
-1.
+1. 
 {% endtab %}
 
 {% tab title="Solution" %}

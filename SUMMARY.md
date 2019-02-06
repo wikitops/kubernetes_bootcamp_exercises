@@ -17,6 +17,7 @@
 * [Networks](fundamentals/network.md)
 * [Routes](fundamentals/routes.md)
 * [High Availability](fundamentals/high-availability.md)
+* [Service Accounts](fundamentals/service-accounts.md)
 * [Roles](fundamentals/roles.md)
 
 ## Cheat Sheets

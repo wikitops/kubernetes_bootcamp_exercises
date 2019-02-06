@@ -98,6 +98,25 @@ php-apache   Deployment/php-apache   76%/50%   3         10        8          17
 {% endtab %}
 {% endtabs %}
 
+#### Exercise n°3
+
+Stop to stress the Pod previously created and check that the autoscaler come back to normal.
+
+{% tabs %}
+{% tab title="Command" %}
+```bash
+kubectl get hpa
+```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME         REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache   0%/50%    3         10        3          29m
+```
+{% endtab %}
+{% endtabs %}
+
 ## Describe
 
 Once an object is running, it is inevitably a need to debug problems or check the configuration deployed.

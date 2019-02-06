@@ -93,7 +93,7 @@ kubectl get hpa
 {% tab title="CLI Return" %}
 ```bash
 NAME         REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-php-apache   Deployment/php-apache   76%/50%   3         10        8          17m
+php-apache   Deployment/php-apache   76%/50%   3         10        5          17m
 ```
 {% endtab %}
 {% endtabs %}
@@ -145,21 +145,22 @@ Annotations:                                           <none>
 CreationTimestamp:                                     Wed, 06 Feb 2019 10:39:55 -0500
 Reference:                                             Deployment/php-apache
 Metrics:                                               ( current / target )
-  resource cpu on pods  (as a percentage of request):  43% (87m) / 50%
+  resource cpu on pods  (as a percentage of request):  0% (0) / 50%
 Min replicas:                                          3
 Max replicas:                                          10
 Conditions:
-  Type            Status  Reason              Message
-  ----            ------  ------              -------
-  AbleToScale     True    ReadyForNewScale    recommended size matches current size
-  ScalingActive   True    ValidMetricFound    the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
-  ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+  Type            Status  Reason               Message
+  ----            ------  ------               -------
+  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
+  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  False   DesiredWithinRange   the desired count is within the acceptable range
 Events:
   Type     Reason                        Age                From                       Message
   ----     ------                        ----               ----                       -------
-  Normal   SuccessfulRescale             18m                horizontal-pod-autoscaler  New size: 3; reason: Current number of replicas below Spec.MinReplicas
-  Normal   SuccessfulRescale             13m                horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
-  Normal   SuccessfulRescale             10m                horizontal-pod-autoscaler  New size: 5; reason: cpu resource utilization (percentage of request) above target
+  Normal   SuccessfulRescale             36m                horizontal-pod-autoscaler  New size: 3; reason: Current number of replicas below Spec.MinReplicas
+  Normal   SuccessfulRescale             31m                horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
+  Normal   SuccessfulRescale             28m                horizontal-pod-autoscaler  New size: 5; reason: cpu resource utilization (percentage of request) above target)
+  Normal   SuccessfulRescale             2m                 horizontal-pod-autoscaler  New size: 4; reason: All metrics below target
 ```
 {% endtab %}
 {% endtabs %}

@@ -34,8 +34,6 @@ Create an Pods based on the busybox Docker image to run a command and check his 
 apiVersion: v1
 kind: Pod
 metadata:
-  labels:
-    test: liveness
   name: liveness-exec
 spec:
   containers:
@@ -66,7 +64,7 @@ Create a Pods based on nginx Docker image and configure his liveness and readine
 apiVersion: v1
 kind: Pod
 metadata:
-  name: livenesshttp
+  name: liveness-http
 spec:
   containers:
   - name: nginx
@@ -97,7 +95,7 @@ Create a Pods based on nginx Docker image and configure his liveness and readine
 apiVersion: v1
 kind: Pod
 metadata:
-  name: livenesstcp
+  name: liveness-tcp
 spec:
   containers:
   - name: nginx

@@ -139,10 +139,6 @@ Events:
   Type     Reason                        Age                From                       Message
   ----     ------                        ----               ----                       -------
   Normal   SuccessfulRescale             18m                horizontal-pod-autoscaler  New size: 3; reason: Current number of replicas below Spec.MinReplicas
-  Warning  FailedGetResourceMetric       16m (x7 over 18m)  horizontal-pod-autoscaler  unable to get metrics for resource cpu: no metrics returned from resource metrics API
-  Warning  FailedComputeMetricsReplicas  16m (x7 over 18m)  horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
-  Warning  FailedGetResourceMetric       15m                horizontal-pod-autoscaler  unable to get metrics for resource cpu: unable to fetch metrics from resource metrics API: an error on the server ("Internal Server Error: \"/apis/metrics.k8s.io/v1beta1/namespaces/default/pods?labelSelector=run%3Dphp-apache\": 0-length response") has prevented the request from succeeding (get pods.metrics.k8s.io)
-  Warning  FailedComputeMetricsReplicas  15m                horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: unable to fetch metrics from resource metrics API: an error on the server ("Internal Server Error: \"/apis/metrics.k8s.io/v1beta1/namespaces/default/pods?labelSelector=run%3Dphp-apache\": 0-length response") has prevented the request from succeeding (get pods.metrics.k8s.io)
   Normal   SuccessfulRescale             13m                horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
   Normal   SuccessfulRescale             10m                horizontal-pod-autoscaler  New size: 5; reason: cpu resource utilization (percentage of request) above target
 ```

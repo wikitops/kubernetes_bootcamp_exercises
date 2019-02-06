@@ -6,7 +6,7 @@ description: >-
 
 # Autoscaling
 
-## Module Overview
+Module Overview
 
 At the end of this module, you will :
 
@@ -33,10 +33,10 @@ The _create_ command can directly ask the API resource to create an HorizontalPo
 
 ```bash
 # Run a sample app in the default namespace
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=300m --expose --port=80
 
 # Create an Horizontal Pod Autoscaler based on the CPU usage
-kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=3 --max=10
 ```
 
 ## Get
@@ -57,14 +57,27 @@ The default output display some useful information about each services :
 
 Get the current HorizontalPodAutoscaler resources in the default namespace.
 
-```text
+{% tabs %}
+{% tab title="Command" %}
+```bash
 kubectl get hpa
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME         REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache   0%/50%   3         10        3          16m
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°2
 
 Stress the Pod created in the previous section and check the HorizontalPoMindAutoscaler associated.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 # Connect to the Pod
 kubectl run -i --tty load-generator --image=busybox /bin/sh
@@ -75,6 +88,15 @@ while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
 # Check the Horizontal Pod Autoscaler status
 kubectl get hpa
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME         REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache   76%/50%   3         10        8          17m
+```
+{% endtab %}
+{% endtabs %}
 
 ## Describe
 
@@ -88,9 +110,44 @@ This command is really useful to introspect and debug an object deployed in a cl
 
 Describe one of the existing Autoscaler in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl describe horizontalpodautoscaler php-apache
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:                                                  php-apache
+Namespace:                                             default
+Labels:                                                <none>
+Annotations:                                           <none>
+CreationTimestamp:                                     Wed, 06 Feb 2019 10:39:55 -0500
+Reference:                                             Deployment/php-apache
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  43% (87m) / 50%
+Min replicas:                                          3
+Max replicas:                                          10
+Conditions:
+  Type            Status  Reason              Message
+  ----            ------  ------              -------
+  AbleToScale     True    ReadyForNewScale    recommended size matches current size
+  ScalingActive   True    ValidMetricFound    the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+Events:
+  Type     Reason                        Age                From                       Message
+  ----     ------                        ----               ----                       -------
+  Normal   SuccessfulRescale             18m                horizontal-pod-autoscaler  New size: 3; reason: Current number of replicas below Spec.MinReplicas
+  Warning  FailedGetResourceMetric       16m (x7 over 18m)  horizontal-pod-autoscaler  unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedComputeMetricsReplicas  16m (x7 over 18m)  horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedGetResourceMetric       15m                horizontal-pod-autoscaler  unable to get metrics for resource cpu: unable to fetch metrics from resource metrics API: an error on the server ("Internal Server Error: \"/apis/metrics.k8s.io/v1beta1/namespaces/default/pods?labelSelector=run%3Dphp-apache\": 0-length response") has prevented the request from succeeding (get pods.metrics.k8s.io)
+  Warning  FailedComputeMetricsReplicas  15m                horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: unable to fetch metrics from resource metrics API: an error on the server ("Internal Server Error: \"/apis/metrics.k8s.io/v1beta1/namespaces/default/pods?labelSelector=run%3Dphp-apache\": 0-length response") has prevented the request from succeeding (get pods.metrics.k8s.io)
+  Normal   SuccessfulRescale             13m                horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
+  Normal   SuccessfulRescale             10m                horizontal-pod-autoscaler  New size: 5; reason: cpu resource utilization (percentage of request) above target
+```
+{% endtab %}
+{% endtabs %}
 
 ## Explain
 
@@ -102,9 +159,47 @@ The _explain_ command allows to directly ask the API resource via the command li
 
 Get the documentation of a specific field of a resource.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl explain hpa.spec
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+KIND:     HorizontalPodAutoscaler
+VERSION:  autoscaling/v1
+
+RESOURCE: spec <Object>
+
+DESCRIPTION:
+     behaviour of autoscaler. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+
+     specification of a horizontal pod autoscaler.
+
+FIELDS:
+   maxReplicas	<integer> -required-
+     upper limit for the number of pods that can be set by the autoscaler;
+     cannot be smaller than MinReplicas.
+
+   minReplicas	<integer>
+     lower limit for the number of pods that can be set by the autoscaler,
+     default 1.
+
+   scaleTargetRef	<Object> -required-
+     reference to scaled resource; horizontal pod autoscaler will learn the
+     current resource consumption and will set the desired number of pods by
+     using its Scale subresource.
+
+   targetCPUUtilizationPercentage	<integer>
+     target average CPU utilization (represented as a percentage of requested
+     CPU) over all the pods; if not specified the default autoscaling policy
+     will be used.
+```
+{% endtab %}
+{% endtabs %}
 
 Add the --recursive flag to display all of the fields at once without descriptions.
 

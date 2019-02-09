@@ -30,11 +30,15 @@ The purpose of this bootcamp is to explain how to deploy this kind of applicatio
 
 * Portability : The application has to be deployable on any Docker orchestration platform
 * Auto / Scalability : Each part of the application has to be scalable to ensure the next principle
-* High Availability : The application has to be highly available even accross updates
+* High Availability : The application has to be highly available even across updates
 * Persitency : The data collected during the updates has to be persisted to not lose data
 * Security : The application has to be deployed in a secure environment
 
 Each part of this architecture is an answer to some principles mentioned previously.
+
+The schema below resume the architecture principles :
+
+![Voting App Architecture](../.gitbook/assets/k8s_votingapp.png)
 
 ### Docker Images
 

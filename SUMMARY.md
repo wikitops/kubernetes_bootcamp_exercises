@@ -13,6 +13,7 @@
 * [Secrets](fundamentals/secrets.md)
 * [Volumes](fundamentals/volumes.md)
 * [StorageClass](fundamentals/storageclass.md)
+* [Quotas & Limits](fundamentals/quotas-and-limits.md)
 * [Autoscaling](fundamentals/autoscaling.md)
 * [Networks](fundamentals/network.md)
 * [Routes](fundamentals/routes.md)

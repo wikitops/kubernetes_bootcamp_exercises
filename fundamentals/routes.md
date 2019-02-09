@@ -148,7 +148,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/11_routes`
+The file developed has to be stored in this directory : `/data/votingapp/12_routes`
 
 {% tabs %}
 {% tab title="Exercise" %}

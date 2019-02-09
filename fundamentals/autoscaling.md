@@ -233,7 +233,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 
 #### Exercise n°1
 
-Delete the previous autoscaling group in command line.
+Delete the previous autoscaling group created in command line.
 
 ```bash
 # Delete the HorizontalPodAutoscaler
@@ -253,7 +253,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/09_autoscaling`
+The file developed has to be stored in this directory : `/data/votingapp/10_autoscaling`
 
 {% tabs %}
 {% tab title="Exercise" %}

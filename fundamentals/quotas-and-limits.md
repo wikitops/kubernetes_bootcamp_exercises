@@ -355,10 +355,10 @@ The file developed has to be stored in this directory : `/data/votingapp/09_quot
 {% endtab %}
 
 {% tab title="Solution" %}
-Create the resource quota to limits the resource allocation.
+Create the resource quotas to limits the resource allocation.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/09\_quotas/resourcequota.yaml" %}
+{% code-tabs-item title="/data/votingapp/09\_quotas/quotas.yaml" %}
 ```yaml
 apiVersion: v1
 kind: ResourceQuota
@@ -371,21 +371,7 @@ spec:
     requests.memory: 4Gi
     limits.cpu: "7"
     limits.memory: 6Gi
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-Create the resource based on the previous yaml file definition.
-
-```bash
-kubectl create -f /data/votingapp/09_quotas/resourcequota.yaml
-```
-
-Define the default limits in a yaml file.
-
-{% code-tabs %}
-{% code-tabs-item title="/data/votingapp/09\_quotas/limitrange.yaml" %}
-```yaml
+---
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -407,7 +393,7 @@ spec:
 Create the resource based on the previous yaml file definition.
 
 ```bash
-kubectl create -f /data/votingapp/09_quotas/limitrange.yaml
+kubectl create -f /data/votingapp/09_quotas/quotas.yaml
 ```
 {% endtab %}
 {% endtabs %}

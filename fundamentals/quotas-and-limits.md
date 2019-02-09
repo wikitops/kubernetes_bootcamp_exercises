@@ -344,11 +344,71 @@ The file developed has to be stored in this directory : `/data/votingapp/09_quot
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. 
+1. Limit the amount of available resources in the voting-app namespace has below :
+   1. 5 CPU unit can be requested
+   2. 4Gi of memory can be requested 
+   3. The limit of CPU unit available is 7
+   4. The limit of memory available is 6Gi
+2. Set the default limits of container resources has below :
+   1. By default, a container can request 256Mi of memory and 0.5 of CPU unit
+   2. The default limits is 512Mi of memory and 1 CPU unit
 {% endtab %}
 
 {% tab title="Solution" %}
+Create the resource quota to limits the resource allocation.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/09\_quotas/resourcequota.yaml" %}
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: voting
+  namespace: voting-app
+spec:
+  hard:
+    requests.cpu: "5"
+    requests.memory: 4Gi
+    limits.cpu: "7"
+    limits.memory: 6Gi
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the resource based on the previous yaml file definition.
+
+```bash
+kubectl create -f /data/votingapp/09_quotas/resourcequota.yaml
+```
+
+Define the default limits in a yaml file.
+
+{% code-tabs %}
+{% code-tabs-item title="/data/votingapp/09\_quotas/limitrange.yaml" %}
+```yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: voting
+  namespace: voting-app
+spec:
+  limits:
+  - default:
+      memory: 512Mi
+      cpu: 1
+    defaultRequest:
+      memory: 256Mi
+      cpu: 0.5
+    type: Container
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the resource based on the previous yaml file definition.
+
+```bash
+kubectl create -f /data/votingapp/09_quotas/limitrange.yaml
+```
 {% endtab %}
 {% endtabs %}
 

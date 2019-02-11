@@ -1,7 +1,7 @@
 ---
 description: >-
   Minikube runs a single-node Kubernetes cluster inside a virtual machine on
-  local computer for users looking to try out Kubernetes or develop with it 
+  local computer for users looking to try out Kubernetes or develop with it
   day-to-day.
 ---
 

@@ -1,9 +1,3 @@
----
-description: >-
-  A simple voting example application that can be easily deployed on multiple
-  Docker orchestration cluster.
----
-
 # Voting App
 
 ## Description

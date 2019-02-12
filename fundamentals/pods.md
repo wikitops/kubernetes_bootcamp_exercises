@@ -191,10 +191,10 @@ Usually, the format is : _kubectl exec -it POD\_NAME -c CONTAINER\_NAME_
 
 #### Exercise n°1
 
-Connect to the pod _busybox_ in the namespace _default_.
+Connect to the pod _my-single-nginx14_ in the namespace _default_.
 
 ```bash
-kubectl exec -it busybox
+kubectl exec -it my-single-nginx bash
 ```
 
 #### Exercise n°2

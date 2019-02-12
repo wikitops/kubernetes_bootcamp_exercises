@@ -1,9 +1,3 @@
----
-description: >-
-  Coordinate the overall resource usage of a cluster and allocate appropriate
-  resources to containers in pods.
----
-
 # Quotas & Limits
 
 ## Module Overview

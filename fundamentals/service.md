@@ -1,9 +1,3 @@
----
-description: >-
-  A Service is an abstraction which defines a logical set of Pods and a policy
-  by which to access them based on labels.
----
-
 # Services
 
 ## Module Overview
@@ -39,7 +33,7 @@ Create an Nginx Deployement and expose the Nginx Deployemnt to be able to access
 # Create an Nginx Pods
 kubectl run nginx --image=nginx --port=80
 # Expose the Nginx Pods on port 80
-kubectl expose pod nginx --port=80 --type=NodePort
+kubectl expose deployment nginx --port=80 --type=NodePort
 ```
 
 #### Exercise n°2

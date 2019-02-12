@@ -1,10 +1,3 @@
----
-description: >-
-  Service accounts are users managed by the Kubernetes API. They are bound to
-  specific namespaces, and created automatically by the API server or manually
-  through API calls.
----
-
 # Service Accounts
 
 ## Module Overview

@@ -130,9 +130,22 @@ The default output display some useful information about each services :
 
 Get a list of existing Secrets in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get secrets
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME                  TYPE                                  DATA      AGE
+default-token-wpxhp   kubernetes.io/service-account-token   3         2h
+myfirstsecret         Opaque                                1         2m
+myfirstsecretfile     Opaque                                2         4s
+```
+{% endtab %}
+{% endtabs %}
 
 ## Describe
 
@@ -146,9 +159,29 @@ This command is really useful to introspect and debug an object deployed in a cl
 
 Describe one of the existing Secrets in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl describe secrets myfirstsecretfile
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:         myfirstsecretfile
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Type:  Opaque
+
+Data
+====
+username.txt:  5 bytes
+password.txt:  12 bytes
+```
+{% endtab %}
+{% endtabs %}
 
 ## Attach
 
@@ -169,6 +202,8 @@ Inside a container that consumes a secret in an environment variables, the secre
 
 Based on the previous Secrets created, create a Pod using the busybox image to display some part of the Secret in single environment variables.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/secrets/02\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -183,15 +218,35 @@ spec:
       - name: SECRET_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: myfirstsecretmanual
+            name: myfirstsecret
             key: password
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the resource based on the previous yaml file definition.
+
+```bash
+kubectl create -f /data/secrets/02_pods.yaml
 ```
 
 Get the environment variable to ensure the configuration.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
-kubectl exec -it myfirstsecretenv env | grep SECRET_PASSWORD
+kubectl logs myfirstsecretenv
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+[...]
+SECRET_PASSWORD=myclearpassword
+[...]
+```
+{% endtab %}
+{% endtabs %}
 
 ### In file path
 
@@ -201,6 +256,8 @@ With this method, the data of a Secrets is directly connected as a Volume to a P
 
 Based on the previous Secrets created, create a Pod using the busybox image to display some part of the Secret in single file.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/secrets/03\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -217,17 +274,35 @@ spec:
   volumes:
   - name: myfirstsecretmount
     secret:
-      secretName: myfirstsecretmanual
+      secretName: myfirstsecret
       items:
       - key: password
         path: myapp/my-password
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the resource based on the previous yaml file definition.
+
+```text
+kubectl create -f /data/secrets/03_pods.yaml
+```
 
 Get the volume mount information.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl exec -it myfirstsecretfile cat /data/sensitive/myapp/my-password
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+myclearpassword
+```
+{% endtab %}
+{% endtabs %}
 
 ## Explain
 
@@ -239,9 +314,57 @@ The _explain_ command allows to directly ask the API resource via the command li
 
 Get the documentation of a specific field of a resource.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
-kubectl explain secrets.spec
+kubectl explain secrets
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+KIND:     Secret
+VERSION:  v1
+
+DESCRIPTION:
+     Secret holds secret data of a certain type. The total bytes of the values
+     in the Data field must be less than MaxSecretSize bytes.
+
+FIELDS:
+   apiVersion	<string>
+     APIVersion defines the versioned schema of this representation of an
+     object. Servers should convert recognized schemas to the latest internal
+     value, and may reject unrecognized values. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+
+   data	<map[string]string>
+     Data contains the secret data. Each key must consist of alphanumeric
+     characters, '-', '_' or '.'. The serialized form of the secret data is a
+     base64 encoded string, representing the arbitrary (possibly non-string)
+     data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
+
+   kind	<string>
+     Kind is a string value representing the REST resource this object
+     represents. Servers may infer this from the endpoint the client submits
+     requests to. Cannot be updated. In CamelCase. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+
+   metadata	<Object>
+     Standard object's metadata. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+
+   stringData	<map[string]string>
+     stringData allows specifying non-binary secret data in string form. It is
+     provided as a write-only convenience method. All keys and values are merged
+     into the data field on write, overwriting any existing values. It is never
+     output when reading from the API.
+
+   type	<string>
+     Used to facilitate programmatic handling of secret data.
+
+```
+{% endtab %}
+{% endtabs %}
 
 Add the --recursive flag to display all of the fields at once without descriptions.
 
@@ -259,9 +382,9 @@ Delete the previous Secrets created.
 
 ```bash
 # Delete Pods created
-kubectl delete pods myfirstsecretenv myfirstsecretenv
+kubectl delete pods myfirstsecretenv myfirstsecretfile
 # Delete Secrets created
-kubectl delete secrets myfirstsecret myfirstsecretfile myfirstsecretmanual
+kubectl delete secrets myfirstsecret myfirstsecretfile
 ```
 
 ## Module exercise

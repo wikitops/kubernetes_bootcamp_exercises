@@ -22,6 +22,8 @@ The _create_ command can create a StorageClass object based on a yaml file defin
 
 Create a StorageClass object to automatically use the AWS EBS volumes.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/storageclass/01\_storageclass.yaml" %}
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -34,6 +36,14 @@ reclaimPolicy: Retain
 mountOptions:
   - debug
 volumeBindingMode: Immediate
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the resource based on the previous yaml definition file.
+
+```bash
+kubectl create -f /data/storageclass/01_storageclass.yaml
 ```
 
 ## Get
@@ -50,9 +60,21 @@ The default output display some useful information about each services :
 
 Get the information of a Storage Class deployed in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
-kubectl get storageclass aws-ebs-gp2
+kubectl get storageclass
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME                 PROVISIONER                AGE
+aws-ebs-gp2          kubernetes.io/aws-ebs      9s
+standard (default)   k8s.io/minikube-hostpath   2h
+```
+{% endtab %}
+{% endtabs %}
 
 ## Describe
 
@@ -66,9 +88,29 @@ This command is really useful to introspect and debug an object deployed in a cl
 
 Describe one of the existing StorageClass in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl describe storageclass aws-ebs-gp2
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:                  aws-ebs-gp2
+IsDefaultClass:        No
+Annotations:           <none>
+Provisioner:           kubernetes.io/aws-ebs
+Parameters:            type=gp2
+AllowVolumeExpansion:  <unset>
+MountOptions:
+  debug
+ReclaimPolicy:      Retain
+VolumeBindingMode:  Immediate
+Events:             <none>
+```
+{% endtab %}
+{% endtabs %}
 
 ## Explain
 
@@ -80,15 +122,81 @@ The _explain_ command allows to directly ask the API resource via the command li
 
 Get the documentation of a specific field of a resource.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
-kubectl explain storageclasses
+The default StorageClass is used to dynamically provision storage for PersistentVolumeClaims that do not require any specific storage class. It simplify the management by using the default Storage Class to create the new Persistent Volumes.kubectl explain storageclasses
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+KIND:     StorageClass
+VERSION:  storage.k8s.io/v1
+
+DESCRIPTION:
+     StorageClass describes the parameters for a class of storage for which
+     PersistentVolumes can be dynamically provisioned. StorageClasses are
+     non-namespaced; the name of the storage class according to etcd is in
+     ObjectMeta.Name.
+
+FIELDS:
+   allowVolumeExpansion	<boolean>
+     AllowVolumeExpansion shows whether the storage class allow volume expand
+
+   allowedTopologies	<[]Object>
+     Restrict the node topologies where volumes can be dynamically provisioned.
+     Each volume plugin defines its own supported topology specifications. An
+     empty TopologySelectorTerm list means there is no topology restriction.
+     This field is only honored by servers that enable the VolumeScheduling
+     feature.
+
+   apiVersion	<string>
+     APIVersion defines the versioned schema of this representation of an
+     object. Servers should convert recognized schemas to the latest internal
+     value, and may reject unrecognized values. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+
+   kind	<string>
+     Kind is a string value representing the REST resource this object
+     represents. Servers may infer this from the endpoint the client submits
+     requests to. Cannot be updated. In CamelCase. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+
+   metadata	<Object>
+     Standard object's metadata. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+
+   mountOptions	<[]string>
+     Dynamically provisioned PersistentVolumes of this storage class are created
+     with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the
+     PVs will simply fail if one is invalid.
+
+   parameters	<map[string]string>
+     Parameters holds the parameters for the provisioner that should create
+     volumes of this storage class.
+
+   provisioner	<string> -required-
+     Provisioner indicates the type of the provisioner.
+
+   reclaimPolicy	<string>
+     Dynamically provisioned PersistentVolumes of this storage class are created
+     with this reclaimPolicy. Defaults to Delete.
+
+   volumeBindingMode	<string>
+     VolumeBindingMode indicates how PersistentVolumeClaims should be
+     provisioned and bound. When unset, VolumeBindingImmediate is used. This
+     field is only honored by servers that enable the VolumeScheduling feature.
+
+```
+{% endtab %}
+{% endtabs %}
 
 Add the --recursive flag to display all of the fields at once without descriptions.
 
 ## Default Storage Class
 
-The default StorageClass is used to dynamically provision storage for PersistentVolumeClaims that do not require any specific storage class. It simplify the management by using the default Storage Class to create the new Persitent Volumes.
+
 
 The default Storage Class is defined by an annotation set to true : `storageclass.kubernetes.io/is-default-class`
 

@@ -29,7 +29,7 @@ The _create_ command can create a NetworkPolicy object based on a yaml file defi
 Deploy a default Network Policy for each resources in the default namespace to deny all ingress and egress traffic.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/networkpolicy/networkpolicy.yaml" %}
+{% code-tabs-item title="/data/networkpolicy/01\_networkpolicy.yaml" %}
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -45,8 +45,67 @@ spec:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Create the resource based on the previous yaml file definition.
+
 ```bash
-kubectl create -f /data/networkpolicy/networkpolicy.yaml
+kubectl create -f /data/networkpolicy/01_networkpolicy.yaml
+```
+
+#### Exercise n°2
+
+Create a network policy to :
+
+* Allow the ingress traffic from :
+  * The IP range : 172.17.0.0/16
+  * The namespace transvers
+  * The Pods labelized with the key _role_ and the value _frontend_
+  * The port 5432
+* _Allow the egress traffic to :_
+  * The local network 10.0.0.0/24 on port 5432
+
+{% code-tabs %}
+{% code-tabs-item title="/data/networkpolicy/02\_networkpolicy.yaml" %}
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: testnetworkpolicy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 172.17.0.0/16
+    - namespaceSelector:
+        matchLabels:
+          env: transvers
+    - podSelector:
+        matchLabels:
+          role: frontend
+    ports:
+    - protocol: TCP
+      port: 5432
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/24
+    ports:
+    - protocol: TCP
+      port: 5432
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the resource based on the previous yaml file definition.
+
+```bash
+kubectl create -f /data/networkpolicy/02_networkpolicy.yaml
 ```
 
 ## Get
@@ -71,7 +130,8 @@ kubectl get networkpolicy
 {% tab title="CLI Return" %}
 ```bash
 NAME                   POD-SELECTOR   AGE
-defaultnetworkpolicy   <none>         44s
+defaultnetworkpolicy   <none>         2m
+testnetworkpolicy      role=db        5s
 ```
 {% endtab %}
 {% endtabs %}
@@ -91,23 +151,31 @@ Describe one of the existing Network Policy in the default namespace.
 {% tabs %}
 {% tab title="Command" %}
 ```bash
-kubectl describe networkpolicy defaultnetworkpolicy
+kubectl describe networkpolicy testnetworkpolicy
 ```
 {% endtab %}
 
 {% tab title="CLI Return" %}
 ```bash
-Name:         defaultnetworkpolicy
+Name:         testnetworkpolicy
 Namespace:    default
-Created on:   2019-02-06 11:21:15 -0500 EST
+Created on:   2019-02-13 14:59:12 -0500 EST
 Labels:       <none>
-Annotations:  kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"networking.k8s.io/v1","kind":"NetworkPolicy","metadata":{"annotations":{},"name":"default","namespace":"default"},"spec":{"podSelector":...
+Annotations:  <none>
 Spec:
-  PodSelector:     <none> (Allowing the specific traffic to all pods in this namespace)
+  PodSelector:     role=db
   Allowing ingress traffic:
-    <none> (Selected pods are isolated for ingress connectivity)
+    To Port: 6379/TCP
+    From IPBlock:
+        CIDR: 172.17.0.0/16
+        Except: 172.17.1.0/24
+    From NamespaceSelector: project=myproject
+    From PodSelector: role=frontend
   Allowing egress traffic:
-    <none> (Selected pods are isolated for egress connectivity)
+    To Port: 5978/TCP
+    To IPBlock:
+        CIDR: 10.0.0.0/24
+        Except: 
   Policy Types: Ingress, Egress
 ```
 {% endtab %}
@@ -201,7 +269,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous network policy in command line.
 
 ```bash
-kubectl delete networkpolicy defaultNetworkPolicy
+kubectl delete networkpolicy defaultnetworkpolicy testnetworkpolicy
 ```
 
 ## Module exercise

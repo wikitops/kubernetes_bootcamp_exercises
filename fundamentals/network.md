@@ -60,7 +60,7 @@ Create a network policy to :
   * The namespace transvers
   * The Pods labelized with the key _role_ and the value _frontend_
   * The port 5432
-* _Allow the egress traffic to :_
+* Allow the egress traffic to :
   * The local network 10.0.0.0/24 on port 5432
 
 {% code-tabs %}

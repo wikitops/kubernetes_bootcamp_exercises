@@ -14,6 +14,10 @@ At the end of this module, you will :
 * _Learn to manage ingress controller_
 * _Learn to secure the cluster access_
 
+{% hint style="info" %}
+This module needs an Ingress controller to be deployed on the cluster. The default Ingress controller used in this module in Nginx. Ensure this module is up and running before continuing.
+{% endhint %}
+
 ## Create
 
 Ingress exposes HTTP and HTTPS routes from outside the cluster to Services within the cluster. Traffic routing is controlled by rules defined on the ingress resource.
@@ -36,38 +40,124 @@ The _create_ command can create a Ingress object based on a yaml file definition
 
 #### Exercise n°1
 
+First, deploy two static website in two different deployments. Then, epose each one on the port 80.
+
+{% code-tabs %}
+{% code-tabs-item title="/data/routes/01\_deployments.yaml" %}
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webserver1
+  template:
+    metadata:
+      labels:
+        app: webserver1
+    spec:
+      containers:
+      - name: static
+        image: dockersamples/static-site
+        env:
+        - name: AUTHOR
+          value: wikitops1
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webserver2
+  template:
+    metadata:
+      labels:
+        app: webserver2
+    spec:
+      containers:
+      - name: static
+        image: dockersamples/static-site
+        env:
+        - name: AUTHOR
+          value: wikitops2
+        ports:
+        - containerPort: 80
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Expose each on of the Deployment on port 80.
+
+{% code-tabs %}
+{% code-tabs-item title="/data/routes/02\_services.yaml" %}
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: webserver1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: webserver2
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 Create an Ingress resource to expose an Nginx pod Service's on port 80.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/routes/03\_ingress.yaml" %}
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: myfirstingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+  name: myfirstingress
 spec:
-  backend:
-    serviceName: default-http-backend
-    servicePort: 80
   rules:
-  - host: myfirstpath.info
+  - host: wikitops.io
     http:
       paths:
-      - path: /
-        backend:
-          serviceName: myfirstpathsvc1
-          servicePort: 8080
-  - host: mysecondpath.com
-    http:
-      paths:
-      - path: /path1
-        backend:
-          serviceName: mysecondpathsvc1
+      - backend:
+          serviceName: webserver1
           servicePort: 80
-      - path: /path2
-        backend:
-          serviceName: mysecondpathsvc2
+        path: /path1
+      - backend:
+          serviceName: webserver2
           servicePort: 80
+        path: /path1
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create each resources based on the previous yaml files definiton.
+
+```bash
+kubectl create -f /data/routes/01_deployments.yaml -f /data/routes/02_services.yaml -f /data/routes/03_ingress.yaml
 ```
 
 ## Get
@@ -86,9 +176,20 @@ The default output display some useful information about each services :
 
 List the current Ingress resources created.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get ingress
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME             HOSTS                   ADDRESS   PORTS     AGE
+myfirstingress   wikitops.io             80        6s
+```
+{% endtab %}
+{% endtabs %}
 
 ## Describe
 
@@ -102,9 +203,35 @@ This command is really useful to introspect and debug an object deployed in a cl
 
 Describe one of the existing Ingress in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl describe ingress myfirstingress
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:             myfirstingress
+Namespace:        default
+Address:          10.0.2.15
+Default backend:  default-http-backend:80 (<none>)
+Rules:
+  Host              Path  Backends
+  ----              ----  --------
+  wikitops.io  
+                    /path1   webserver1:80 (<none>)
+                    /path2   webserver2:80 (<none>)
+Annotations:
+  nginx.ingress.kubernetes.io/rewrite-target:  /
+Events:
+  Type    Reason  Age   From                      Message
+  ----    ------  ----  ----                      -------
+  Normal  CREATE  42s   nginx-ingress-controller  Ingress default/myfirstingress
+  Normal  UPDATE  2s    nginx-ingress-controller  Ingress default/myfirstingress
+```
+{% endtab %}
+{% endtabs %}
 
 ## Explain
 
@@ -116,9 +243,46 @@ The _explain_ command allows to directly ask the API resource via the command li
 
 Get the documentation of a specific field of a resource.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl explain ingresses.spec
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+KIND:     Ingress
+VERSION:  extensions/v1beta1
+
+RESOURCE: spec <Object>
+
+DESCRIPTION:
+     Spec is the desired state of the Ingress. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+
+     IngressSpec describes the Ingress the user wishes to exist.
+
+FIELDS:
+   backend	<Object>
+     A default backend capable of servicing requests that don't match any rule.
+     At least one of 'backend' or 'rules' must be specified. This field is
+     optional to allow the loadbalancer controller or defaulting logic to
+     specify a global default.
+
+   rules	<[]Object>
+     A list of host rules used to configure the Ingress. If unspecified, or no
+     rule matches, all traffic is sent to the default backend.
+
+   tls	<[]Object>
+     TLS configuration. Currently the Ingress only supports a single TLS port,
+     443. If multiple members of this list specify different hosts, they will be
+     multiplexed on the same port according to the hostname specified through
+     the SNI TLS extension, if the ingress controller fulfilling the ingress
+     supports SNI.
+```
+{% endtab %}
+{% endtabs %}
 
 Add the --recursive flag to display all of the fields at once without descriptions.
 
@@ -135,7 +299,14 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous ingress in command line.
 
 ```bash
+# Delete Ingress
 kubectl delete ingress myfirstingress
+
+# Delete Deployments
+kubectl delete deployment webserver1 webserver2
+
+# Delete Services
+kubectl delete service webserver1 webserver2
 ```
 
 ## Module exercise

@@ -86,9 +86,21 @@ The default output display some useful information about each services :
 
 Get a list of the existing deployment object in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get deployment
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME                    DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+mynginxdeploymentcli    1         1         1            1           33s
+mynginxdeploymentyaml   3         3         3            3           15s
+```
+{% endtab %}
+{% endtabs %}
 
 ## Describe
 
@@ -102,9 +114,49 @@ This command is really useful to introspect and debug an object deployed in a cl
 
 Describe a deployment in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl describe deployment mynginxdeploymentcli
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:                   mynginxdeploymentcli
+Namespace:              default
+CreationTimestamp:      Wed, 13 Feb 2019 13:13:10 -0500
+Labels:                 app=mynginxdeploymentcli
+Annotations:            deployment.kubernetes.io/revision=1
+Selector:               app=mynginxdeploymentcli
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  1 max unavailable, 1 max surge
+Pod Template:
+  Labels:  app=mynginxdeploymentcli
+  Containers:
+   nginx:
+    Image:        nginx
+    Port:         <none>
+    Host Port:    <none>
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   mynginxdeploymentcli-547487b8d (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  1m    deployment-controller  Scaled up replica set mynginxdeploymentcli-547487b8d to 1
+
+```
+{% endtab %}
+{% endtabs %}
 
 ## Explain
 
@@ -116,9 +168,70 @@ The _explain_ command allows to directly ask the API resource via the command li
 
 Get the documentation of a specific field of a resource.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl explain deployment.spec
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+KIND:     Deployment
+VERSION:  extensions/v1beta1
+
+RESOURCE: spec <Object>
+
+DESCRIPTION:
+     Specification of the desired behavior of the Deployment.
+
+     DeploymentSpec is the specification of the desired behavior of the
+     Deployment.
+
+FIELDS:
+   minReadySeconds	<integer>
+     Minimum number of seconds for which a newly created pod should be ready
+     without any of its container crashing, for it to be considered available.
+     Defaults to 0 (pod will be considered available as soon as it is ready)
+
+   paused	<boolean>
+     Indicates that the deployment is paused and will not be processed by the
+     deployment controller.
+
+   progressDeadlineSeconds	<integer>
+     The maximum time in seconds for a deployment to make progress before it is
+     considered to be failed. The deployment controller will continue to process
+     failed deployments and a condition with a ProgressDeadlineExceeded reason
+     will be surfaced in the deployment status. Note that progress will not be
+     estimated during the time a deployment is paused. This is set to the max
+     value of int32 (i.e. 2147483647) by default, which means "no deadline".
+
+   replicas	<integer>
+     Number of desired pods. This is a pointer to distinguish between explicit
+     zero and not specified. Defaults to 1.
+
+   revisionHistoryLimit	<integer>
+     The number of old ReplicaSets to retain to allow rollback. This is a
+     pointer to distinguish between explicit zero and not specified. This is set
+     to the max value of int32 (i.e. 2147483647) by default, which means
+     "retaining all old RelicaSets".
+
+   rollbackTo	<Object>
+     DEPRECATED. The config this deployment is rolling back to. Will be cleared
+     after rollback is done.
+
+   selector	<Object>
+     Label selector for pods. Existing ReplicaSets whose pods are selected by
+     this will be the ones affected by this deployment.
+
+   strategy	<Object>
+     The deployment strategy to use to replace existing pods with new ones.
+
+   template	<Object> -required-
+     Template describes the pods that will be created.
+```
+{% endtab %}
+{% endtabs %}
 
 Add the --recursive flag to display all of the fields at once without descriptions.
 
@@ -150,6 +263,8 @@ The rolling update method does not apply only to the _Deployment_ object but to 
 4. Describe the deployment to ensure the version has changed
 5. Check the history of the deployment to note the new entry
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl rollout history deployment mynginxdeploymentyaml
 kubectl get deployment mynginxdeploymentyaml -o=jsonpath='{$.spec.template.spec.containers[:1].image}'
@@ -157,6 +272,35 @@ kubectl set image deployment/mynginxdeploymentyaml nginx=nginx:1.9.1
 kubectl get deployment mynginxdeploymentyaml -o=jsonpath='{$.spec.template.spec.containers[:1].image}'
 kubectl rollout history deployment mynginxdeploymentyaml
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+deployments "mynginxdeploymentyaml"
+REVISION  CHANGE-CAUSE
+1         <none>
+```
+
+```bash
+nginx
+```
+
+```bash
+deployment.apps "mynginxdeploymentyaml" image updated
+```
+
+```bash
+nginx:1.9.1
+```
+
+```bash
+deployments "mynginxdeploymentyaml"
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°2
 
@@ -190,9 +334,24 @@ spec:
 
 Update the Deployment in command line.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl apply -f /data/deployment/02_deployment.yaml --record
+kubectl rollout history deployment mynginxdeploymentyaml
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+deployments "mynginxdeploymentyaml"
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+3         kubectl apply --filename=/data/deployment/02_deployment.yaml --record=true
+```
+{% endtab %}
+{% endtabs %}
 
 ### Rollback
 

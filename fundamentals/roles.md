@@ -110,10 +110,10 @@ List the existing ClusterRoles and ClusterRolebinding.
 {% tab title="Command" %}
 ```bash
 # List the cluster roles
-kubectl get clusterroles secrets-reader
+kubectl get clusterroles
 
 # List the cluster roles binding
-kubectl get clusterrolebinding reader-secrets
+kubectl get clusterrolebinding
 ```
 {% endtab %}
 
@@ -249,10 +249,10 @@ Describe the roles pod-reader previously created and his binding read-pods.
 {% tab title="Command" %}
 ```bash
 # Describe a role
-kubectl describe role pods-reader
+kubectl describe role
 
 # Describe the rolebinding associated
-kubectl describe rolebinding read-pods
+kubectl describe rolebinding
 ```
 {% endtab %}
 

@@ -75,7 +75,14 @@ kubectl describe serviceaccount myfirstserviceaccount
 
 {% tab title="CLI Return" %}
 ```bash
-kubectl describe serviceaccount myfirstserviceaccount
+Name:                myfirstserviceaccount
+Namespace:           default
+Labels:              <none>
+Annotations:         <none>
+Image pull secrets:  <none>
+Mountable secrets:   myfirstserviceaccount-token-59xwk
+Tokens:              myfirstserviceaccount-token-59xwk
+Events:              <none>
 ```
 {% endtab %}
 {% endtabs %}

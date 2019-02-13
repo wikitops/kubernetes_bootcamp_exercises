@@ -105,14 +105,14 @@ Update the image version of the previous nginx pods.
 ```yaml
 apiVersion: v1
 kind: Pod
-metadata:
+metadata:4
   name: my-single-nginx14
   labels:
     env: formation
 spec:
   containers:
   - name: nginx
-    image: nginx:1.14-alpine
+    image: nginx:1.14
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -137,33 +137,122 @@ The default output display some useful information about each services :
 
 List pods deployed on the current namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get pods
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME                READY     STATUS      RESTARTS   AGE
+busybox             0/1       Completed   0          4m
+my-multi-app        3/3       Running     0          3m
+my-single-nginx     1/1       Running     0          3m
+my-single-nginx14   1/1       Running     0          3m
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°2
 
-List pods deployed on the namespace _app-demo_.
+List pods deployed on the namespace _default_.
 
-```text
-kubectl get pods -n app-demo
+{% tabs %}
+{% tab title="Command" %}
+```bash
+kubectl get pods -n default
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME                READY     STATUS      RESTARTS   AGE
+busybox             0/1       Completed   0          9m
+my-multi-app        3/3       Running     0          8m
+my-single-nginx     1/1       Running     0          8m
+my-single-nginx14   1/1       Running     1          8m
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°3
 
 List all pods in all namespaces.
 
-```text
+{% tabs %}
+{% tab title="Command" %}
+```bash
 kubectl get pods --all-namespaces
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAMESPACE     NAME                                       READY     STATUS      RESTARTS   AGE
+default       busybox                                    0/1       Completed   0          10m
+default       my-multi-app                               3/3       Running     0          9m
+default       my-single-nginx                            1/1       Running     0          9m
+default       my-single-nginx14                          1/1       Running     1          8m
+kube-system   coredns-86c58d9df4-l2hlv                   1/1       Running     0          59m
+kube-system   coredns-86c58d9df4-vwf67                   1/1       Running     0          59m
+kube-system   default-http-backend-5ff9d456ff-r4fk8      1/1       Running     0          59m
+kube-system   etcd-minikube                              1/1       Running     0          58m
+kube-system   kube-addon-manager-minikube                1/1       Running     0          58m
+kube-system   kube-apiserver-minikube                    1/1       Running     0          59m
+kube-system   kube-controller-manager-minikube           1/1       Running     0          58m
+kube-system   kube-proxy-s5frv                           1/1       Running     0          59m
+kube-system   kube-scheduler-minikube                    1/1       Running     0          58m
+kube-system   metrics-server-6fc4b7bcff-wsjsq            1/1       Running     0          59m
+kube-system   nginx-ingress-controller-7c66d668b-sc6g8   1/1       Running     0          59m
+kube-system   storage-provisioner                        1/1       Running     0          59m
+
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°4
 
 List all pods, services, deployments in the _kube-system_ namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get pods,service,deployment -n kube-system
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME                                       READY     STATUS    RESTARTS   AGE
+coredns-86c58d9df4-l2hlv                   1/1       Running   0          1h
+coredns-86c58d9df4-vwf67                   1/1       Running   0          1h
+default-http-backend-5ff9d456ff-r4fk8      1/1       Running   0          1h
+etcd-minikube                              1/1       Running   0          1h
+kube-addon-manager-minikube                1/1       Running   0          1h
+kube-apiserver-minikube                    1/1       Running   0          1h
+kube-controller-manager-minikube           1/1       Running   2          1h
+kube-proxy-s5frv                           1/1       Running   0          1h
+kube-scheduler-minikube                    1/1       Running   2          1h
+metrics-server-6fc4b7bcff-wsjsq            1/1       Running   0          1h
+nginx-ingress-controller-7c66d668b-sc6g8   1/1       Running   0          1h
+storage-provisioner                        1/1       Running   0          1h
+
+NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)         AGE
+default-http-backend   NodePort    10.99.155.8     <none>        80:30001/TCP    1h
+kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP   1h
+metrics-server         ClusterIP   10.98.243.211   <none>        443/TCP         1h
+
+NAME                       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+coredns                    2         2         2            2           1h
+default-http-backend       1         1         1            1           1h
+metrics-server             1         1         1            1           1h
+nginx-ingress-controller   1         1         1            1           1h
+
+```
+{% endtab %}
+{% endtabs %}
 
 ## Describe
 

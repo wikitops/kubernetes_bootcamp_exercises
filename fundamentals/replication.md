@@ -74,9 +74,20 @@ The default output of a get ReplicaSet command display three replicas status :
 
 List the ReplicaSet created in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get replicaset
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME                DESIRED   CURRENT   READY     AGE
+mynginxreplicaset   3         3         3         10s
+```
+{% endtab %}
+{% endtabs %}
 
 ## Describe
 
@@ -90,9 +101,44 @@ This command is really useful to introspect and debug an object deployed in a cl
 
 Describe the ReplicaSet created in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl describe replicaset mynginxreplicaset
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:         mynginxreplicaset
+Namespace:    default
+Selector:     app=mynginxreplicaset,app in (mynginxreplicaset)
+Labels:       app=mynginxreplicaset
+              env=formation
+Annotations:  <none>
+Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=mynginxreplicaset
+           env=formation
+  Containers:
+   nginx:
+    Image:        nginx
+    Port:         <none>
+    Host Port:    <none>
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  48s   replicaset-controller  Created pod: mynginxreplicaset-qqcwc
+  Normal  SuccessfulCreate  48s   replicaset-controller  Created pod: mynginxreplicaset-vmkfm
+  Normal  SuccessfulCreate  48s   replicaset-controller  Created pod: mynginxreplicaset-st4kr
+
+```
+{% endtab %}
+{% endtabs %}
 
 ## Explain
 
@@ -104,9 +150,54 @@ The _explain_ command allows to directly ask the API resource via the command li
 
 Get the documentation of a specific field of a resource.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl explain replicaset.spec
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+KIND:     ReplicaSet
+VERSION:  extensions/v1beta1
+
+RESOURCE: spec <Object>
+
+DESCRIPTION:
+     Spec defines the specification of the desired behavior of the ReplicaSet.
+     More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+
+     ReplicaSetSpec is the specification of a ReplicaSet.
+
+FIELDS:
+   minReadySeconds	<integer>
+     Minimum number of seconds for which a newly created pod should be ready
+     without any of its container crashing, for it to be considered available.
+     Defaults to 0 (pod will be considered available as soon as it is ready)
+
+   replicas	<integer>
+     Replicas is the number of desired replicas. This is a pointer to
+     distinguish between explicit zero and unspecified. Defaults to 1. More
+     info:
+     https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+
+   selector	<Object>
+     Selector is a label query over pods that should match the replica count. If
+     the selector is empty, it is defaulted to the labels present on the pod
+     template. Label keys and values that must match in order to be controlled
+     by this replica set. More info:
+     https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+
+   template	<Object>
+     Template is the object that describes the pod that will be created if
+     insufficient replicas are detected. More info:
+     https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+
+```
+{% endtab %}
+{% endtabs %}
 
 Add the --recursive flag to display all of the fields at once without descriptions.
 

@@ -288,21 +288,10 @@ kubectl logs myfirstconfigmapenv1
 
 {% tab title="CLI Return" %}
 ```bash
-KUBERNETES_PORT=tcp://10.96.0.1:443
-KUBERNETES_SERVICE_PORT=443
-HOSTNAME=myfirstconfigmapenv1
-SHLVL=1
-HOME=/root
-KUBERNETES_PORT_443_TCP_ADDR=10.96.0.1
+[...]
 CM_SUBJECT_TITLE=MySimpleConfigMap
 CM_COURSE=kubernetes
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-KUBERNETES_PORT_443_TCP_PORT=443
-KUBERNETES_PORT_443_TCP_PROTO=tcp
-KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
-KUBERNETES_SERVICE_PORT_HTTPS=443
-PWD=/
-KUBERNETES_SERVICE_HOST=10.96.0.1
+[...]
 ```
 {% endtab %}
 {% endtabs %}
@@ -347,23 +336,12 @@ bectl logs myfirstconfigmapenv2
 
 {% tab title="CLI Return" %}
 ```bash
-KUBERNETES_PORT=tcp://10.96.0.1:443
-KUBERNETES_SERVICE_PORT=443
-HOSTNAME=myfirstconfigmapenv2
-SHLVL=1
-HOME=/root
+[...]
 subject=configmap
 course=kubernetes
-KUBERNETES_PORT_443_TCP_ADDR=10.96.0.1
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-KUBERNETES_PORT_443_TCP_PORT=443
-KUBERNETES_PORT_443_TCP_PROTO=tcp
+[...]
 subject.title=MySimpleConfigMap
-KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
-KUBERNETES_SERVICE_PORT_HTTPS=443
-PWD=/
-KUBERNETES_SERVICE_HOST=10.96.0.1
-
+[...]
 ```
 {% endtab %}
 {% endtabs %}
@@ -471,11 +449,7 @@ kubectl exec myfirstconfigmapfile2 -- cat /tmp/myconfigmap/course
 
 {% tab title="CLI Return" %}
 ```bash
-total 12
-6304096 drwxrwxrwx    3 root     root          4096 Feb 13 18:51 .
-6303932 drwxrwxrwt    1 root     root          4096 Feb 13 18:51 ..
-6304100 drwxr-xr-x    2 root     root          4096 Feb 13 18:51 ..2019_02_13_18_51_49.161964579
-6304107 lrwxrwxrwx    1 root     root            31 Feb 13 18:51 ..data -> ..2019_02_13_18_51_49.161964579
+total 12[...]
 6304104 lrwxrwxrwx    1 root     root            13 Feb 13 18:51 course -> ..data/course
 6304105 lrwxrwxrwx    1 root     root            14 Feb 13 18:51 subject -> ..data/subject
 6304106 lrwxrwxrwx    1 root     root            20 Feb 13 18:51 subject.title -> ..data/subject.title

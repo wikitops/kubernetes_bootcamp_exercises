@@ -161,33 +161,203 @@ Here is an exhaustive list of [Kubernetes objects](https://kubernetes.io/docs/re
 
 Get the cluster information in command line.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl cluster-info
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Kubernetes master is running at https://192.168.99.100:8443
+KubeDNS is running at https://192.168.99.100:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°2
 
 Get the config deployed in the Kubernetes cluster.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl config view
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+apiVersion: v1
+clusters:
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://192.168.99.100:8443
+  name: 192-168-99-100:8443
+- cluster:
+    certificate-authority: /home/treeptik/.minikube/ca.crt
+    server: https://192.168.99.100:8443
+  name: minikube
+contexts:
+- context:
+    cluster: 192-168-99-100:8443
+    user: admin/192-168-99-100:8443
+  name: /192-168-99-100:8443/admin
+- context:
+    cluster: minikube
+    user: minikube
+  name: minikube
+- context:
+    cluster: 192-168-99-100:8443
+    namespace: myproject
+    user: developer/192-168-99-100:8443
+  name: minishift
+- context:
+    cluster: 192-168-99-100:8443
+    namespace: myproject
+    user: developer/192-168-99-100:8443
+  name: myproject/192-168-99-100:8443/developer
+- context:
+    cluster: 192-168-99-100:8443
+    namespace: myproject
+    user: system:admin/192-168-99-100:8443
+  name: myproject/192-168-99-100:8443/system:admin
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: admin/192-168-99-100:8443
+  user:
+    token: rAacwcx21t096cPZF6GY99P0VuM3Wi5Ju265_OaMN9Y
+- name: developer/192-168-99-100:8443
+  user:
+    token: oWmdcNcXJmaMrlegTYnIoAfFRWlm0lFw4pldn8jxfrQ
+- name: minikube
+  user:
+    client-certificate: /home/treeptik/.minikube/client.crt
+    client-key: /home/treeptik/.minikube/client.key
+- name: system:admin/192-168-99-100:8443
+  user:
+    client-certificate-data: REDACTED
+    client-key-data: REDACTED
+
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°3
 
 Get each elements deployed in the cluster in command line.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get all --all-namespaces
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+# Pods
+NAMESPACE     NAME                                       READY     STATUS    RESTARTS   AGE
+kube-system   coredns-86c58d9df4-l2hlv                   1/1       Running   0          2m
+kube-system   coredns-86c58d9df4-vwf67                   1/1       Running   0          2m
+kube-system   default-http-backend-5ff9d456ff-r4fk8      1/1       Running   0          2m
+kube-system   etcd-minikube                              1/1       Running   0          1m
+kube-system   kube-addon-manager-minikube                1/1       Running   0          1m
+kube-system   kube-apiserver-minikube                    1/1       Running   0          1m
+kube-system   kube-controller-manager-minikube           1/1       Running   0          1m
+kube-system   kube-proxy-s5frv                           1/1       Running   0          2m
+kube-system   kube-scheduler-minikube                    1/1       Running   0          1m
+kube-system   metrics-server-6fc4b7bcff-wsjsq            1/1       Running   0          2m
+kube-system   nginx-ingress-controller-7c66d668b-sc6g8   1/1       Running   0          2m
+kube-system   storage-provisioner                        1/1       Running   0          2m
+
+# Services
+NAMESPACE     NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)         AGE
+default       kubernetes             ClusterIP   10.96.0.1       <none>        443/TCP         2m
+kube-system   default-http-backend   NodePort    10.99.155.8     <none>        80:30001/TCP    2m
+kube-system   kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP   2m
+kube-system   metrics-server         ClusterIP   10.98.243.211   <none>        443/TCP         2m
+
+# DaemonSets
+NAMESPACE     NAME         DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+kube-system   kube-proxy   1         1         1         1            1           <none>          2m
+
+# Deployments
+NAMESPACE     NAME                       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+kube-system   coredns                    2         2         2            2           2m
+kube-system   default-http-backend       1         1         1            1           2m
+kube-system   metrics-server             1         1         1            1           2m
+kube-system   nginx-ingress-controller   1         1         1            1           2m
+
+# ReplicaSets
+NAMESPACE     NAME                                 DESIRED   CURRENT   READY     AGE
+kube-system   coredns-86c58d9df4                   2         2         2         2m
+kube-system   default-http-backend-5ff9d456ff      1         1         1         2m
+kube-system   metrics-server-6fc4b7bcff            1         1         1         2m
+kube-system   nginx-ingress-controller-7c66d668b   1         1         1         2m
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°4
 
 Describe the fields associated with each supported API resource.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl explain
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+You must specify the type of resource to explain. Valid resource types include: 
+
+  * all  
+  * certificatesigningrequests (aka 'csr')  
+  * clusterrolebindings  
+  * clusterroles  
+  * componentstatuses (aka 'cs')  
+  * configmaps (aka 'cm')  
+  * controllerrevisions  
+  * cronjobs  
+  * customresourcedefinition (aka 'crd')  
+  * daemonsets (aka 'ds')  
+  * deployments (aka 'deploy')  
+  * endpoints (aka 'ep')  
+  * events (aka 'ev')  
+  * horizontalpodautoscalers (aka 'hpa')  
+  * ingresses (aka 'ing')  
+  * jobs  
+  * limitranges (aka 'limits')  
+  * namespaces (aka 'ns')  
+  * networkpolicies (aka 'netpol')  
+  * nodes (aka 'no')  
+  * persistentvolumeclaims (aka 'pvc')  
+  * persistentvolumes (aka 'pv')  
+  * poddisruptionbudgets (aka 'pdb')  
+  * podpreset  
+  * pods (aka 'po')  
+  * podsecuritypolicies (aka 'psp')  
+  * podtemplates  
+  * replicasets (aka 'rs')  
+  * replicationcontrollers (aka 'rc')  
+  * resourcequotas (aka 'quota')  
+  * rolebindings  
+  * roles  
+  * secrets  
+  * serviceaccounts (aka 'sa')  
+  * services (aka 'svc')  
+  * statefulsets (aka 'sts')  
+  * storageclasses (aka 'sc')
+
+```
+{% endtab %}
+{% endtabs %}
 
 Add the --recursive flag to display all of the fields at once without descriptions. Information about each field is retrieved from the server in OpenAPI format.
 
@@ -223,9 +393,59 @@ spec:
 
 Extract the default namespace YAML file definition with the command line.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get namespace default -o yaml
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: 2019-02-13T16:56:00Z
+  name: default
+  resourceVersion: "9"
+  selfLink: /api/v1/namespaces/default
+  uid: 3db74a6c-2fb0-11e9-bf72-080027afe25b
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active
+```
+{% endtab %}
+{% endtabs %}
+
+#### Exercise n°2
+
+Extract only the useful information from the default namespace it in a YAML file.
+
+{% tabs %}
+{% tab title="Command" %}
+```bash
+kubectl get namespace default -o yaml --export
+```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: default
+  selfLink: /api/v1/namespaces/default
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active
+```
+{% endtab %}
+{% endtabs %}
 
 ## Architecture
 
@@ -243,25 +463,129 @@ A basic Kubernetes architecture can be schematized like this :
 
 List the all nodes of the cluster and identify the roles of each one.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get nodes
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME       STATUS    ROLES     AGE       VERSION
+minikube   Ready     master    11m       v1.13.2
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°2
 
 Describe one of the master node.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl describe node MASTER_NAME
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:               minikube
+Roles:              master
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/hostname=minikube
+                    node-role.kubernetes.io/master=
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket=/var/run/dockershim.sock
+                    node.alpha.kubernetes.io/ttl=0
+                    volumes.kubernetes.io/controller-managed-attach-detach=true
+CreationTimestamp:  Wed, 13 Feb 2019 11:56:00 -0500
+Taints:             <none>
+Unschedulable:      false
+Conditions:
+  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure   False   Wed, 13 Feb 2019 12:07:32 -0500   Wed, 13 Feb 2019 11:55:50 -0500   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure     False   Wed, 13 Feb 2019 12:07:32 -0500   Wed, 13 Feb 2019 11:55:50 -0500   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure      False   Wed, 13 Feb 2019 12:07:32 -0500   Wed, 13 Feb 2019 11:55:50 -0500   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready            True    Wed, 13 Feb 2019 12:07:32 -0500   Wed, 13 Feb 2019 11:55:50 -0500   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:  10.0.2.15
+  Hostname:    minikube
+Capacity:
+ cpu:                2
+ ephemeral-storage:  16888216Ki
+ hugepages-2Mi:      0
+ memory:             6101440Ki
+ pods:               110
+Allocatable:
+ cpu:                2
+ ephemeral-storage:  15564179840
+ hugepages-2Mi:      0
+ memory:             5999040Ki
+ pods:               110
+System Info:
+ Machine ID:                 0b1678d38b374464b90c69e54313c7e5
+ System UUID:                90DE34E2-D436-41B3-AE70-A84228677DA2
+ Boot ID:                    5afe6da9-7de1-4a30-abef-e27ce8793ecc
+ Kernel Version:             4.15.0
+ OS Image:                   Buildroot 2018.05
+ Operating System:           linux
+ Architecture:               amd64
+ Container Runtime Version:  docker://18.6.1
+ Kubelet Version:            v1.13.2
+ Kube-Proxy Version:         v1.13.2
+ExternalID:                  minikube
+Non-terminated Pods:         (12 in total)
+  Namespace                  Name                                        CPU Requests  CPU Limits  Memory Requests  Memory Limits
+  ---------                  ----                                        ------------  ----------  ---------------  -------------
+  kube-system                coredns-86c58d9df4-l2hlv                    100m (5%)     0 (0%)      70Mi (1%)        170Mi (2%)
+  kube-system                coredns-86c58d9df4-vwf67                    100m (5%)     0 (0%)      70Mi (1%)        170Mi (2%)
+  kube-system                default-http-backend-5ff9d456ff-r4fk8       20m (1%)      20m (1%)    30Mi (0%)        30Mi (0%)
+  kube-system                etcd-minikube                               0 (0%)        0 (0%)      0 (0%)           0 (0%)
+  kube-system                kube-addon-manager-minikube                 5m (0%)       0 (0%)      50Mi (0%)        0 (0%)
+  kube-system                kube-apiserver-minikube                     250m (12%)    0 (0%)      0 (0%)           0 (0%)
+  kube-system                kube-controller-manager-minikube            200m (10%)    0 (0%)      0 (0%)           0 (0%)
+  kube-system                kube-proxy-s5frv                            0 (0%)        0 (0%)      0 (0%)           0 (0%)
+  kube-system                kube-scheduler-minikube                     100m (5%)     0 (0%)      0 (0%)           0 (0%)
+  kube-system                metrics-server-6fc4b7bcff-wsjsq             0 (0%)        0 (0%)      0 (0%)           0 (0%)
+  kube-system                nginx-ingress-controller-7c66d668b-sc6g8    0 (0%)        0 (0%)      0 (0%)           0 (0%)
+  kube-system                storage-provisioner                         0 (0%)        0 (0%)      0 (0%)           0 (0%)
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  CPU Requests  CPU Limits  Memory Requests  Memory Limits
+  ------------  ----------  ---------------  -------------
+  775m (38%)    20m (1%)    220Mi (3%)       370Mi (6%)
+Events:
+  Type    Reason                   Age                From                  Message
+  ----    ------                   ----               ----                  -------
+  Normal  NodeHasSufficientMemory  11m (x7 over 11m)  kubelet, minikube     Node minikube status is now: NodeHasSufficientMemory
+  Normal  NodeHasNoDiskPressure    11m (x7 over 11m)  kubelet, minikube     Node minikube status is now: NodeHasNoDiskPressure
+  Normal  NodeHasSufficientPID     11m (x9 over 11m)  kubelet, minikube     Node minikube status is now: NodeHasSufficientPID
+  Normal  Starting                 11m                kube-proxy, minikube  Starting kube-proxy.
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°3
 
 Get more information about nodes in one command line.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get nodes -o wide
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME       STATUS    ROLES     AGE       VERSION   EXTERNAL-IP   OS-IMAGE            KERNEL-VERSION   CONTAINER-RUNTIME
+minikube   Ready     master    12m       v1.13.2   <none>        Buildroot 2018.05   4.15.0           docker://18.6.1
+```
+{% endtab %}
+{% endtabs %}
 
 ## Namespace
 
@@ -275,9 +599,22 @@ Namespaces are a way to divide cluster resources between multiple users via the 
 
 List all the default namespaces created by the installer.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get namespace
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME          STATUS    AGE
+default       Active    10m
+kube-public   Active    10m
+kube-system   Active    10m
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°2
 
@@ -291,12 +628,16 @@ kubectl create namespace app-demo
 
 Create a namespace _another-demo_ in declarative mode with a YAML file.
 
+{% code-tabs %}
+{% code-tabs-item title="/data/orchestration/namespace.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
   name: another-demo
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ```bash
 kubectl create -f namespace-demo.yaml
@@ -306,16 +647,37 @@ kubectl create -f namespace-demo.yaml
 
 Describe the namespace _app-demo_.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl describe namespace app-demo
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:         app-demo
+Labels:       <none>
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No resource limits.
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°5
 
 Delete the namespace named "_another-demo_".
 
 {% hint style="info" %}
-Remember, when a namespace is deleted, each dependent objects are also deleted.
+Be careful on the deletion of an object in Kubernetes, there is no rollback.
+{% endhint %}
+
+{% hint style="info" %}
+ Be carefull on namespace deletion, each objects deployed within it will be deleted too.
 {% endhint %}
 
 ```bash
@@ -323,7 +685,7 @@ Remember, when a namespace is deleted, each dependent objects are also deleted.
 kubectl delete namespace app-demo
 
 # With declarative file
-kubectl delete -f namespace-demo.yaml
+kubectl delete -f /data/orchestration/namespace.yaml
 ```
 
 ## Labels
@@ -334,9 +696,20 @@ Labels are key/value pairs that are attached to objects, such as pods. Labels ar
 
 List all nodes of the cluster and display all their labels.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get nodes --show-labels
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME       STATUS    ROLES     AGE       VERSION   LABELS
+minikube   Ready     master    18m       v1.13.2   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/hostname=minikube,node-role.kubernetes.io/master=
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°2
 

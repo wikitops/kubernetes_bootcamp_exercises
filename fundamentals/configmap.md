@@ -130,9 +130,22 @@ The default output display some useful information about each ConfigMaps :
 
 Get a list of ConfigMaps deployed in the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl get configmaps
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+NAME                DATA      AGE
+myconfigmapdir      1         21s
+myconfigmapfile     1         7s
+mysimpleconfigmap   3         58s
+```
+{% endtab %}
+{% endtabs %}
 
 ## Describe
 
@@ -144,11 +157,68 @@ This command is really useful to introspect and debug an object deployed in a cl
 
 #### Exercise n°1
 
-Describe one of the ConfigMaps deployed in the default namespace.
+Describe the ConfigMaps deployed in the default namespace with a file or a directory.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl describe configmaps myconfigmapdir
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:         myconfigmapdir
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+cm:
+----
+course=kubernetes
+subject=configmaps
+subject.title=mysecondconfigmap
+
+Events:  <none>
+```
+{% endtab %}
+{% endtabs %}
+
+#### Exercise n°2
+
+Describe the ConfigMaps deployed in the default namespace with litteral values.
+
+{% tabs %}
+{% tab title="Command" %}
+```bash
+kubectl describe configmaps mysimpleconfigmap
+```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:         mysimpleconfigmap
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+subject.title:
+----
+MySimpleConfigMap
+course:
+----
+kubernetes
+subject:
+----
+configmap
+Events:  <none>
+```
+{% endtab %}
+{% endtabs %}
 
 ## Attach
 
@@ -209,9 +279,33 @@ kubectl create -f /data/configmap/01_pod.yaml
 
 Get the logs to ensure the Pods is running and configured.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl logs myfirstconfigmapenv1
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+KUBERNETES_PORT=tcp://10.96.0.1:443
+KUBERNETES_SERVICE_PORT=443
+HOSTNAME=myfirstconfigmapenv1
+SHLVL=1
+HOME=/root
+KUBERNETES_PORT_443_TCP_ADDR=10.96.0.1
+CM_SUBJECT_TITLE=MySimpleConfigMap
+CM_COURSE=kubernetes
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+KUBERNETES_PORT_443_TCP_PORT=443
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
+KUBERNETES_SERVICE_PORT_HTTPS=443
+PWD=/
+KUBERNETES_SERVICE_HOST=10.96.0.1
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°2
 
@@ -244,9 +338,35 @@ kubectl create -f /data/configmap/02_pod.yaml
 
 Get the logs to ensure the Pods is running and configured.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
-kubectl logs myfirstconfigmapenv2
+bectl logs myfirstconfigmapenv2
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+KUBERNETES_PORT=tcp://10.96.0.1:443
+KUBERNETES_SERVICE_PORT=443
+HOSTNAME=myfirstconfigmapenv2
+SHLVL=1
+HOME=/root
+subject=configmap
+course=kubernetes
+KUBERNETES_PORT_443_TCP_ADDR=10.96.0.1
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+KUBERNETES_PORT_443_TCP_PORT=443
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+subject.title=MySimpleConfigMap
+KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
+KUBERNETES_SERVICE_PORT_HTTPS=443
+PWD=/
+KUBERNETES_SERVICE_HOST=10.96.0.1
+
+```
+{% endtab %}
+{% endtabs %}
 
 ### In file path
 
@@ -296,9 +416,19 @@ kubectl create -f /data/configmap/03_pod.yaml
 
 Get the logs to ensure the Pods is running and configured.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl logs myfirstconfigmapfile1
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```text
+kubernetes
+```
+{% endtab %}
+{% endtabs %}
 
 #### Exercise n°2
 
@@ -313,7 +443,7 @@ spec:
   containers:
     - name: busybox
       image: k8s.gcr.io/busybox
-      command: [ "/bin/sh","-c","cat /tmp/myconfigmap" ]
+      command: [ "/bin/sh","-c","sleep 3600" ]
       volumeMounts:
       - name: myconfigmap
         mountPath: /tmp/myconfigmap
@@ -331,9 +461,31 @@ kubectl create -f /data/configmap/04_pod.yaml
 
 Get the logs to ensure the Pods is running and configured.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
-kubectl logs myfirstconfigmapfile2
+kubectl exec myfirstconfigmapfile2 -- ls -ailh /tmp/myconfigmap
+kubectl exec myfirstconfigmapfile2 -- cat /tmp/myconfigmap/course
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+total 12
+6304096 drwxrwxrwx    3 root     root          4096 Feb 13 18:51 .
+6303932 drwxrwxrwt    1 root     root          4096 Feb 13 18:51 ..
+6304100 drwxr-xr-x    2 root     root          4096 Feb 13 18:51 ..2019_02_13_18_51_49.161964579
+6304107 lrwxrwxrwx    1 root     root            31 Feb 13 18:51 ..data -> ..2019_02_13_18_51_49.161964579
+6304104 lrwxrwxrwx    1 root     root            13 Feb 13 18:51 course -> ..data/course
+6304105 lrwxrwxrwx    1 root     root            14 Feb 13 18:51 subject -> ..data/subject
+6304106 lrwxrwxrwx    1 root     root            20 Feb 13 18:51 subject.title -> ..data/subject.title
+```
+
+```bash
+kubernetes
+```
+{% endtab %}
+{% endtabs %}
 
 ## Explain
 
@@ -345,9 +497,54 @@ The _explain_ command allows to directly ask the API resource via the command li
 
 Get the documentation of a specific field of a resource.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl explain configmap
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+KIND:     ConfigMap
+VERSION:  v1
+
+DESCRIPTION:
+     ConfigMap holds configuration data for pods to consume.
+
+FIELDS:
+   apiVersion	<string>
+     APIVersion defines the versioned schema of this representation of an
+     object. Servers should convert recognized schemas to the latest internal
+     value, and may reject unrecognized values. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+
+   binaryData	<map[string]string>
+     BinaryData contains the binary data. Each key must consist of alphanumeric
+     characters, '-', '_' or '.'. BinaryData can contain byte sequences that are
+     not in the UTF-8 range. The keys stored in BinaryData must not overlap with
+     the ones in the Data field, this is enforced during validation process.
+     Using this field will require 1.10+ apiserver and kubelet.
+
+   data	<map[string]string>
+     Data contains the configuration data. Each key must consist of alphanumeric
+     characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use
+     the BinaryData field. The keys stored in Data must not overlap with the
+     keys in the BinaryData field, this is enforced during validation process.
+
+   kind	<string>
+     Kind is a string value representing the REST resource this object
+     represents. Servers may infer this from the endpoint the client submits
+     requests to. Cannot be updated. In CamelCase. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+
+   metadata	<Object>
+     Standard object's metadata. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+
+```
+{% endtab %}
+{% endtabs %}
 
 Add the --recursive flag to display all of the fields at once without descriptions.
 
@@ -364,7 +561,11 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous ConfigMaps created.
 
 ```bash
-kubectl delete configmaps CONFIGMAPS_NAME
+# Delete the Pods created to detach the ConfigMaps
+kubectl delete pods myfirstconfigmapenv1 myfirstconfigmapenv2 myfirstconfigmapfile1 myfirstconfigmapfile2
+
+# Delete the ConfigMaps created
+kubectl delete configmaps myconfigmapdir mysimpleconfigmap myconfigmapfile
 ```
 
 ## Module exercise

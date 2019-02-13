@@ -266,9 +266,69 @@ This command is really useful to introspect and debug a container deployed in a 
 
 Get the information of the pod busybox deployed on the default namespace.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl describe po busybox
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Name:               busybox
+Namespace:          default
+Priority:           0
+PriorityClassName:  <none>
+Node:               minikube/10.0.2.15
+Start Time:         Wed, 13 Feb 2019 12:45:52 -0500
+Labels:             run=busybox
+Annotations:        <none>
+Status:             Succeeded
+IP:                 172.17.0.7
+Containers:
+  busybox:
+    Container ID:   docker://5a3892c9be87e3f15e752f99d127d6d84525d1a29f3a5bb1b11713a3ae373eb1
+    Image:          busybox
+    Image ID:       docker-pullable://busybox@sha256:7964ad52e396a6e045c39b5a44438424ac52e12e4d5a25d94895f2058cb863a0
+    Port:           <none>
+    Host Port:      <none>
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 13 Feb 2019 12:45:55 -0500
+      Finished:     Wed, 13 Feb 2019 12:45:55 -0500
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-wpxhp (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  default-token-wpxhp:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-wpxhp
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  18m   default-scheduler  Successfully assigned default/busybox to minikube
+  Normal  Pulling    18m   kubelet, minikube  pulling image "busybox"
+  Normal  Pulled     18m   kubelet, minikube  Successfully pulled image "busybox"
+  Normal  Created    18m   kubelet, minikube  Created container
+  Normal  Started    18m   kubelet, minikube  Started container
+
+```
+{% endtab %}
+{% endtabs %}
 
 ## Exec
 
@@ -290,9 +350,36 @@ kubectl exec -it my-single-nginx bash
 
 Connect to the postgres container in the _my-multi-app_ pod in the namespace default_._
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl exec -it my-multi-app -c postgres env
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/postgresql/11/bin
+HOSTNAME=my-multi-app
+TERM=xterm
+KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+KUBERNETES_PORT_443_TCP_PORT=443
+KUBERNETES_PORT_443_TCP_ADDR=10.96.0.1
+KUBERNETES_SERVICE_HOST=10.96.0.1
+KUBERNETES_SERVICE_PORT=443
+KUBERNETES_SERVICE_PORT_HTTPS=443
+KUBERNETES_PORT=tcp://10.96.0.1:443
+GOSU_VERSION=1.11
+LANG=en_US.utf8
+PG_MAJOR=11
+PG_VERSION=11.1-3.pgdg90+1
+PGDATA=/var/lib/postgresql/data
+HOME=/root
+
+```
+{% endtab %}
+{% endtabs %}
 
 ## Edit
 
@@ -318,9 +405,199 @@ The _explain_ command allows to directly ask the API resource via the command li
 
 Get the documentation of a specific field of a resource.
 
+{% tabs %}
+{% tab title="Command" %}
 ```bash
 kubectl explain pods.spec
 ```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+KIND:     Pod
+VERSION:  v1
+
+RESOURCE: spec <Object>
+
+DESCRIPTION:
+     Specification of the desired behavior of the pod. More info:
+     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+
+     PodSpec is a description of a pod.
+
+FIELDS:
+   activeDeadlineSeconds	<integer>
+     Optional duration in seconds the pod may be active on the node relative to
+     StartTime before the system will actively try to mark it failed and kill
+     associated containers. Value must be a positive integer.
+
+   affinity	<Object>
+     If specified, the pod's scheduling constraints
+
+   automountServiceAccountToken	<boolean>
+     AutomountServiceAccountToken indicates whether a service account token
+     should be automatically mounted.
+
+   containers	<[]Object> -required-
+     List of containers belonging to the pod. Containers cannot currently be
+     added or removed. There must be at least one container in a Pod. Cannot be
+     updated.
+
+   dnsConfig	<Object>
+     Specifies the DNS parameters of a pod. Parameters specified here will be
+     merged to the generated DNS configuration based on DNSPolicy.
+
+   dnsPolicy	<string>
+     Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are
+     'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS
+     parameters given in DNSConfig will be merged with the policy selected with
+     DNSPolicy. To have DNS options set along with hostNetwork, you have to
+     specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
+
+   enableServiceLinks	<boolean>
+     EnableServiceLinks indicates whether information about services should be
+     injected into pod's environment variables, matching the syntax of Docker
+     links.
+
+   hostAliases	<[]Object>
+     HostAliases is an optional list of hosts and IPs that will be injected into
+     the pod's hosts file if specified. This is only valid for non-hostNetwork
+     pods.
+
+   hostIPC	<boolean>
+     Use the host's ipc namespace. Optional: Default to false.
+
+   hostNetwork	<boolean>
+     Host networking requested for this pod. Use the host's network namespace.
+     If this option is set, the ports that will be used must be specified.
+     Default to false.
+
+   hostPID	<boolean>
+     Use the host's pid namespace. Optional: Default to false.
+
+   hostname	<string>
+     Specifies the hostname of the Pod If not specified, the pod's hostname will
+     be set to a system-defined value.
+
+   imagePullSecrets	<[]Object>
+     ImagePullSecrets is an optional list of references to secrets in the same
+     namespace to use for pulling any of the images used by this PodSpec. If
+     specified, these secrets will be passed to individual puller
+     implementations for them to use. For example, in the case of docker, only
+     DockerConfig type secrets are honored. More info:
+     https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
+
+   initContainers	<[]Object>
+     List of initialization containers belonging to the pod. Init containers are
+     executed in order prior to containers being started. If any init container
+     fails, the pod is considered to have failed and is handled according to its
+     restartPolicy. The name for an init container or normal container must be
+     unique among all containers. Init containers may not have Lifecycle
+     actions, Readiness probes, or Liveness probes. The resourceRequirements of
+     an init container are taken into account during scheduling by finding the
+     highest request/limit for each resource type, and then using the max of of
+     that value or the sum of the normal containers. Limits are applied to init
+     containers in a similar fashion. Init containers cannot currently be added
+     or removed. Cannot be updated. More info:
+     https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+
+   nodeName	<string>
+     NodeName is a request to schedule this pod onto a specific node. If it is
+     non-empty, the scheduler simply schedules this pod onto that node, assuming
+     that it fits resource requirements.
+
+   nodeSelector	<map[string]string>
+     NodeSelector is a selector which must be true for the pod to fit on a node.
+     Selector which must match a node's labels for the pod to be scheduled on
+     that node. More info:
+     https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+
+   priority	<integer>
+     The priority value. Various system components use this field to find the
+     priority of the pod. When Priority Admission Controller is enabled, it
+     prevents users from setting this field. The admission controller populates
+     this field from PriorityClassName. The higher the value, the higher the
+     priority.
+
+   priorityClassName	<string>
+     If specified, indicates the pod's priority. "system-node-critical" and
+     "system-cluster-critical" are two special keywords which indicate the
+     highest priorities with the former being the highest priority. Any other
+     name must be defined by creating a PriorityClass object with that name. If
+     not specified, the pod priority will be default or zero if there is no
+     default.
+
+   readinessGates	<[]Object>
+     If specified, all readiness gates will be evaluated for pod readiness. A
+     pod is ready when all its containers are ready AND all conditions specified
+     in the readiness gates have status equal to "True" More info:
+     https://github.com/kubernetes/community/blob/master/keps/sig-network/0007-pod-ready%!B(MISSING)%!B(MISSING).md
+
+   restartPolicy	<string>
+     Restart policy for all containers within the pod. One of Always, OnFailure,
+     Never. Default to Always. More info:
+     https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+
+   runtimeClassName	<string>
+     RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group,
+     which should be used to run this pod. If no RuntimeClass resource matches
+     the named class, the pod will not be run. If unset or empty, the "legacy"
+     RuntimeClass will be used, which is an implicit class with an empty
+     definition that uses the default runtime handler. More info:
+     https://github.com/kubernetes/community/blob/master/keps/sig-node/0014-runtime-class.md
+     This is an alpha feature and may change in the future.
+
+   schedulerName	<string>
+     If specified, the pod will be dispatched by specified scheduler. If not
+     specified, the pod will be dispatched by default scheduler.
+
+   securityContext	<Object>
+     SecurityContext holds pod-level security attributes and common container
+     settings. Optional: Defaults to empty. See type description for default
+     values of each field.
+
+   serviceAccount	<string>
+     DeprecatedServiceAccount is a depreciated alias for ServiceAccountName.
+     Deprecated: Use serviceAccountName instead.
+
+   serviceAccountName	<string>
+     ServiceAccountName is the name of the ServiceAccount to use to run this
+     pod. More info:
+     https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+
+   shareProcessNamespace	<boolean>
+     Share a single process namespace between all of the containers in a pod.
+     When this is set containers will be able to view and signal processes from
+     other containers in the same pod, and the first process in each container
+     will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both
+     be set. Optional: Default to false. This field is beta-level and may be
+     disabled with the PodShareProcessNamespace feature.
+
+   subdomain	<string>
+     If specified, the fully qualified Pod hostname will be
+     "<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>". If not
+     specified, the pod will not have a domainname at all.
+
+   terminationGracePeriodSeconds	<integer>
+     Optional duration in seconds the pod needs to terminate gracefully. May be
+     decreased in delete request. Value must be non-negative integer. The value
+     zero indicates delete immediately. If this value is nil, the default grace
+     period will be used instead. The grace period is the duration in seconds
+     after the processes running in the pod are sent a termination signal and
+     the time when the processes are forcibly halted with a kill signal. Set
+     this value longer than the expected cleanup time for your process. Defaults
+     to 30 seconds.
+
+   tolerations	<[]Object>
+     If specified, the pod's tolerations.
+
+   volumes	<[]Object>
+     List of volumes that can be mounted by containers belonging to the pod.
+     More info: https://kubernetes.io/docs/concepts/storage/volumes
+
+```
+{% endtab %}
+{% endtabs %}
 
 Add the --recursive flag to display all of the fields at once without descriptions.
 

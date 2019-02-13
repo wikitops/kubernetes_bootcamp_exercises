@@ -6,13 +6,17 @@ description: >-
 
 # Autoscaling
 
-Module Overview
+## Module Overview
 
 At the end of this module, you will :
 
 * _Learn the format of a YAML Autoscale file_
 * _Learn how to manage a Autoscale_
 * _Learn the composition of a Autoscale_
+
+{% hint style="info" %}
+This module needs the metrics-server to be deployed on the cluster to get the monitoring values like CPU and memory. Ensure that the module is up and running before continuing.
+{% endhint %}
 
 ## Create
 
@@ -80,7 +84,7 @@ Stress the Pod created in the previous section and check the HorizontalPoMindAut
 {% tab title="Command" %}
 ```bash
 # Connect to the Pod
-kubectl run -i --tty load-generator --image=busybox /bin/sh
+kubectl run -it load-generator --image=busybox /bin/sh
 
 # Run a loop bash command in the container to stress the CPU
 while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
@@ -240,7 +244,10 @@ Delete the previous autoscaling group created in command line.
 kubectl delete hpa php-apache
 
 # Delete the Pods
-kubectl delete pods php-apache
+kubectl delete deployment php-apache load-generator
+
+# Delete the Services
+kubectl delete service php-apache
 ```
 
 ## Module exercise

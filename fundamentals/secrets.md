@@ -121,10 +121,10 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each services :
 
-* Name : The name of the Secrets object needed to attach it to a Pod
-* Type : The type of Secrets, indication of type of content in the object
-* Data : The count of keys in the Secrets
-* Age : Duration from the creation of the object
+* Name : the name of the newly created resource
+* Type : the type of Secrets, indication of type of content in the object
+* Data : the count of keys in the Secrets
+* Age : the age since his creation
 
 #### Exercise n°1
 

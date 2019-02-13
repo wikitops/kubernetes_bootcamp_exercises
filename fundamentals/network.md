@@ -57,7 +57,7 @@ The default output display some useful information about each services :
 
 * Name : the name of the newly created resource
 * Pod-selector : the labels used to associate the Network Policy with the Pods
-* Age :  the age from the resource creation
+* Age :  the age since his creation
 
 #### Exercise n°1
 

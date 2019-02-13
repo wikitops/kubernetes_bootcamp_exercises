@@ -68,7 +68,7 @@ The _get_ command list the object asked. It could be a single object or a list o
 The default output display some useful information about each services :
 
 * Name : the name of the newly created resource
-* Age : the age from the object creation
+* Age : the age since his creation
 
 #### Exercise n°1
 

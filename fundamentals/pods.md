@@ -123,13 +123,13 @@ kubectl apply -f /data/pods/03_pods.yaml
 
 ## Get
 
-The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formatted to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
 
 The default output display some useful information about each services :
 
 * Name : the name of the newly created resource
 * Ready : the amount of container ready in the Pods
-* Staus : the deployment status
+* Status : the deployment status
 * Restarts : the count that the Pods has restarted from his creation
 * Age : the age since the Pods creation
 

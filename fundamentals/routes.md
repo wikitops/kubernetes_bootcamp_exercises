@@ -80,7 +80,7 @@ The default output display some useful information about each services :
 * Hosts : the host to apply the newly created resource
 * Address : the address exposed by the newly created resource
 * Ports : the ports exposed by the resource
-* Age : the age since the creation of the resource
+* Age : the age since his creation
 
 #### Exercise n°1
 

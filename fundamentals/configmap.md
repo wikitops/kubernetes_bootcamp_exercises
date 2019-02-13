@@ -122,9 +122,9 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each ConfigMaps :
 
-* Name : Name of the ConfigMap, needed to attach it to a Pod
-* Data : The count of keys in the ConfigMap
-* Age : Duration from the object creation
+* Name : the name of the newly created resource
+* Data : the count of keys in the ConfigMap
+* Age : the age since his creation
 
 #### Exercise n°1
 

@@ -60,13 +60,15 @@ kubectl create -f /data/replicaset/01_replicaset.yaml
 
 ## Get
 
-The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formated to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
+The _get_ command list the object asked. It could be a single object or a list of multiple objects comma separated. This command is useful to get the status of each object. The output can be formatted to only display some information based on some json search or external tools like `tr`, `sort`, `uniq`.
 
 The default output of a get ReplicaSet command display three replicas status :
 
-* desired : display the number of replicas defined in the YAML file definition
-* current : display the current number of replicas deployed in the cluster
-* ready : display the number of production ready replicas in the cluster
+* Name : the name of the newly created resource
+* Desired : the number of replicas defined in the YAML file definition
+* Current : the current number of replicas deployed in the cluster
+* Ready : the number of production ready replicas in the cluster
+* Age : the age since his creation
 
 #### Exercise n°1
 

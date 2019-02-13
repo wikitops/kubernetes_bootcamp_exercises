@@ -366,10 +366,10 @@ Based on the principles explain in this module, try by your own to handle this s
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. Create a namespace called _voting-app_.
-2. Update one node with the key/value label : _type=database_.
+1. Create a namespace called _voting-app_
+2. Update one node with the key/value label : _type=database_
 3. Update another node with the key/value label : _type=queue_
-4. Ensure each nodes are correctly configured.
+4. Ensure each nodes are correctly configured
 {% endtab %}
 
 {% tab title="Solution" %}

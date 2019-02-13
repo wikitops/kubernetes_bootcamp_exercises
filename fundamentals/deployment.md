@@ -75,10 +75,12 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each services :
 
-* Desired : Display the number of desired running Pods, similar to a ReplicaSet output
-* Current : Display the number of current running Pods, similar to a ReplicaSet output
-* Up-to-date : Display the number of up to date Pods when a Deployment is updated
-* Available : Display the number of production ready Pods, similar to a ReplicaSet output
+* Name : the name of the newly created resource
+* Desired : the number of desired running Pods, similar to a ReplicaSet output
+* Current : the number of current running Pods, similar to a ReplicaSet output
+* Up-to-date : the number of up to date Pods when a Deployment is updated
+* Available : the number of production ready Pods, similar to a ReplicaSet output
+* Age : the age since his creation
 
 #### Exercise n°1
 

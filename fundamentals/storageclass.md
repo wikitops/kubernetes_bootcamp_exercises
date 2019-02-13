@@ -44,7 +44,7 @@ The default output display some useful information about each services :
 
 * Name : the name of the newly created resource
 * Provisioner : the target storage provisioner used to create the futur volumes
-* Age : the age of the object from his creation
+* Age : the age since his creation
 
 #### Exercise n°1
 

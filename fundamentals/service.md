@@ -76,10 +76,12 @@ The _get_ command list the object asked. It could be a single object or a list o
 
 The default output display some useful information about each services :
 
-* Type : display the type of exposition defined at service creation \(see previous table\).
-* Cluster-IP : display the internal cluster IP of the resources
-* External-IP : display the external resources IP of the resources, field configured when LoadBalancer type is used
-* Port\(s\) : display a list of ports opened in the pods managed by the service
+* Name : the name of the newly created resource
+* Type : the type of exposition defined at service creation \(see previous table\).
+* Cluster-IP : the internal cluster IP of the resources
+* External-IP : the external resources IP of the resources, field configured when LoadBalancer type is used
+* Port\(s\) : a list of ports opened in the pods managed by the service
+* Age : the age since his creation
 
 #### Exercise n°1
 

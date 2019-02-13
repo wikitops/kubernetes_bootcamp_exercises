@@ -32,7 +32,7 @@ The default output display some useful information about each services :
 
 * Name : the name of the newly created resource
 * Secrets : the number of secrets associated
-* Age : the age since the creation of the resource
+* Age : the age since his creation
 
 #### Exercise n°1
 

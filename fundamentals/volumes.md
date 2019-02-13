@@ -168,13 +168,13 @@ kubectl get persistentvolume
 
 The default output display some useful information about each services :
 
-* name : the name of the newly created resource
-* status : is the resource bouned, mouted, etc
-* volume : the PersitentVolume impacted by the newly created resource
-* capacity : volume storage size claimed
-* access mode : access mode of the newly created resource
-* storageclass : the name of the StorageClass associated
-* age : the age since the creation resource
+* Name : the name of the newly created resource
+* Status : is the resource bouned, mouted, etc
+* Volume : the PersitentVolume impacted by the newly created resource
+* Capacity : volume storage size claimed
+* Access mode : access mode of the newly created resource
+* Storageclass : the name of the StorageClass associated
+* Age : the age since the creation resource
 
 #### Exercise n°1
 

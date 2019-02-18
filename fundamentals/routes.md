@@ -191,8 +191,8 @@ kubectl get ingress
 
 {% tab title="CLI Return" %}
 ```bash
-NAME             HOSTS                   ADDRESS   PORTS     AGE
-myfirstingress   wikitops.io             80        6s
+NAME             HOSTS                  ADDRESS     PORTS     AGE
+myfirstingress   training.wikitops.io   10.0.2.15   80        5m
 ```
 {% endtab %}
 {% endtabs %}
@@ -221,20 +221,22 @@ kubectl describe ingress myfirstingress
 Name:             myfirstingress
 Namespace:        default
 Address:          10.0.2.15
-Default backend:  default-http-backend:80 (<none>)
+Default backend:  default-http-backend:80 (172.17.0.4:8080)
 Rules:
-  Host              Path  Backends
-  ----              ----  --------
-  wikitops.io  
-                    /path1   webserver1:80 (<none>)
-                    /path2   webserver2:80 (<none>)
+  Host                  Path  Backends
+  ----                  ----  --------
+  training.wikitops.io  
+                        /path1   webserver1:80 (<none>)
+                        /path2   webserver2:80 (<none>)
 Annotations:
+  kubectl.kubernetes.io/last-applied-configuration:  {"apiVersion":"extensions/v1beta1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/rewrite-target":"/"},"name":"myfirstingress","namespace":"default"},"spec":{"rules":[{"host":"training.wikitops.io","http":{"paths":[{"backend":{"serviceName":"webserver1","servicePort":80},"path":"/path1"},{"backend":{"serviceName":"webserver2","servicePort":80},"path":"/path2"}]}}]}}
+
   nginx.ingress.kubernetes.io/rewrite-target:  /
 Events:
-  Type    Reason  Age   From                      Message
-  ----    ------  ----  ----                      -------
-  Normal  CREATE  42s   nginx-ingress-controller  Ingress default/myfirstingress
-  Normal  UPDATE  2s    nginx-ingress-controller  Ingress default/myfirstingress
+  Type    Reason  Age              From                      Message
+  ----    ------  ----             ----                      -------
+  Normal  CREATE  3m               nginx-ingress-controller  Ingress default/myfirstingress
+  Normal  UPDATE  2m (x2 over 3m)  nginx-ingress-controller  Ingress default/myfirstingress
 ```
 {% endtab %}
 {% endtabs %}

@@ -145,7 +145,7 @@ metadata:
   name: myfirstingress
 spec:
   rules:
-  - host: wikitops.io
+  - host: training.wikitops.io
     http:
       paths:
       - backend:

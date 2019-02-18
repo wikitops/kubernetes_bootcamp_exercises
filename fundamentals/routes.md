@@ -43,7 +43,9 @@ The _create_ command can create a Ingress object based on a yaml file definition
 {% hint style="info" %}
 On Minikube, ensure that the ingress addons is enable before continuing :
 
-`minikube addons enable ingress`
+```bash
+minikube addons enable ingress
+```
 {% endhint %}
 
 First, deploy two static website in two different deployments. Then, expose each one on the port 80.
@@ -160,11 +162,19 @@ spec:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Create each resources based on the previous yaml files definiton.
+Create each resources based on the previous yaml files definition.
 
 ```bash
 kubectl create -f /data/routes/01_deployments.yaml -f /data/routes/02_services.yaml -f /data/routes/03_ingress.yaml
 ```
+
+{% hint style="info" %}
+On Minikube, the last step is to configure the /etc/hosts file to resolve the _training.wikitops.io_ domain name with the _minikube ip_ :
+
+```bash
+echo "$(minikube ip) training.wikitops.io" | sudo tee -a /etc/hosts
+```
+{% endhint %}
 
 ## Get
 

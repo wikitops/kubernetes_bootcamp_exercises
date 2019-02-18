@@ -149,7 +149,7 @@ spec:
       - backend:
           serviceName: webserver2
           servicePort: 80
-        path: /path1
+        path: /path2
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

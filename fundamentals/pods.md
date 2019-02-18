@@ -652,7 +652,7 @@ Yaml file definition to deploy the Voting App containers.
 apiVersion: v1
 kind: Pod
 metadata:
-  name: voting-app
+  name: db
   namespace: voting-app
 spec:
   containers:
@@ -662,7 +662,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: voting-app
+  name: redis
   namespace: voting-app
 spec:
   containers:
@@ -672,7 +672,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: voting-app
+  name: result
   namespace: voting-app
 spec:
   containers:
@@ -682,7 +682,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: voting-app
+  name: vote
   namespace: voting-app
 spec:
   containers:
@@ -692,7 +692,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: voting-app
+  name: worker
   namespace: voting-app
 spec:
   containers:

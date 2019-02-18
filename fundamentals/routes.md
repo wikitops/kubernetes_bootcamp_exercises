@@ -30,9 +30,9 @@ In order for the ingress resource to work, the cluster must have an ingress cont
 | :--- | :--- |
 | Contour | An Envoy based ingress controller provided and supported by Heptio. |
 | F5 Networks | Provides support and maintenance for the F5 BIG-IP Controller for Kubernetes. |
-| HAproxy | Offers support and maintenance for HAProxy Enterprise and the ingress controller jcmoraisjr/haproxy-ingress. |
+| HAproxy | Offers support and maintenance for HAproxy Enterprise and the ingress controller jcmoraisjr/haproxy-ingress. |
 | Istio | Based ingress controller Control Ingress Traffic. |
-| Kong | Offers community or commercial support and maintenance for the Kong Ingress Controllerfor Kubernetes. |
+| Kong | Offers community or commercial support and maintenance for the Kong Ingress Controller for Kubernetes. |
 | Nginx | Offers support and maintenance for the NGINX Ingress Controller for Kubernetes. |
 | Traefik | Fully featured ingress controller \(Let’s Encrypt, secrets, http2, websocket\), and it also comes with commercial support by Containous. |
 
@@ -40,7 +40,13 @@ The _create_ command can create a Ingress object based on a yaml file definition
 
 #### Exercise n°1
 
-First, deploy two static website in two different deployments. Then, epose each one on the port 80.
+{% hint style="info" %}
+On Minikube, ensure that the ingress addons is enable before continuing :
+
+`minikube addons enable ingress`
+{% endhint %}
+
+First, deploy two static website in two different deployments. Then, expose each one on the port 80.
 
 {% code-tabs %}
 {% code-tabs-item title="/data/routes/01\_deployments.yaml" %}

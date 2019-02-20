@@ -112,6 +112,10 @@ source <(kubectl completion zsh)
 kubectl completion zsh > "${fpath[1]}/_kubectl"
 ```
 
+{% hint style="info" %}
+A project called [kube-shell](https://github.com/cloudnativelabs/kube-shell) give an alternative to the configuration of the autocompletion of kubectl. Kube-shell integrate shell for working with the Kubernetes CLI. Under the hood kube-shell still calls kubectl. KuIt aims to provide ease-of-use of kubectl and increasing productivity.
+{% endhint %}
+
 ## Syntax
 
 Kubectl is a powerful tool to manage each object on a Kubernetes cluster. The command has a simple and unique syntax to manage everything :
@@ -797,6 +801,54 @@ Print the client and server version information for the current context.
 kubectl version
 ```
 
+## Customization
+
+Kubectl has some limitation when we talk about management of multiple clusters with multiple context with multiple namespace. Sometimes it is more convenient to be faster in the command line.
+
+#### Namespace reminder
+
+Some tools have been developed to let the terminal remember the current namespace where the kubectl command has to be execute. Here are convenient helper tools :
+
+* [kubensx](https://github.com/shyiko/kubensx) a simple tool to easily switch between context, user and namespace in command line.
+* change-ns is a plugin that can be installed with the kubectl Krew package manager to remember the current namespace.
+
+#### Manage aliases
+
+Like each command line, the autocompletion sometimes is not enough to be faster as possible in the maintenance of the cluster objects.
+
+Manage some Kubectl aliases can be a good alternative to the autocompletion. This [Github project](https://github.com/ahmetb/kubectl-aliases) defined automatically some useful aliases to easily manage the Kubernetes objects.
+
+## Plugins
+
+Google has developed an extension to the Kubectl command to easily manage his plugin as apt or yum can do on a Linux operating system.
+
+Krew is a tool that makes it easy to use [kubectl plugins](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/). It helps to discover plugins, install and manage them on a machine. It is similar to tools like apt, dnf or brew.
+
+{% hint style="warning" %}
+Krew is only compatible with kubectl v1.12 or higher.
+{% endhint %}
+
+Krew can be installed on Linux, Mac and Windows, everything is explain on the [Github web page](https://github.com/GoogleContainerTools/krew).
+
+Here are some example of using Kubectl to manage plugins :
+
+```bash
+# Show all plugins
+kubectl krew search
+
+# Install a plugin named "change-ns"
+kubectl krew install change-ns
+
+# Use the plugin
+kubectl change-ns
+
+# Upgrade installed plugins
+kubectl krew upgrade
+
+# Uninstall a plugin
+kubectl krew remove change-ns
+```
+
 ## External documentation
 
 To go further in the management of Kubectl, please refer to these documentations :
@@ -804,4 +856,7 @@ To go further in the management of Kubectl, please refer to these documentations
 * Official [Kubernetes documentation](https://kubernetes.io/docs/reference/kubectl/overview/) on Kubectl command line
 * Official[ Kubernetes documentation ](https://kubernetes.io/docs/tasks/tools/install-kubectl/)to install Kubectl command line
 * Official [Kubectl commands](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands) details
+* Github project to get[ kube-shell ](https://github.com/cloudnativelabs/kube-shell)tool
+* [Github project](https://github.com/ahmetb/kubectl-aliases) to easily manage kubectl alias in command line
+* Official Kubernetes documentation on [Kubectl plugins](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/)
 

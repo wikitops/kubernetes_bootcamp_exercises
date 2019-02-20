@@ -818,6 +818,25 @@ Like each command line, the autocompletion sometimes is not enough to be faster 
 
 Manage some Kubectl aliases can be a good alternative to the autocompletion. This [Github project](https://github.com/ahmetb/kubectl-aliases) defined automatically some useful aliases to easily manage the Kubernetes objects.
 
+Here are some example of aliases :
+
+```bash
+alias k=kubectl
+alias kg='kubectl get'
+alias kl='kubectl logs '
+alias kx='kubectl exec -it'
+```
+
+#### Highlighter
+
+Customize the bash or zsh prompt can be useful to easily get information without executing commands.
+
+The project [kube-ps1](https://github.com/jonmosco/kube-ps1) is a script that adds the current Kubernetes context and namespace configured on kubectl to the Bash/Zsh prompt strings.
+
+Here is an example of that useful tool :
+
+![](../.gitbook/assets/kube-ps1.gif)
+
 ## Plugins
 
 Google has developed an extension to the Kubectl command to easily manage his plugin as apt or yum can do on a Linux operating system.
@@ -856,6 +875,7 @@ To go further in the management of Kubectl, please refer to these documentations
 * Official [Kubernetes documentation](https://kubernetes.io/docs/reference/kubectl/overview/) on Kubectl command line
 * Official[ Kubernetes documentation ](https://kubernetes.io/docs/tasks/tools/install-kubectl/)to install Kubectl command line
 * Official [Kubectl commands](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands) details
+* [Github project](https://github.com/jonmosco/kube-ps1) to manage the bash and zsh prompt
 * Github project to get[ kube-shell ](https://github.com/cloudnativelabs/kube-shell)tool
 * [Github project](https://github.com/ahmetb/kubectl-aliases) to easily manage kubectl alias in command line
 * Official Kubernetes documentation on [Kubectl plugins](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/)

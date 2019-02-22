@@ -105,7 +105,7 @@ Update the image version of the previous nginx pods.
 ```yaml
 apiVersion: v1
 kind: Pod
-metadata:4
+metadata:
   name: my-single-nginx14
   labels:
     env: formation

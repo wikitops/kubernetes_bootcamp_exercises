@@ -330,7 +330,7 @@ Get the logs to ensure the Pods is running and configured.
 {% tabs %}
 {% tab title="Command" %}
 ```bash
-bectl logs myfirstconfigmapenv2
+kubectl logs myfirstconfigmapenv2
 ```
 {% endtab %}
 

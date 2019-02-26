@@ -128,6 +128,8 @@ kubectl logs sd-client
 {% endtab %}
 
 {% tab title="CLI Return" %}
+The log should return the default Nginx web page.
+
 ```bash
 <!DOCTYPE html>
 <html>

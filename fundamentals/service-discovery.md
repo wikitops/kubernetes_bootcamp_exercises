@@ -180,6 +180,10 @@ For example, a pod with its hostname set to `custom-host` , and subdomain set to
 
 When a Pod is run on a Node, the kubelet adds a set of environment variables for each active Service. It supports both Docker links compatible variables and simpler `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables, where the Service name is upper-cased and dashes are converted to underscores.
 
+{% hint style="info" %}
+Any Service that a Pod wants to access must be created before the Pod itself, or else the environment variables will not be populated.
+{% endhint %}
+
 #### Exercise n°1
 
 Create a new Pod and get the environment variable.
@@ -218,4 +222,5 @@ Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [DNS Pods management](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 * Kubernetes official documentation on [cross-cluster DNS service discovery](https://kubernetes.io/docs/tasks/federation/federation-service-discovery/)
+* Kubernetes official documentation on [Services](https://kubernetes.io/docs/concepts/services-networking/service/)
 

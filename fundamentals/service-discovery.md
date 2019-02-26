@@ -112,6 +112,10 @@ Create the resources based on the previous yaml files definition.
 kubectl create -f /data/servicediscovery/
 ```
 
+{% hint style="info" %}
+Ensure the Pods are created before continuing otherwise, the client will log errors.
+{% endhint %}
+
 Create a client Pod that will request the service by its name.
 
 ```bash

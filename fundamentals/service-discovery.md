@@ -164,7 +164,7 @@ The response above indicates that Kube-DNS has correctly resolved the service na
 
 ### Pods DNS records
 
-Kubernetes Pods support A records.
+Kubernetes Pods support A records and environment variable configuration.
 
 #### A Record
 
@@ -175,6 +175,42 @@ For example, a pod with IP 172.12.3.4 in the namespace default with a DNS name o
 Hostname and subdomain of a Pod can be overwritten with optional parameters defined in the spec field of the object declaration.
 
 For example, a pod with its hostname set to `custom-host` , and subdomain set to `custom-subdomain`, in namespace `my-namespace`, will have the fully qualified domain name \(FQDN\) `custom-host.custom-subdomain.my-namespace.svc.cluster.local`.
+
+#### Environment variable
+
+When a Pod is run on a Node, the kubelet adds a set of environment variables for each active Service. It supports both Docker links compatible variables and simpler `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables, where the Service name is upper-cased and dashes are converted to underscores.
+
+#### Exercise n°1
+
+Create a new Pod and get the environment variable.
+
+```bash
+kubectl run busybox --image=busybox --restart=Never env
+```
+
+Get the logs and parse it to ensure the SD\_SERVICE, created previously, has been automatically configured.
+
+{% tabs %}
+{% tab title="Command" %}
+```bash
+kubectl logs busybox | grep SD_SERVICE
+```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+The sd-service created previously is automatically configured in environment variable to be quickly access within the Pods.
+
+```bash
+SD_SERVICE_PORT=tcp://10.11.246.243:8080
+SD_SERVICE_PORT_8080_TCP_PROTO=tcp
+SD_SERVICE_PORT_8080_TCP_ADDR=10.11.246.243
+SD_SERVICE_PORT_8080_TCP=tcp://10.11.246.243:8080
+SD_SERVICE_PORT_8080_TCP_PORT=8080
+SD_SERVICE_SERVICE_HOST=10.11.246.243
+SD_SERVICE_SERVICE_PORT=8080
+```
+{% endtab %}
+{% endtabs %}
 
 ## External documentation
 

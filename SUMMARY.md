@@ -9,6 +9,7 @@
 * [ReplicaSet](fundamentals/replication.md)
 * [Deployments](fundamentals/deployment.md)
 * [Services](fundamentals/service.md)
+* [Service Discovery](fundamentals/service-discovery.md)
 * [ConfigMaps](fundamentals/configmap.md)
 * [Secrets](fundamentals/secrets.md)
 * [Volumes](fundamentals/volumes.md)

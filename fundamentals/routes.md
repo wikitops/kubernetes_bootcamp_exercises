@@ -15,7 +15,7 @@ At the end of this module, you will :
 * _Learn to secure the cluster access_
 
 {% hint style="info" %}
-This module needs an Ingress controller to be deployed on the cluster. The default Ingress controller used in this module in Nginx. Ensure this module is up and running before continuing.
+This module needs an Ingress controller to be deployed on the cluster. The default Ingress controller used in this module is Nginx. Ensure this module is up and running before continuing.
 {% endhint %}
 
 ## Create

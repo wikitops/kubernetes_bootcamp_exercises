@@ -65,7 +65,7 @@ Create a Python HTTP server Deployment that listen on port 80.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: python-deployment
+  name: sd-deployment
 spec:
   replicas: 3
   selector:
@@ -77,13 +77,11 @@ spec:
         app: webserver
     spec:
       containers:
-      - name: python-http-server
-        image: python:2.7
-        command: ["/bin/bash"]
-        args: ["-c", "echo \" Hello from $(hostname)\" &gt; index.html; python -m SimpleHTTPServer 80"]
+      - image: nginx
+        name: nginx
         ports:
-        - name: http
-          containerPort: 80
+          - name: http
+            containerPort: 80
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -96,33 +94,14 @@ Create the Service to expose the previous Deployment internally on port 4000.
 kind: Service
 apiVersion: v1
 metadata:
-  name: python-service
+  name: sd-service
 spec:
   selector:
     app: webserver
   ports:
   - protocol: TCP
-    port: 4000
+    port: 8080
     targetPort: http
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-Create a client Pod that will request the service by its name.
-
-{% code-tabs %}
-{% code-tabs-item title="/data/servicediscovery/03\_pod.yaml" %}
-```yaml
-apiVersion: v1
-kind: Pod 
-metadata: 
-  name: python-client
-spec:
-  containers:
-  - name: curl
-    image: appropriate/curl
-    command: ["/bin/sh"]
-    args: ["-c","curl python-service:4000 "]
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -133,18 +112,48 @@ Create the resources based on the previous yaml files definition.
 kubectl create -f /data/servicediscovery/
 ```
 
+Create a client Pod that will request the service by its name.
+
+```bash
+kubectl run sd-client --image=appropriate/curl --restart=Never -- /bin/sh -c "curl -s sd-service:8080"
+```
+
 Get the logs of the client Pod to get the DNS resolution information.
 
 {% tabs %}
 {% tab title="Command" %}
 ```bash
-kubectl logs python-client
+kubectl logs sd-client
 ```
 {% endtab %}
 
 {% tab title="CLI Return" %}
 ```bash
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
 
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
 ```
 
 The response above indicates that Kube-DNS has correctly resolved the service name to the service’s ClusterIP and the service has successfully forwarded the client request to random backend pod picked in a round-robin fashion.
@@ -161,7 +170,7 @@ The default DNS A record assigned to a Pods is `pod-ip-address.my-namespace.pod.
 
 For example, a pod with IP 172.12.3.4 in the namespace default with a DNS name of cluster.local would have an entry of the form `172-12-3-4.default.pod.cluster.local`.
 
-Hostname and subdomain of a Pod can be overwritten with optional parameters defined in the metadata field of the object declaration.
+Hostname and subdomain of a Pod can be overwritten with optional parameters defined in the spec field of the object declaration.
 
 For example, a pod with its hostname set to `custom-host` , and subdomain set to `custom-subdomain`, in namespace `my-namespace`, will have the fully qualified domain name \(FQDN\) `custom-host.custom-subdomain.my-namespace.svc.cluster.local`.
 

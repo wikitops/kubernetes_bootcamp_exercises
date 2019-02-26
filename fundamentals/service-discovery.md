@@ -1,6 +1,6 @@
 # Service Discovery
 
-## Module overview
+## Module overview
 
 At the end of this module, you will :
 
@@ -12,7 +12,7 @@ At the end of this module, you will :
 This module needs a DNS plugin to be deployed on the cluster. The default DNS plugin used in this module is CoreDNS. Ensure this module is up and running before continuing.
 {% endhint %}
 
-## Service discovery
+## Create
 
 Kubernetes DNS system is designed to manage the domain name of each Pods and Services in a Kubernetes cluster. [Kube-DNS](https://github.com/kubernetes/dns) and [CoreDNS](https://github.com/coredns/coredns) \(CoreDNS is a newer add-on that became a default DNS server as of Kubernetes v1.12\) are two established DNS solutions for defining DNS naming rules and resolving pod and service DNS to their corresponding cluster IPs. 
 
@@ -23,6 +23,8 @@ Services can also be referenced not only via a Fully Qualified Domain Name \(FQD
 Both add-ons schedule a DNS pod or pods and a service with a static IP on the cluster and both are named _kube-dns_.
 
 Kubernetes DNS add-ons currently support forward lookups \(A records\), port lookups \(SRV records\), reverse IP address lookups \(PTR records\), and some other options.
+
+Their is no _create_ command to directly ask the API resource to create a DNS record in command line. The DNS record are tightly coupled with the life cycle of Pods and Services. The DNS records are created at the creation of a resource and deleted at the deletion of the object.
 
 ### Service DNS records
 
@@ -57,7 +59,7 @@ In Kubernetes, SRV Records are created for named ports. The SRV record takes the
 On Minikube, CoreDNS is enable by default.
 {% endhint %}
 
-Create a Python HTTP server Deployment that listen on port 80.
+Create an Nginx HTTP server Deployment that listen on port 80.
 
 {% code-tabs %}
 {% code-tabs-item title="/data/servicediscovery/01\_deployment.yaml" %}
@@ -89,7 +91,7 @@ spec:
 Create the Service to expose the previous Deployment internally on port 4000.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/sevicediscovery/02\_service.yaml" %}
+{% code-tabs-item title="/data/servicediscovery/02\_service.yaml" %}
 ```yaml
 kind: Service
 apiVersion: v1
@@ -219,6 +221,29 @@ SD_SERVICE_SERVICE_PORT=8080
 ```
 {% endtab %}
 {% endtabs %}
+
+## Delete
+
+The _delete_ command delete resources by filenames, stdin, resources and names, or by resources and label selector.
+
+The DNS record are tightly coupled with the life cycle of Pods and Services. The DNS records are created at the creation of a resource and deleted at the deletion of the object.
+
+Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.
+
+#### Exercise n°1
+
+Delete the service and the deployment created previously in the default namespace.
+
+```bash
+# Delete the service discovery resources
+kubectl delete -f /data/servicediscovery/
+
+# Delete the busybox pod
+kubectl delete po busybox
+
+# Delete the sd-client pod
+kubectl delete po sd-client
+```
 
 ## External documentation
 

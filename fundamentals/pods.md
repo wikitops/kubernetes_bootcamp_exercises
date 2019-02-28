@@ -254,6 +254,58 @@ nginx-ingress-controller   1         1         1            1           1h
 {% endtab %}
 {% endtabs %}
 
+## Logs
+
+Once an application is running, it is inevitably a need to debug problems or check the configuration deployed.
+
+The _logs_ command display the stdout and stderr logs of each container in a pod. The containers within a Pod must be started to get information otherwise nothing will be displayed.
+
+This command is really useful to debug a container deployed in a Pod.
+
+#### Exercise n°1
+
+Create a new Pods that send a message in stdout.
+
+{% code-tabs %}
+{% code-tabs-item title="/data/pods/04\_pods.yaml" %}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-logs
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["/bin/sh"]
+    args: ["-c", "echo \"$(date) - INFO - My first logs output on $(hostname)\""]
+  restartPolicy: Never
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the resource based on the previous yaml file definition.
+
+```bash
+kubectl create -f /data/pods/04_pods.yaml
+```
+
+Get the logs of the busybox-logs Pod created previously.
+
+{% tabs %}
+{% tab title="Command" %}
+```bash
+kubectl logs busybox-logs
+```
+{% endtab %}
+
+{% tab title="CLI Return" %}
+```bash
+Thu Feb 28 22:19:56 UTC 2019 - INFO - My first logs output on busybox-logs
+```
+{% endtab %}
+{% endtabs %}
+
 ## Describe
 
 Once an application is running, it is inevitably a need to debug problems or check the configuration deployed.
@@ -640,7 +692,8 @@ The file developed has to be stored in this directory : `/data/votingapp/01_pods
 {% tabs %}
 {% tab title="Exercise" %}
 1. Deploy each containers of the Voting App in a single Pod called `voting-app` in his dedicated namespace created in the previous module.
-2. Ensure the Pods is up and running.
+2. Ensure the Pods are created.
+3. Find the bug on the Pods that may be in error.
 {% endtab %}
 
 {% tab title="Solution" %}
@@ -677,7 +730,7 @@ metadata:
 spec:
   containers:
   - name: result-app
-    image: dockersamples/examplevotingapp_result:before
+    image: wikitops/examplevotingapp-result:1.0
 ---
 apiVersion: v1
 kind: Pod
@@ -687,7 +740,7 @@ metadata:
 spec:
   containers:
   - name: voting-app
-    image: dockersamples/examplevotingapp_vote:before
+    image: wikitops/examplevotingapp-vote:1.1
 ---
 apiVersion: v1
 kind: Pod
@@ -697,7 +750,7 @@ metadata:
 spec:
   containers:
   - name: worker
-    image: dockersamples/examplevotingapp_worker
+    image: wikitops/examplevotingapp-worker:1.1
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -708,11 +761,60 @@ Kubectl command to deploy the Pods based on the previous definition file.
 kubectl create -f /data/votingapp/01_pods/pods.yaml
 ```
 
-Ensure the Pods is up and running.
+Ensure the Pods are created.
 
 ```bash
 kubectl get pods -n voting-app
 ```
+
+The command line return should look like that :
+
+```bash
+NAME      READY   STATUS             RESTARTS   AGE
+db        0/1     CrashLoopBackOff   9          26m
+redis     1/1     Running            0          26m
+result    1/1     Running            0          26m
+vote      1/1     Running            0          26m
+worker    1/1     Running            0          26m
+```
+
+Get the logs of the db Pod to understand why it is in CrashLoopBackOff :
+
+```bash
+kubectl logs db -n voting-app
+```
+
+The logs returned by the command line return should look like that : 
+
+```bash
+For general container run, you must either specify the following environment
+variables:
+  POSTGRESQL_USER  POSTGRESQL_PASSWORD  POSTGRESQL_DATABASE
+Or the following environment variable:
+  POSTGRESQL_ADMIN_PASSWORD
+Or both.
+
+To migrate data from different PostgreSQL container:
+  POSTGRESQL_MIGRATION_REMOTE_HOST (hostname or IP address)
+  POSTGRESQL_MIGRATION_ADMIN_PASSWORD (password of remote 'postgres' user)
+And optionally:
+  POSTGRESQL_MIGRATION_IGNORE_ERRORS=yes (default is 'no')
+
+Optional settings:
+  POSTGRESQL_MAX_CONNECTIONS (default: 100)
+  POSTGRESQL_MAX_PREPARED_TRANSACTIONS (default: 0)
+  POSTGRESQL_SHARED_BUFFERS (default: 32MB)
+
+For more information see /usr/share/container-scripts/postgresql/README.md
+within the container or visit https://github.com/sclorg/postgresql-container.
+
+```
+
+That log means that the Postgres container within the Pod db need some environment variable to configure the default database and credentials.
+
+{% hint style="info" %}
+The db Pod will be debug in the next chapters.
+{% endhint %}
 {% endtab %}
 {% endtabs %}
 

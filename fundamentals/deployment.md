@@ -458,7 +458,10 @@ The file developed has to be stored in this directory : `/data/votingapp/03_depl
 1. Delete the ReplicaSet deployed in the previous module exercise
 2. Develop the Deployment yaml file to deploy the Voting App containers in Pods.
 3. Ensure to debug the db Pod by defining the needed environment variables in the Pod template.
-4. Ensure the app is up and running
+4. Update the Deployment of the vote Pods to attach two environment variables :
+   1. Name the first OPTION\_A, her value has to be CATS
+   2. Name the second OPTION\_B, her value has to be DOGS
+5. Ensure the app is up and running
 {% endtab %}
 
 {% tab title="Solution" %}

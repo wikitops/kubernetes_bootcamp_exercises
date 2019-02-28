@@ -30,7 +30,7 @@ kubectl create deployment mynginxdeploymentcli --image=nginx
 
 #### Exercise n°2
 
-Deploy an Nginx Pod in a declarative way with a Deployment object and scale it to 3.
+Deploy an Nginx Pod in a declarative way with a Deployment object. The ReplicaSet associated has to manage 3 replicas of the Pod. The rolling update strategy will be the default update strategy for this Deployment.
 
 {% code-tabs %}
 {% code-tabs-item title="/data/deployment/01\_deployment.yaml" %}
@@ -67,6 +67,58 @@ Create the Deployment in command line.
 
 ```bash
 kubectl create -f /data/deployment/01_deployment.yaml
+```
+
+#### Exercise n°3
+
+Deploy a PostgreSQL database in a declarative way with a Deployment object. The ReplicaSet associated has to manage one replica of the Pod. The recreate strategy will be the default update strategy for this Deployment.
+
+PostgreSQL need three environment variables to start correctly :
+
+* POSTGRES\_DB : the database name to be created at the Pod creation
+* POSTGRES\_USER : the username owner of the default database
+* POSTGRES\_PASSWORD : the password of the newly created user
+
+{% code-tabs %}
+{% code-tabs-item title="/data/deployment/02\_deployment.yaml" %}
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - env:
+            - name: POSTGRESQL_DATABASE
+              value: "postgresdb"
+            - name: POSTGRES_USER
+              value: "postgresadmin"
+            - name: POSTGRES_PASSWORD
+              value: "admin123"
+          image: postgres:10.4
+          imagePullPolicy: "IfNotPresent"
+          name: postgres
+          ports:
+            - containerPort: 5432
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the Deployment in command line.
+
+```bash
+kubectl create -f /data/deployment/02_deployment.yaml
 ```
 
 ## Get
@@ -405,7 +457,8 @@ The file developed has to be stored in this directory : `/data/votingapp/03_depl
 {% tab title="Exercise" %}
 1. Delete the ReplicaSet deployed in the previous module exercise
 2. Develop the Deployment yaml file to deploy the Voting App containers in Pods.
-3. Ensure the app is up and running
+3. Ensure to debug the db Pod by defining the needed environment variables in the Pod template.
+4. Ensure the app is up and running
 {% endtab %}
 
 {% tab title="Solution" %}
@@ -442,13 +495,13 @@ spec:
     spec:
       containers:
         - env:
-          - name: "POSTGRESQL_DATABASE"
+          - name: "POSTGRES_DB"
             value: "voting"
-          - name: "POSTGRESQL_USER"
+          - name: "POSTGRES_USER"
             value: "voting"
-          - name: "POSTGRESQL_PASSWORD"
+          - name: "POSTGRES_PASSWORD"
             value: "password"
-          image: centos/postgresql-96-centos7
+          image: postgres:10.4
           imagePullPolicy: IfNotPresent
           name: db
           ports:
@@ -513,6 +566,8 @@ spec:
             value: "voting"
           - name: "DB_PASSWORD"
             value: "password"
+          - name: "DB_SERVICE_NAME"
+            value: "db"
           image: wikitops/examplevotingapp-result:1.0
           imagePullPolicy: IfNotPresent
           name: result
@@ -543,10 +598,10 @@ spec:
       containers:
         - env:
           - name: "OPTION_A"
-            value: "SWARM"
+            value: "CATS"
           - name: "OPTION_B"
-            value: "KUBERNETES"
-          image: wikitops/examplevotingapp-vote:1.0
+            value: "DOGS"
+          image: wikitops/examplevotingapp-vote:1.1
           imagePullPolicy: IfNotPresent
           name: vote
           ports:
@@ -582,13 +637,12 @@ spec:
             value: "voting"
           - name: "DB_PASSWORD"
             value: "password"
-          - name: "REDIS_SERVICE_NAME"
-            value: "redis"
           - name: "DB_SERVICE_NAME"
             value: "db"
-          image: wikitops/examplevotingapp-worker:1.0
-          imagePullPolicy: Always
+          image: wikitops/examplevotingapp-worker:1.1
+          imagePullPolicy: IfNotPresent
           name: worker
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -602,7 +656,7 @@ kubectl create -f /data/votingapp/03_deployments/deployment.yaml
 Ensure the objects have been created.
 
 ```bash
-kubectl get pods,replicaset,deployment -n voting-app
+kubectl get all -n voting-app
 ```
 {% endtab %}
 {% endtabs %}
@@ -613,6 +667,7 @@ Those documentations can help you to go further in this topic :
 
 * Kubernetes official documentation on [deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 * Kubernetes official documentation on [rolling updates](https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/)
+* Kubernetes official documentation on [environment variable](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) management within a container
 
 
 

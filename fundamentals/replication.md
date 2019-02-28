@@ -249,7 +249,7 @@ The file developed has to be stored in this directory : `/data/votingapp/02_repl
 2. Create a ReplicaSet to replicate the worker Pod to 1
 3. Ensure the Pod is replicate to 1 and it is up and running
 4. Scale the worker Pods to 3 in command line
-5. Ensure the worker Pod is  the only Pods replicate to 3 and it is up and running
+5. Ensure the worker Pod is the only Pods replicate to 3 and it is up and running
 {% endtab %}
 
 {% tab title="Solution" %}
@@ -309,27 +309,6 @@ spec:
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: vote
-  namespace: voting-app
-  labels:
-    app: voting-app
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      name: vote
-  template:
-    metadata:
-      labels:
-        name: vote
-    spec:
-      containers:
-      - name: vote
-        image: dockersamples/examplevotingapp_vote:before
----
-apiVersion: apps/v1
-kind: ReplicaSet
-metadata:
   name: result
   namespace: voting-app
   labels:
@@ -346,7 +325,28 @@ spec:
     spec:
       containers:
       - name: result
-        image: dockersamples/examplevotingapp_result:before
+        image: wikitops/examplevotingapp-result:1.0
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: vote
+  namespace: voting-app
+  labels:
+    app: voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: vote
+  template:
+    metadata:
+      labels:
+        name: vote
+    spec:
+      containers:
+      - name: vote
+        image: wikitops/examplevotingapp-vote:1.1
 ---
 apiVersion: apps/v1
 kind: ReplicaSet
@@ -367,7 +367,7 @@ spec:
     spec:
       containers:
       - name: worker
-        image: dockersamples/examplevotingapp_worker
+        image: wikitops/examplevotingapp-worker:1.1
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -383,6 +383,60 @@ Ensure the Pods is up and running.
 ```bash
 kubectl get pods,replicaset -n voting-app
 ```
+
+The command line should return that :
+
+```bash
+NAME               READY   STATUS    RESTARTS   AGE
+pod/db-nrxkr       0/1     Error     3          60s
+pod/redis-499dd    1/1     Running   0          60s
+pod/result-4vmpc   1/1     Running   0          60s
+pod/vote-jvbrg     1/1     Running   0          60s
+pod/worker-6bvgs   1/1     Running   0          60s
+
+NAME                           DESIRED   CURRENT   READY   AGE
+replicaset.extensions/db       1         1         0       60s
+replicaset.extensions/redis    1         1         1       60s
+replicaset.extensions/result   1         1         1       60s
+replicaset.extensions/vote     1         1         1       60s
+replicaset.extensions/worker   1         1         1       60s
+```
+
+Scale the worker Pod to 3 replicas.
+
+```bash
+kubectl scale replicaset worker --replicas=3
+```
+
+Ensure the worker Pod has been replicated.
+
+```bash
+kubectl get pods,replicaset -n voting-app
+```
+
+The command line should return that :
+
+```bash
+NAME               READY   STATUS             RESTARTS   AGE
+pod/db-nrxkr       0/1     CrashLoopBackOff   5          5m49s
+pod/redis-499dd    1/1     Running            0          5m49s
+pod/result-4vmpc   1/1     Running            0          5m49s
+pod/vote-jvbrg     1/1     Running            0          5m49s
+pod/worker-6bvgs   1/1     Running            0          5m49s
+pod/worker-ft82w   1/1     Running            0          103s
+pod/worker-hhmq9   1/1     Running            0          103s
+
+NAME                           DESIRED   CURRENT   READY   AGE
+replicaset.extensions/db       1         1         0       5m49s
+replicaset.extensions/redis    1         1         1       5m49s
+replicaset.extensions/result   1         1         1       5m49s
+replicaset.extensions/vote     1         1         1       5m49s
+replicaset.extensions/worker   5         5         5       5m49s
+```
+
+{% hint style="info" %}
+The db Pods will be debug in the next chapter.
+{% endhint %}
 {% endtab %}
 {% endtabs %}
 

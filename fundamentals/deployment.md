@@ -658,6 +658,10 @@ Ensure the objects have been created.
 ```bash
 kubectl get all -n voting-app
 ```
+
+{% hint style="info" %}
+Check the logs of each Pods to ensure that each one has started without errors.
+{% endhint %}
 {% endtab %}
 {% endtabs %}
 

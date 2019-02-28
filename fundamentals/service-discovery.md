@@ -252,4 +252,5 @@ Those documentations can help you to go further in this topic :
 * Kubernetes official documentation on [DNS Pods management](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 * Kubernetes official documentation on [cross-cluster DNS service discovery](https://kubernetes.io/docs/tasks/federation/federation-service-discovery/)
 * Kubernetes official documentation on [Services](https://kubernetes.io/docs/concepts/services-networking/service/)
+* Kubernetes official documentation on [debugging DNS resolution](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/)
 

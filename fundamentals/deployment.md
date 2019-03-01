@@ -456,12 +456,15 @@ The file developed has to be stored in this directory : `/data/votingapp/03_depl
 {% tabs %}
 {% tab title="Exercise" %}
 1. Delete the ReplicaSet deployed in the previous module exercise
-2. Develop the Deployment yaml file to deploy the Voting App containers in Pods.
-3. Ensure to debug the db Pod by defining the needed environment variables in the Pod template.
-4. Update the Deployment of the vote Pods to attach two environment variables :
+2. Develop the Deployment yaml file to deploy the Voting App microservices.
+3. Update the vote Deployment to attach two environment variables :
    1. Name the first OPTION\_A, her value has to be CATS
    2. Name the second OPTION\_B, her value has to be DOGS
-5. Ensure the app is up and running
+4. Update the db, result and worker Deployment to attach three environment variables :
+   1. Name the first POSTGRES\_NAME, her value has to be "voting"
+   2. Name the second POSTGRES\_USER, her value has to be "voting"
+   3. Name the third POSTGRES\_PASSWORD, her value has to be "password"
+5. Ensure each Pods are up and running
 {% endtab %}
 
 {% tab title="Solution" %}
@@ -563,15 +566,13 @@ spec:
     spec:
       containers:
         - env:
-          - name: "DB_NAME"
+          - name: "POSTGRES_DB"
             value: "voting"
-          - name: "DB_USERNAME"
+          - name: "POSTGRES_USER"
             value: "voting"
-          - name: "DB_PASSWORD"
+          - name: "POSTGRES_PASSWORD"
             value: "password"
-          - name: "DB_SERVICE_NAME"
-            value: "db"
-          image: wikitops/examplevotingapp-result:1.0
+          image: wikitops/examplevotingapp-result:1.1
           imagePullPolicy: IfNotPresent
           name: result
           ports:
@@ -634,18 +635,15 @@ spec:
     spec:
       containers:
         - env:
-          - name: "DB_NAME"
+          - name: "POSTGRES_DB"
             value: "voting"
-          - name: "DB_USERNAME"
+          - name: "POSTGRES_USER"
             value: "voting"
-          - name: "DB_PASSWORD"
+          - name: "POSTGRES_PASSWORD"
             value: "password"
-          - name: "DB_SERVICE_NAME"
-            value: "db"
           image: wikitops/examplevotingapp-worker:1.1
           imagePullPolicy: IfNotPresent
           name: worker
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

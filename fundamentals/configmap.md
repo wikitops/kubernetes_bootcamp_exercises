@@ -556,18 +556,25 @@ The file developed has to be stored in this directory : `/data/votingapp/05_conf
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. Create a ConfigMaps resource to externalize some part of the vote Pods :
-   1. Named the ConfigMaps _vote_
+1. Delete the vote Deployment to be able to manage the environment variable with a ConfigMaps
+2. Create a ConfigMaps resource to externalize some part of the vote Pods :
+   1. Name the ConfigMaps _vote_
    2. The ConfigMaps must manage those data : 
       1. `option_a: "CATS"`
       2. `option_b: "DOGS"`
-2. Update the Deployment of the vote Pods to attach the ConfigMaps as environment variables :
+3. Update the Deployment of the vote Pods to attach the ConfigMaps as environment variables :
    1. The name of the `option_a` environment variable has to be OPTION\_A
    2. The name of the `option_b` environment variable has to be OPTION\_B
 {% endtab %}
 
 {% tab title="Solution" %}
-A command example to create the Secrets in command line.
+Delete the vote Deployment.
+
+```bash
+kubectl delete deployment vote
+```
+
+Ccreate the ConfigMaps in command line.
 
 ```bash
 kubectl create configmap vote -n voting-app --from-literal=option_a=CATS --from-literal=option_b=DOGS
@@ -621,10 +628,10 @@ spec:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Update the current Deployments resources.
+Create the resource based on the previous yaml file definition.
 
 ```bash
-kubectl apply -f /data/votingapp/05_configmaps/deployments.yaml
+kubectl create -f /data/votingapp/05_configmaps/deployment.yaml
 ```
 {% endtab %}
 {% endtabs %}

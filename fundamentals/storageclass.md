@@ -319,17 +319,17 @@ spec:
     spec:
       containers:
         - env:
-            - name: "POSTGRESQL_DATABASE"
+            - name: "POSTGRES_DB"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: database-name
-            - name: "POSTGRESQL_USER"
+            - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: database-user
-            - name: "POSTGRESQL_PASSWORD"
+            - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
@@ -422,17 +422,17 @@ spec:
     spec:
       containers:
         - env:
-            - name: "POSTGRESQL_DATABASE"
+            - name: "POSTGRES_DB"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: database-name
-            - name: "POSTGRESQL_USER"
+            - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: database-user
-            - name: "POSTGRESQL_PASSWORD"
+            - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
@@ -516,17 +516,17 @@ spec:
     spec:
       containers:
         - env:
-            - name: "POSTGRESQL_DATABASE"
+            - name: "POSTGRES_DB"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: database-name
-            - name: "POSTGRESQL_USER"
+            - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: database-user
-            - name: "POSTGRESQL_PASSWORD"
+            - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db

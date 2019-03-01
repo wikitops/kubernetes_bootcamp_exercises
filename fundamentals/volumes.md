@@ -628,17 +628,17 @@ spec:
     spec:
       containers:
         - env:
-            - name: "POSTGRESQL_DATABASE"
+            - name: "POSTGRES_DB"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: name
-            - name: "POSTGRESQL_USER"
+            - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: user
-            - name: "POSTGRESQL_PASSWORD"
+            - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db

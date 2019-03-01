@@ -692,8 +692,7 @@ The file developed has to be stored in this directory : `/data/votingapp/01_pods
 {% tabs %}
 {% tab title="Exercise" %}
 1. Deploy each containers of the Voting App in a single Pod called `voting-app` in his dedicated namespace created in the previous module.
-2. Ensure the Pods are created.
-3. Find the bug on the Pods that may be in error.
+2. Ensure the Pods are up and running
 {% endtab %}
 
 {% tab title="Solution" %}
@@ -730,7 +729,7 @@ metadata:
 spec:
   containers:
   - name: result-app
-    image: wikitops/examplevotingapp-result:1.0
+    image: wikitops/examplevotingapp-result:1.1
 ---
 apiVersion: v1
 kind: Pod
@@ -766,55 +765,6 @@ Ensure the Pods are created.
 ```bash
 kubectl get pods -n voting-app
 ```
-
-The command line return should look like that :
-
-```bash
-NAME      READY   STATUS             RESTARTS   AGE
-db        0/1     CrashLoopBackOff   9          26m
-redis     1/1     Running            0          26m
-result    1/1     Running            0          26m
-vote      1/1     Running            0          26m
-worker    1/1     Running            0          26m
-```
-
-Get the logs of the db Pod to understand why it is in CrashLoopBackOff :
-
-```bash
-kubectl logs db -n voting-app
-```
-
-The logs returned by the command line return should look like that : 
-
-```bash
-For general container run, you must either specify the following environment
-variables:
-  POSTGRESQL_USER  POSTGRESQL_PASSWORD  POSTGRESQL_DATABASE
-Or the following environment variable:
-  POSTGRESQL_ADMIN_PASSWORD
-Or both.
-
-To migrate data from different PostgreSQL container:
-  POSTGRESQL_MIGRATION_REMOTE_HOST (hostname or IP address)
-  POSTGRESQL_MIGRATION_ADMIN_PASSWORD (password of remote 'postgres' user)
-And optionally:
-  POSTGRESQL_MIGRATION_IGNORE_ERRORS=yes (default is 'no')
-
-Optional settings:
-  POSTGRESQL_MAX_CONNECTIONS (default: 100)
-  POSTGRESQL_MAX_PREPARED_TRANSACTIONS (default: 0)
-  POSTGRESQL_SHARED_BUFFERS (default: 32MB)
-
-For more information see /usr/share/container-scripts/postgresql/README.md
-within the container or visit https://github.com/sclorg/postgresql-container.
-
-```
-
-That log means that the Postgres container within the Pod db need some environment variable to configure the default database and credentials.
-
-{% hint style="info" %}
-The db Pod will be debug in the next chapters.
-{% endhint %}
 {% endtab %}
 {% endtabs %}
 

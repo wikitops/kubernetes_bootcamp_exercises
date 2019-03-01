@@ -40,11 +40,11 @@ Each part of the application has his own Docker image :
 
 | Service | Pods Name | Image |
 | :--- | :--- | :--- |
-| Database | db | centos/postgresql-96-centos7 |
+| Database | db | postgres:10.4 |
 | Queue | redis | redis |
-| Vote | vote | wikitops/examplevotingapp-vote:1.0 |
+| Vote | vote | wikitops/examplevotingapp-vote:1.1 |
 | Result | result | wikitops/examplevotingapp-result:1.0 |
-| Worker | worker | wikitops/examplevotingapp-worker:1.0 |
+| Worker | worker | wikitops/examplevotingapp-worker:1.1 |
 
 ## External documentation
 

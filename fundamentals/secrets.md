@@ -492,22 +492,22 @@ spec:
     spec:
       containers:
         - env:
-            - name: "DB_NAME"
+            - name: "POSTGRES_DB"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: name
-            - name: "DB_USERNAME"
+            - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: user
-            - name: "DB_PASSWORD"
+            - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: password
-          image: wikitops/examplevotingapp-result:1.0
+          image: wikitops/examplevotingapp-result:1.1
           imagePullPolicy: IfNotPresent
           name: result
           ports:
@@ -536,23 +536,23 @@ spec:
     spec:
       containers:
         - env:
-            - name: "DB_NAME"
+            - name: "POSTGRES_DB"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: name
-            - name: "DB_USERNAME"
+            - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: user
-            - name: "DB_PASSWORD"
+            - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: password
           image: wikitops/examplevotingapp-worker:1.1
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           name: worker
 ```
 {% endcode-tabs-item %}

@@ -743,6 +743,10 @@ Based on the principles explain in this module, try by your own to handle this s
 2. Update one node with the key/value label : _type=database_
 3. Update another node with the key/value label : _type=queue_
 4. Ensure each nodes are correctly configured
+
+{% hint style="info" %}
+On single node cluster like Minikube, the key defined must be unique.
+{% endhint %}
 {% endtab %}
 
 {% tab title="Solution" %}

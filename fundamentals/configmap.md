@@ -571,7 +571,7 @@ The file developed has to be stored in this directory : `/data/votingapp/05_conf
 Delete the vote Deployment.
 
 ```bash
-kubectl delete deployment vote
+kubectl delete deployment vote -n voting-app
 ```
 
 Ccreate the ConfigMaps in command line.

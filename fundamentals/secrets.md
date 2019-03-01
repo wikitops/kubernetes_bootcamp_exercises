@@ -401,23 +401,30 @@ The file developed has to be stored in this directory : `/data/votingapp/06_secr
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. Create a Secrets resource to externalize some part of the vote Pods :
+1. Delete the db, result and worker Deployment to be able to update the Secrets management
+2. Create a Secrets resource to externalize some part of the vote Pods :
    1. Named the Secrets _db_
    2. The Secrets must manage those data : 
       1. `name: voting`
       2. `password: mypassword`
       3. `user: voting`
-2. Update the Deployment of the vote Pods to attach the Secrets as environment variables :
+3. Update the Deployment of the vote Pods to attach the Secrets as environment variables :
    1. The name of the `name` environment variable has to be POSTGRESQL\_DATABASE
    2. The name of the `password` environment variable has to be POSTGRESQL\_PASSWORD
    3. The name of the `user` environment variable has to be POSTGRESQL\_USERNAME
 {% endtab %}
 
 {% tab title="Solution" %}
-A command example to create the Secrets in command line.
+Delete the current db Deployment.
 
 ```bash
-kubectl create secret generic db -n voting-app --from-literal=name=voting --from-literal=password=mypassword --from-literal=user=voting
+kubectl delete deployment db result worker -n voting-app
+```
+
+Create the Secrets in command line.
+
+```bash
+kubectl create secret generic db -n voting-app --from-literal=POSTGRES_DB=voting --from-literal=POSTGRES_PASSWORD=mypassword --from-literal=POSTGRES_USER=voting
 ```
 
 An example of yaml definition file to update the Deployments of each Pods.
@@ -451,17 +458,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: name
+                  key: POSTGRES_DB
             - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: user
+                  key: POSTGRES_USER
             - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: password
+                  key: POSTGRES_PASSWORD
           image: postgres:10.4
           imagePullPolicy: IfNotPresent
           name: db
@@ -496,17 +503,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: name
+                  key: POSTGRES_DB
             - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: user
+                  key: POSTGRES_USER
             - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: password
+                  key: POSTGRES_PASSWORD
           image: wikitops/examplevotingapp-result:1.1
           imagePullPolicy: IfNotPresent
           name: result
@@ -540,17 +547,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: name
+                  key: POSTGRES_DB
             - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: user
+                  key: POSTGRES_USER
             - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: password
+                  key: POSTGRES_PASSWORD
           image: wikitops/examplevotingapp-worker:1.1
           imagePullPolicy: IfNotPresent
           name: worker
@@ -561,7 +568,7 @@ spec:
 Update the current Deployments resources.
 
 ```bash
-kubectl apply -f /data/votingapp/06_secrets/deployment.yaml
+kubectl create -f /data/votingapp/06_secrets/deployment.yaml
 ```
 {% endtab %}
 {% endtabs %}

@@ -346,6 +346,9 @@ The file developed has to be stored in this directory : `/data/votingapp/09_quot
 2. Set the default limits of container resources has below :
    1. By default, a container can request 256Mi of memory and 0.5 of CPU unit
    2. The default limits is 512Mi of memory and 1 CPU unit
+3. Check that the default limitation policy deployed is not added to the current running Pods.
+4. Restart one or all Pods to update the default limitation policy
+5. Describe the restarted Pods to get the limitation
 {% endtab %}
 
 {% tab title="Solution" %}

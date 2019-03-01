@@ -632,17 +632,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: name
+                  key: POSTGRES_DB
             - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: user
+                  key: POSTGRES_USER
             - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
-                  key: password
+                  key: POSTGRES_PASSWORD
           image: postgres:10.4
           imagePullPolicy: IfNotPresent
           name: db

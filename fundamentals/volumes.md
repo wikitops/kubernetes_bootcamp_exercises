@@ -643,7 +643,7 @@ spec:
                 secretKeyRef:
                   name: db
                   key: password
-          image: centos/postgresql-96-centos7
+          image: postgres:10.4
           imagePullPolicy: IfNotPresent
           name: db
           ports:

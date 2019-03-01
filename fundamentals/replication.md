@@ -283,7 +283,7 @@ spec:
     spec:
       containers:
       - name: db
-        image: centos/postgresql-96-centos7
+        image: postgres:10.4
 ---
 apiVersion: apps/v1
 kind: ReplicaSet

@@ -710,7 +710,7 @@ metadata:
 spec:
   containers:
   - name: db
-    image: centos/postgresql-96-centos7
+    image: postgres:10.4
 ---
 apiVersion: v1
 kind: Pod

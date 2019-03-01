@@ -334,7 +334,7 @@ spec:
                 secretKeyRef:
                   name: db
                   key: database-password
-          image: centos/postgresql-96-centos7
+          image: postgres:10.4
           imagePullPolicy: IfNotPresent
           name: db
           ports:
@@ -437,7 +437,7 @@ spec:
                 secretKeyRef:
                   name: db
                   key: database-password
-          image: centos/postgresql-96-centos7
+          image: postgres:10.4
           imagePullPolicy: IfNotPresent
           name: db
           ports:
@@ -531,7 +531,7 @@ spec:
                 secretKeyRef:
                   name: db
                   key: database-password
-          image: centos/postgresql-96-centos7
+          image: postgres:10.4
           imagePullPolicy: IfNotPresent
           name: db
           ports:

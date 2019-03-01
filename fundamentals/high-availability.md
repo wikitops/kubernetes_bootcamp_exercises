@@ -167,22 +167,22 @@ spec:
     spec:
       containers:
         - env:
-            - name: "POSTGRESQL_DATABASE"
+            - name: "POSTGRES_DB"
               valueFrom:
                 configMapKeyRef:
                   name: db
                   key: database-name
-            - name: "POSTGRESQL_USER"
+            - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: database-user
-            - name: "POSTGRESQL_PASSWORD"
+            - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: database-password
-          image: centos/postgresql-96-centos7
+          image: postgres:10.4
           imagePullPolicy: IfNotPresent
           livenessProbe:
             tcpSocket:
@@ -239,13 +239,7 @@ spec:
         name: redis
     spec:
       containers:
-        - env:
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: database-password
-                  name: redis
-          image: redis:alpine
+        - image: redis:alpine
           imagePullPolicy: IfNotPresent
           livenessProbe:
             tcpSocket:

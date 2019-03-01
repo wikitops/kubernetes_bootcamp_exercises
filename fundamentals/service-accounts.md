@@ -237,7 +237,7 @@ spec:
                configMapKeyRef:
                  name: vote
                  key: option_b
-          image: wikitops/examplevotingapp-vote:1.0
+          image: wikitops/examplevotingapp-vote:1.1
           imagePullPolicy: IfNotPresent
           name: vote
           ports:

@@ -559,8 +559,8 @@ The file developed has to be stored in this directory : `/data/votingapp/05_conf
 1. Create a ConfigMaps resource to externalize some part of the vote Pods :
    1. Named the ConfigMaps _vote_
    2. The ConfigMaps must manage those data : 
-      1. `option_a: "KUBERNETES"`
-      2. `option_b: "SWARM"`
+      1. `option_a: "CATS"`
+      2. `option_b: "DOGS"`
 2. Update the Deployment of the vote Pods to attach the ConfigMaps as environment variables :
    1. The name of the `option_a` environment variable has to be OPTION\_A
    2. The name of the `option_b` environment variable has to be OPTION\_B
@@ -570,7 +570,7 @@ The file developed has to be stored in this directory : `/data/votingapp/05_conf
 A command example to create the Secrets in command line.
 
 ```bash
-kubectl create configmap vote -n voting-app --from-literal=option_a=KUBERNETES --from-literal=option_b=SWARM
+kubectl create configmap vote -n voting-app --from-literal=option_a=CATS --from-literal=option_b=DOGS
 ```
 
 An example of yaml definition file to update the Deployments of the vote Pods.
@@ -610,7 +610,7 @@ spec:
                configMapKeyRef:
                  name: vote
                  key: option_b
-          image: wikitops/examplevotingapp-vote:1.0
+          image: wikitops/examplevotingapp-vote:1.1
           imagePullPolicy: IfNotPresent
           name: vote
           ports:

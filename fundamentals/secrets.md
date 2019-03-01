@@ -447,22 +447,22 @@ spec:
     spec:
       containers:
         - env:
-            - name: "POSTGRESQL_DATABASE"
+            - name: "POSTGRES_DB"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: name
-            - name: "POSTGRESQL_USER"
+            - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: user
-            - name: "POSTGRESQL_PASSWORD"
+            - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   name: db
                   key: password
-          image: centos/postgresql-96-centos7
+          image: postgres:10.4
           imagePullPolicy: IfNotPresent
           name: db
           ports:
@@ -551,7 +551,7 @@ spec:
                 secretKeyRef:
                   name: db
                   key: password
-          image: wikitops/examplevotingapp-worker:1.0
+          image: wikitops/examplevotingapp-worker:1.1
           imagePullPolicy: Always
           name: worker
 ```

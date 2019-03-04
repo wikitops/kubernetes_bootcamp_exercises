@@ -106,6 +106,12 @@ php-apache   Deployment/php-apache   76%/50%   3         10        5          17
 Scale the load-generator if you want to stress the php-apache Pods quickly.
 {% endhint %}
 
+{% hint style="warning" %}
+**Longer Execution Times**
+
+The autoscaling can take more than 2 minutes to run. Please be patient. Do not close the window or cancel the operation.
+{% endhint %}
+
 #### Exercise n°3
 
 Stop to stress the Pod previously created and check that the autoscaler come back to normal.

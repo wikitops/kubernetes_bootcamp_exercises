@@ -10,7 +10,7 @@ description: >-
 
 The kubectl version has to be within one minor version difference of the Kubernetes cluster. For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master.
 
-Kubectl can be installed on Ubuntu, Debian, CentOS, RedHat operating systems.
+Kubectl can be installed on Ubuntu, Debian, CentOS, RedHat, MacOS and Windows operating systems.
 
 {% tabs %}
 {% tab title="Ubuntu / Debian" %}
@@ -131,7 +131,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 ## Operations
 
-The following table includes short descriptions and the general syntax for all of the kubectl operations :
+The following table includes short descriptions and general syntax for all kubectl operations :
 
 | Operation | Description |
 | :--- | :--- |

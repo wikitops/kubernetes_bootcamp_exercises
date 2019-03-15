@@ -80,6 +80,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sd-deployment
+  labels:
+    app: webserver
 spec:
   replicas: 3
   selector:

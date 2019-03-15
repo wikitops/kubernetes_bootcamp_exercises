@@ -315,7 +315,7 @@ The file developed has to be stored in this directory : `~/data/votingapp/11_net
 An example yaml file definition to handle the NetworkPolicies.
 
 {% code-tabs %}
-{% code-tabs-item title="~/data/votingapp/10\_networks/networkpolicies.yaml" %}
+{% code-tabs-item title="~/data/votingapp/11\_networks/networkpolicies.yaml" %}
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -420,7 +420,7 @@ spec:
 Create the NetworkPolicies based on the previous yaml file.
 
 ```bash
-kubectl create -f ~/data/votingapp/10_networks/networkpolicies.yaml
+kubectl create -f ~/data/votingapp/11_networks/networkpolicies.yaml
 ```
 {% endtab %}
 {% endtabs %}

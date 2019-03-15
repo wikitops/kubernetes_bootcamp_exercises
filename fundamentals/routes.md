@@ -365,7 +365,7 @@ The file developed has to be stored in this directory : `~/data/votingapp/12_rou
 Create the yaml file definition to expose the vote service.
 
 {% code-tabs %}
-{% code-tabs-item title="~/data/votingapp/11\_routes/routes.yaml" %}
+{% code-tabs-item title="~/data/votingapp/12\_routes/routes.yaml" %}
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -403,7 +403,7 @@ spec:
 Create the yaml file definition to expose the result service.
 
 ```bash
-kubectl create -f ~/data/votingapp/11_routes/routes.yaml
+kubectl create -f ~/data/votingapp/12_routes/routes.yaml
 ```
 {% endtab %}
 {% endtabs %}

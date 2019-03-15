@@ -1,12 +1,22 @@
 # High Availability
 
-## Module Overview
+## Module
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn to monitor resources_
 * _Learn to format it in a declarative mode_
 * _Learn the different type of scalability_
+
+#### Prerequisites
+
+Create the directory `data/ha` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/ha
+```
 
 ## Liveness / Readiness Probe
 
@@ -24,6 +34,8 @@ This health check uses a command to attempt to get command return status. If the
 
 Create an Pods based on the busybox Docker image to run a command and check his liveness.
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/ha/01\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -52,6 +64,14 @@ spec:
       initialDelaySeconds: 5
       periodSeconds: 5
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create a resource based on the previous yaml file definition.
+
+```bash
+kubectl create -f ~/data/ha/01_pods.yaml
+```
 
 ### HTTP Request
 
@@ -61,6 +81,8 @@ This health check uses HTTP Request to attempt to get a website path on a specif
 
 Create a Pods based on nginx Docker image and configure his liveness and readiness to check the HTTP response of the base path of the default nginx website on port 80.
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/ha/02\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -83,6 +105,14 @@ spec:
       initialDelaySeconds: 3
       periodSeconds: 3
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create a resource based on the previous yaml file definition.
+
+```bash
+kubectl create -f ~/data/ha/02_pods.yaml
+```
 
 ### TCP Request
 
@@ -92,6 +122,8 @@ This healthcheck uses TCP Socket to attempt to open a socket to a container on a
 
 Create a Pods based on nginx Docker image and configure his liveness and readiness to check the TCP response of the base path of the default nginx website on port 80.
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/ha/03\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -112,6 +144,14 @@ spec:
       initialDelaySeconds: 5
       periodSeconds: 10
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create a resource based on the previous yaml file definition.
+
+```bash
+kubectl create -f ~/data/ha/03_pods.yaml
+```
 
 ## Module exercise
 
@@ -123,7 +163,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/13_highavailability`
+The file developed has to be stored in this directory : `~/data/votingapp/13_highavailability`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -143,7 +183,7 @@ The file developed has to be stored in this directory : `/data/votingapp/13_high
 Update the database Deployment yaml file definition.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/12\_highavailability/deployment\_database.yaml" %}
+{% code-tabs-item title="~/data/votingapp/13\_highavailability/deployment\_database.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -216,7 +256,7 @@ spec:
 Update the redis Deployment yaml file definition.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/12\_highavailability/deployment\_redis.yaml" %}
+{% code-tabs-item title="~/data/votingapp/13\_highavailability/deployment\_redis.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -273,7 +313,7 @@ spec:
 Update the vote Deployment yaml file definition.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/12\_highavailability/deployment\_vote.yaml" %}
+{% code-tabs-item title="~/data/votingapp/13\_highavailability/deployment\_vote.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -297,13 +337,6 @@ spec:
     spec:
       containers:
         - env:
-            - name: "REDIS_SERVICE_NAME"
-              valueFrom:
-                configMapKeyRef:
-                  name: redis
-                  key: database-name
-            - name: "PORT"
-              value: "8080"
             - name: "OPTION_A"
               valueFrom:
                 configMapKeyRef:
@@ -314,7 +347,7 @@ spec:
                 configMapKeyRef:
                   name: vote
                   key: option_b
-          image: wikitops/examplevotingapp-vote:1.0
+          image: wikitops/examplevotingapp-vote:1.1
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -334,7 +367,7 @@ spec:
 Update the result Deployment yaml file definition.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/12\_highavailability/deployment\_result.yaml" %}
+{% code-tabs-item title="~/data/votingapp/1\#\_highavailability/deployment\_result.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -358,26 +391,24 @@ spec:
     spec:
       containers:
         - env:
-            - name: "DB_SERVICE_NAME"
-              value: "db"
-            - name: "DB_NAME"
+            - name: "POSTGRES_DB"
               valueFrom:
                 secretKeyRef:
                   key: database-name
                   name: db
-            - name: "DB_USERNAME"
+            - name: "POSTGRES_USERNAME"
               valueFrom:
                 secretKeyRef:
                   key: database-user
                   name: db
-            - name: "DB_PASSWORD"
+            - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   key: database-password
                   name: db
             - name: "PORT"
               value: "8080"
-          image: wikitops/examplevotingapp-result:1.0
+          image: wikitops/examplevotingapp-result:1.1
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -396,7 +427,7 @@ spec:
 Update the each Deployment based on the previous yaml files.
 
 ```bash
-kubectl apply -f /data/votingapp/12_highavailability/
+kubectl apply -f /data/votingapp/13_highavailability/
 ```
 {% endtab %}
 {% endtabs %}

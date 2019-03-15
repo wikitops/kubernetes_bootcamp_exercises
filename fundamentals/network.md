@@ -6,13 +6,25 @@ description: >-
 
 # Networks
 
-## Module Overview
+## Module
+
+Networking is a central part of Kubernetes, but it can be challenging to understand exactly how it is expected to work.
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn what is a CNI_
 * _Learn to manage network rules_
 * _Learn to secure the communication within a cluster_
+
+#### Prerequisites
+
+Create the directory `data/networks` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/networks
+```
 
 ## Create
 
@@ -29,7 +41,7 @@ The _create_ command can create a NetworkPolicy object based on a yaml file defi
 Deploy a default Network Policy for each resources in the default namespace to deny all ingress and egress traffic.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/networkpolicy/01\_networkpolicy.yaml" %}
+{% code-tabs-item title="~/data/networks/01\_networkpolicy.yaml" %}
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -48,7 +60,7 @@ spec:
 Create the resource based on the previous yaml file definition.
 
 ```bash
-kubectl create -f /data/networkpolicy/01_networkpolicy.yaml
+kubectl create -f ~/data/networks/01_networkpolicy.yaml
 ```
 
 #### Exercise n°2
@@ -64,7 +76,7 @@ Create a network policy to :
   * The local network 10.0.0.0/24 on port 5432
 
 {% code-tabs %}
-{% code-tabs-item title="/data/networkpolicy/02\_networkpolicy.yaml" %}
+{% code-tabs-item title="~/data/networks/02\_networkpolicy.yaml" %}
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -105,7 +117,7 @@ spec:
 Create the resource based on the previous yaml file definition.
 
 ```bash
-kubectl create -f /data/networkpolicy/02_networkpolicy.yaml
+kubectl create -f ~/data/networks/02_networkpolicy.yaml
 ```
 
 ## Get
@@ -282,7 +294,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/11_networks`
+The file developed has to be stored in this directory : `~/data/votingapp/11_networks`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -303,7 +315,7 @@ The file developed has to be stored in this directory : `/data/votingapp/11_netw
 An example yaml file definition to handle the NetworkPolicies.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/10\_networks/networkpolicies.yaml" %}
+{% code-tabs-item title="~/data/votingapp/10\_networks/networkpolicies.yaml" %}
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -408,7 +420,7 @@ spec:
 Create the NetworkPolicies based on the previous yaml file.
 
 ```bash
-kubectl create -f /data/votingapp/10_networks/networkpolicies.yaml
+kubectl create -f ~/data/votingapp/10_networks/networkpolicies.yaml
 ```
 {% endtab %}
 {% endtabs %}

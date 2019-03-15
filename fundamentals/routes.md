@@ -6,13 +6,23 @@ description: >-
 
 # Routes
 
-## Module Overview
+## Module
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn to manage the external access of internal resources_
 * _Learn to manage ingress controller_
 * _Learn to secure the cluster access_
+
+#### Prerequisites
+
+Create the directory `data/routes` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/routes
+```
 
 {% hint style="info" %}
 This module needs an Ingress controller to be deployed on the cluster. The default Ingress controller used in this module is Nginx. Ensure this module is up and running before continuing.
@@ -51,7 +61,7 @@ minikube addons enable ingress
 First, deploy two static website in two different deployments. Then, expose each one on the port 80.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/routes/01\_deployments.yaml" %}
+{% code-tabs-item title="~/data/routes/01\_deployments.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -105,7 +115,7 @@ spec:
 Expose each on of the Deployment on port 80.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/routes/02\_services.yaml" %}
+{% code-tabs-item title="~/data/routes/02\_services.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Service
@@ -137,7 +147,7 @@ spec:
 Create an Ingress resource to expose an Nginx pod Service's on port 80.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/routes/03\_ingress.yaml" %}
+{% code-tabs-item title="~/data/routes/03\_ingress.yaml" %}
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -165,7 +175,7 @@ spec:
 Create each resources based on the previous yaml files definition.
 
 ```bash
-kubectl create -f /data/routes/01_deployments.yaml -f /data/routes/02_services.yaml -f /data/routes/03_ingress.yaml
+kubectl create -f ~/data/routes/
 ```
 
 {% hint style="info" %}
@@ -342,7 +352,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/12_routes`
+The file developed has to be stored in this directory : `~/data/votingapp/12_routes`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -355,7 +365,7 @@ The file developed has to be stored in this directory : `/data/votingapp/12_rout
 Create the yaml file definition to expose the vote service.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/11\_routes/routes.yaml" %}
+{% code-tabs-item title="~/data/votingapp/11\_routes/routes.yaml" %}
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -393,7 +403,7 @@ spec:
 Create the yaml file definition to expose the result service.
 
 ```bash
-kubectl create -f /data/votingapp/11_routes/routes.yaml
+kubectl create -f ~/data/votingapp/11_routes/routes.yaml
 ```
 {% endtab %}
 {% endtabs %}

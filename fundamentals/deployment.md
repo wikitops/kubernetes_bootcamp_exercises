@@ -18,10 +18,10 @@ At the end of this module, you will :
 
 #### Prerequisites
 
-Create the directory `data/deployments` in your home folder to manage the YAML file needed in this module.
+Create the directory `data/deployment` in your home folder to manage the YAML file needed in this module.
 
 ```bash
-mkdir ~/data/deployments
+mkdir ~/data/deployment
 ```
 
 ## Create
@@ -75,8 +75,6 @@ spec:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Create the Deployment in command line.
-
 ```bash
 kubectl create -f ~/data/deployment/01_deployment.yaml
 ```
@@ -126,8 +124,6 @@ spec:
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-Create the Deployment in command line.
 
 ```bash
 kubectl create -f ~/data/deployment/02_deployment.yaml
@@ -371,7 +367,7 @@ REVISION  CHANGE-CAUSE
 Do the same operation to update Nginx in the 1.12.3 version but with a yaml file and add the `--record` parameter to the command. Get the deployment history to understand the difference between an update with or without the `--record` parameter.
 
 {% code-tabs %}
-{% code-tabs-item title="~/data/deployment/02\_deployment.yaml" %}
+{% code-tabs-item title="~/data/deployment/03\_deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -401,7 +397,7 @@ Update the Deployment in command line.
 {% tabs %}
 {% tab title="Command" %}
 ```bash
-kubectl apply -f ~/data/deployment/02_deployment.yaml --record
+kubectl apply -f ~/data/deployment/03_deployment.yaml --record
 kubectl rollout history deployment mynginxdeploymentyaml
 ```
 {% endtab %}
@@ -450,7 +446,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 Delete the previous deployment in command line.
 
 ```bash
-kubectl delete deployment mynginxdeploymentcli mynginxdeploymentyaml
+kubectl delete deployment mynginxdeploymentcli mynginxdeploymentyaml postgres
 ```
 
 ## Module exercise

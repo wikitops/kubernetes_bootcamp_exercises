@@ -1,6 +1,6 @@
 # Services
 
-## Module
+## mModule
 
 A Kubernetes _Service_ is an abstraction which defines a logical set of Pods and a policy by which to access them.
 

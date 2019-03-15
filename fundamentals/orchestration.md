@@ -47,7 +47,7 @@ sudo apt-get install -y kubectl
 ```
 {% endtab %}
 
-{% tab title="CentOS / RedHat / Fedora" %}
+{% tab title="CentOS / RedHat" %}
 ```text
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]

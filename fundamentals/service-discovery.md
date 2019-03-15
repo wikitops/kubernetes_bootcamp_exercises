@@ -1,6 +1,10 @@
 # Service Discovery
 
-## Module overview
+## Module
+
+_Service discovery_ is one of the core functionalities of any container-based environment to automatically discover each object and manage their domain name resolution.
+
+#### Overview
 
 At the end of this module, you will :
 
@@ -11,6 +15,14 @@ At the end of this module, you will :
 {% hint style="info" %}
 This module needs a DNS plugin to be deployed on the cluster. The default DNS plugin used in this module is CoreDNS. Ensure this module is up and running before continuing.
 {% endhint %}
+
+#### Prerequisites
+
+Create the directory `data/servicediscovery` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/servicediscovery
+```
 
 ## Create
 
@@ -62,7 +74,7 @@ On Minikube, CoreDNS is enable by default.
 Create an Nginx HTTP server Deployment that listen on port 80.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/servicediscovery/01\_deployment.yaml" %}
+{% code-tabs-item title="~/data/servicediscovery/01\_deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -91,7 +103,7 @@ spec:
 Create the Service to expose the previous Deployment internally on port 4000.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/servicediscovery/02\_service.yaml" %}
+{% code-tabs-item title="~/data/servicediscovery/02\_service.yaml" %}
 ```yaml
 kind: Service
 apiVersion: v1
@@ -111,7 +123,7 @@ spec:
 Create the resources based on the previous yaml files definition.
 
 ```bash
-kubectl create -f /data/servicediscovery/
+kubectl create -f ~/data/servicediscovery/
 ```
 
 {% hint style="info" %}
@@ -236,7 +248,7 @@ Delete the service and the deployment created previously in the default namespac
 
 ```bash
 # Delete the service discovery resources
-kubectl delete -f /data/servicediscovery/
+kubectl delete -f ~/data/servicediscovery/
 
 # Delete the busybox pod
 kubectl delete po busybox

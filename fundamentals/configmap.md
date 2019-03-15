@@ -8,7 +8,7 @@ description: >-
 
 ## Module
 
-ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.
+_ConfigMaps_ allow you to decouple configuration artifacts from image content to keep containerized applications portable.
 
 #### Overview
 

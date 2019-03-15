@@ -6,13 +6,25 @@ description: >-
 
 # Secrets
 
-## Module Overview
+## Module
+
+Kubernetes _secret_ objects let you store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys.
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn to manage sensitive data within the cluster_
 * _Learn to deploy Secrets_
 * _Learn to access secrets data within a container_
+
+#### Prerequisites
+
+Create the directory `data/secrets` in your home folder to manage the YAML file needed in this module.
+
+```text
+mkdir ~/data/secrets
+```
 
 ## Create
 
@@ -95,7 +107,7 @@ Pay attention to the format of data in the yaml file definition, the content has
 Create a Secret manually in declarative mode.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/secrets/01\_secrets.yaml" %}
+{% code-tabs-item title="~/data/secrets/01\_secrets.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -112,7 +124,7 @@ data:
 Create the Secrets based on the previous yaml file.
 
 ```bash
-kubectl create -f /data/secrets/01_secrets.yaml
+kubectl create -f ~/data/secrets/01_secrets.yaml
 ```
 
 ## Get
@@ -203,7 +215,7 @@ Inside a container that consumes a secret in an environment variables, the secre
 Based on the previous Secrets created, create a Pod using the busybox image to display some part of the Secret in single environment variables.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/secrets/02\_pods.yaml" %}
+{% code-tabs-item title="~/data/secrets/02\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -227,7 +239,7 @@ spec:
 Create the resource based on the previous yaml file definition.
 
 ```bash
-kubectl create -f /data/secrets/02_pods.yaml
+kubectl create -f ~/data/secrets/02_pods.yaml
 ```
 
 Get the environment variable to ensure the configuration.
@@ -257,7 +269,7 @@ With this method, the data of a Secrets is directly connected as a Volume to a P
 Based on the previous Secrets created, create a Pod using the busybox image to display some part of the Secret in single file.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/secrets/03\_pods.yaml" %}
+{% code-tabs-item title="~/data/secrets/03\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -285,7 +297,7 @@ spec:
 Create the resource based on the previous yaml file definition.
 
 ```text
-kubectl create -f /data/secrets/03_pods.yaml
+kubectl create -f ~/data/secrets/03_pods.yaml
 ```
 
 Get the volume mount information.
@@ -293,7 +305,7 @@ Get the volume mount information.
 {% tabs %}
 {% tab title="Command" %}
 ```bash
-kubectl exec -it myfirstsecretfile cat /data/sensitive/myapp/my-password
+kubectl exec -it myfirstsecretfile cat ~/data/sensitive/myapp/my-password
 ```
 {% endtab %}
 
@@ -397,7 +409,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/06_secrets`
+The file developed has to be stored in this directory : `~/data/votingapp/06_secrets`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -430,7 +442,7 @@ kubectl create secret generic db -n voting-app --from-literal=POSTGRES_DB=voting
 An example of yaml definition file to update the Deployments of each Pods.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/06\_secrets/deployment.yaml" %}
+{% code-tabs-item title="~/data/votingapp/06\_secrets/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -568,7 +580,7 @@ spec:
 Update the current Deployments resources.
 
 ```bash
-kubectl create -f /data/votingapp/06_secrets/deployment.yaml
+kubectl create -f ~/data/votingapp/06_secrets/deployment.yaml
 ```
 {% endtab %}
 {% endtabs %}

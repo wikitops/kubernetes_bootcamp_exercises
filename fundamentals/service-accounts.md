@@ -2,7 +2,7 @@
 
 ## Module
 
-A service account provides an identity for processes that run in a Pod.
+A _service account_ provides an identity for processes that run in a Pod.
 
 #### Overview
 

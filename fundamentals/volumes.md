@@ -7,13 +7,25 @@ description: >-
 
 # Volumes
 
-## Module Overview
+## Module
+
+Kubernetes volumes are an abstraction of external storage that can be attached and shared by multiple Pods.
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn to persist data thanks to external volumes_
 * _Learn to manage the volumes and the claim_
 * _Learn to access data within a container_
+
+#### Prerequisites
+
+Create the directory `data/volumes` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/volumes
+```
 
 ## Create
 
@@ -43,7 +55,7 @@ An EmptyDir Volume does not require the definition of an external resource like 
 Create an Nginx Pod and attach an EmptyDir volume to it.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/volumes/01\_pods.yaml" %}
+{% code-tabs-item title="~/data/volumes/01\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -66,7 +78,7 @@ spec:
 Create the resource based on the previous yaml definition file.
 
 ```bash
-kubectl create -f /data/volumes/01_pods.yaml
+kubectl create -f ~/data/volumes/01_pods.yaml
 ```
 
 ### PersistentVolume
@@ -84,7 +96,7 @@ HostPath volumes should not be used in a production cluster. Instead a cluster a
 Create an hostPath volume based on that directory :`/data/nginx/conf`
 
 {% code-tabs %}
-{% code-tabs-item title="/data/volumes/02\_hostpath.yaml" %}
+{% code-tabs-item title="~/data/volumes/02\_hostpath.yaml" %}
 ```yaml
 kind: PersistentVolume
 apiVersion: v1
@@ -105,7 +117,7 @@ spec:
 Create the resource based on the previous yaml definition file.
 
 ```bash
-kubectl create -f /data/volumes/02_hostpath.yaml
+kubectl create -f ~/data/volumes/02_hostpath.yaml
 ```
 
 ## Claim
@@ -117,7 +129,7 @@ A PersistentVolumeClaim is a request for storage by a user. It is similar to a p
 Create the PersistentVolumeClaim to claim the previous PersistentVolume provisioned.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/volumes/03\_persistentvolumeclaim.yaml" %}
+{% code-tabs-item title="~/data/volumes/03\_persistentvolumeclaim.yaml" %}
 ```yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -137,7 +149,7 @@ spec:
 Create the resource based on the previous yaml definition file.
 
 ```bash
-kubectl create -f /data/volumes/03_persistentvolumeclaim.yaml
+kubectl create -f ~/data/volumes/03_persistentvolumeclaim.yaml
 ```
 
 ## Attach
@@ -149,7 +161,7 @@ Undependently on the PersistentVolume type used, attach a Volume to a Pod can be
 Attach the previous PersistentVolumeClaim to an Nginx Pod to consume the hostPath PersistentVolume provisioned before.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/volumes/04\_pods.yaml" %}
+{% code-tabs-item title="~/data/volumes/04\_pods.yaml" %}
 ```yaml
 kind: Pod
 apiVersion: v1
@@ -175,7 +187,7 @@ spec:
 Create the resource based on the previous yaml definition file.
 
 ```bash
-kubectl create -f /data/volumes/04_pods.yaml
+kubectl create -f ~/data/volumes/04_pods.yaml
 ```
 
 ## Get
@@ -527,11 +539,11 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/07_volumes`
+The file developed has to be stored in this directory : `~/data/votingapp/07_volumes`
 
 {% tabs %}
 {% tab title="Exercise" %}
-1. On the node labelized _type=database_, create this directory : `/data/votingapp/07_volumes/database/data`
+1. On the node labelized _type=database_, create this directory : `~/data/votingapp/07_volumes/database/data`
 2. Create a PersistentVolume based on that local directory previously created. The storage capacity of this volume has to be 10Gi. 
 3. Create the PersistentVolumeClaim to consume the PersistentVolume previously created. Manage this object to claim only 5Gi of the PersistentVolume.
 4. Attach the volume to the database Pods
@@ -541,13 +553,13 @@ The file developed has to be stored in this directory : `/data/votingapp/07_volu
 Create the directory needed to store the data of the database Pods.
 
 ```bash
-mkdir -p /data/votingapp/07_volumes/database/data
+mkdir -p ~/data/votingapp/07_volumes/database/data
 ```
 
 Create a PersistentVolume based on this local path.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/07\_volumes/persistentvolume.yaml" %}
+{% code-tabs-item title="~/data/votingapp/07\_volumes/persistentvolume.yaml" %}
 ```yaml
 kind: PersistentVolume
 apiVersion: v1
@@ -563,7 +575,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/data/votingapp/07_volumes/database/data"
+    path: "~/data/votingapp/07_volumes/database/data"
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -571,13 +583,13 @@ spec:
 Create the PersistentVolume based on the yaml file.
 
 ```bash
-kubectl create -f /data/votingapp/07_volumes/persistentvolume.yaml
+kubectl create -f ~/data/votingapp/07_volumes/persistentvolume.yaml
 ```
 
 Create a PersistentVolumeClaim based on the previous PersistentVolume.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/07\_volumes/persistentvolumeclaim.yaml" %}
+{% code-tabs-item title="~/data/votingapp/07\_volumes/persistentvolumeclaim.yaml" %}
 ```yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -598,13 +610,13 @@ spec:
 Create the PersistentVolumeClaim based on the yaml file.
 
 ```bash
-kubectl create -f /data/votingapp/07_volumes/persistentvolumeclaim.yaml
+kubectl create -f ~/data/votingapp/07_volumes/persistentvolumeclaim.yaml
 ```
 
 Update the database Deployment to attach the PersistentVolumeClaim and persist data.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/07\_volumes/deployment.yaml" %}
+{% code-tabs-item title="~/data/votingapp/07\_volumes/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -664,7 +676,7 @@ spec:
 Update the Deployment based on the yaml file.
 
 ```bash
-kubectl apply -f /data/votingapp/07_volumes/deployment.yaml
+kubectl apply -f ~/data/votingapp/07_volumes/deployment.yaml
 ```
 {% endtab %}
 {% endtabs %}

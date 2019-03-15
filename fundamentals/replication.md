@@ -413,26 +413,6 @@ Ensure the worker Pod has been replicated.
 ```bash
 kubectl get pods,replicaset -n voting-app
 ```
-
-The command line should return that :
-
-```bash
-NAME               READY   STATUS      RESTARTS   AGE
-pod/db-nrxkr       1/1     Running     5          5m49s
-pod/redis-499dd    1/1     Running     0          5m49s
-pod/result-4vmpc   1/1     Running     0          5m49s
-pod/vote-jvbrg     1/1     Running     0          5m49s
-pod/worker-6bvgs   1/1     Running     0          5m49s
-pod/worker-ft82w   1/1     Running     0          103s
-pod/worker-hhmq9   1/1     Running     0          103s
-
-NAME                           DESIRED   CURRENT   READY   AGE
-replicaset.extensions/db       1         1         0       5m49s
-replicaset.extensions/redis    1         1         1       5m49s
-replicaset.extensions/result   1         1         1       5m49s
-replicaset.extensions/vote     1         1         1       5m49s
-replicaset.extensions/worker   5         5         5       5m49s
-```
 {% endtab %}
 {% endtabs %}
 

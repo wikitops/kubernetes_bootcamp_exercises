@@ -410,6 +410,12 @@ Connect to the pod _my-single-app_ in the namespace _default_.
 kubectl exec -it my-single-app bash
 ```
 
+Exit the container with this command.
+
+```bash
+exit
+```
+
 #### Exercise n°2
 
 Connect to the postgres container in the _my-multi-app_ pod in the namespace default_._
@@ -770,7 +776,7 @@ spec:
 Kubectl command to deploy the Pods based on the previous definition file.
 
 ```bash
-kubectl create -f /data/votingapp/01_pods/pods.yaml
+kubectl create -f ~/data/votingapp/01_pods/pods.yaml
 ```
 
 Ensure the Pods are created.

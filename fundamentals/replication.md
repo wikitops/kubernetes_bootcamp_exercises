@@ -6,13 +6,25 @@ description: >-
 
 # ReplicaSet
 
-## Module Overview
+## Module
+
+A _ReplicaSet_’s purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often used to guarantee the availability of a specified number of identical Pods.
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn what is a Replicaset_
 * _Learn how to scale a Pod_
 * _Understand why replication is part of High Availability_
+
+#### Prerequisites
+
+Create the directory `data/replicaset` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/replicaset
+```
 
 ## Create
 
@@ -25,7 +37,7 @@ The _create_ command create a ReplicaSet object based on a yaml file definition 
 Create a ReplicaSet object to scale an Nginx Pod with 3 replicas.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/replicaset/01\_replicaset.yaml" %}
+{% code-tabs-item title="~/data/replicaset/01\_replicaset.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: ReplicaSet
@@ -55,7 +67,7 @@ spec:
 {% endcode-tabs %}
 
 ```bash
-kubectl create -f /data/replicaset/01_replicaset.yaml
+kubectl create -f ~/data/replicaset/01_replicaset.yaml
 ```
 
 ## Get
@@ -215,6 +227,12 @@ Scale the ReplicaSet mynginxreplicaset to 5 in command line.
 kubectl scale replicaset mynginxreplicaset --replicas=5
 ```
 
+List the ReplicaSet created in the default namespace.
+
+```bash
+kubectl get replicaset
+```
+
 ## Delete
 
 The _delete_ command delete resources by filenames, stdin, resources and names, or by resources and label selector.
@@ -241,7 +259,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/02_replicas`
+The file developed has to be stored in this directory : `~/data/votingapp/02_replicas`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -256,13 +274,13 @@ The file developed has to be stored in this directory : `/data/votingapp/02_repl
 Delete the previous Pods created
 
 ```bash
-kubectl delete -f /data/votingapp/01_pods/pods.yaml
+kubectl delete -f ~/data/votingapp/01_pods/pods.yaml
 ```
 
 Yaml file definition to deploy the Voting App ReplicaSet.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/02\_replicas/replicaset.yaml" %}
+{% code-tabs-item title="~/data/votingapp/02\_replicas/replicaset.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: ReplicaSet
@@ -375,7 +393,7 @@ spec:
 Kubectl command to deploy the Pods based on the previous definition file.
 
 ```text
-kubectl create -f /data/votingapp/02_replicas/replicaset.yaml
+kubectl create -f ~/data/votingapp/02_replicas/replicaset.yaml
 ```
 
 Ensure the Pods is up and running.
@@ -387,7 +405,7 @@ kubectl get pods,replicaset -n voting-app
 Scale the worker Pod to 3 replicas.
 
 ```bash
-kubectl scale replicaset worker --replicas=3
+kubectl scale replicaset worker --replicas=3 -n voting-app
 ```
 
 Ensure the worker Pod has been replicated.

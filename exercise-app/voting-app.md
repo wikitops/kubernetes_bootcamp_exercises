@@ -43,7 +43,7 @@ Each part of the application has his own Docker image :
 | Database | db | postgres:10.4 |
 | Queue | redis | redis |
 | Vote | vote | wikitops/examplevotingapp-vote:1.1 |
-| Result | result | wikitops/examplevotingapp-result:1.0 |
+| Result | result | wikitops/examplevotingapp-result:1.1 |
 | Worker | worker | wikitops/examplevotingapp-worker:1.1 |
 
 ## External documentation

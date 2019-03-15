@@ -1,12 +1,24 @@
 # Services
 
-## Module Overview
+## Module
+
+A Kubernetes _Service_ is an abstraction which defines a logical set of Pods and a policy by which to access them.
+
+#### Overview
 
 At the end of the module, you will :
 
 * _Learn how to expose a Pod internally_
 * _Learn how the domain name resolution works on a Kubernetes cluster_
 * _Learn how to expose a Pod externally_
+
+#### Prerequisites
+
+Create the directory `data/services` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/services
+```
 
 ## Create
 
@@ -41,7 +53,7 @@ kubectl expose deployment nginx --port=80 --type=NodePort
 Update the Nginx Pod in the namespace app-demo to be able to access it on HTTP \(80\) and HTTPS \(443\) port thanks to a YAML file.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/services/01\_service.yaml" %}
+{% code-tabs-item title="~/data/services/01\_service.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Service
@@ -67,7 +79,7 @@ spec:
 Update the service with the new yaml file definition.
 
 ```bash
-kubectl apply -f /data/services/01_service.yaml
+kubectl apply -f ~/data/services/01_service.yaml
 ```
 
 ## Get
@@ -310,7 +322,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/04_services`
+The file developed has to be stored in this directory : `~/data/votingapp/04_services`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -327,7 +339,7 @@ The file developed has to be stored in this directory : `/data/votingapp/04_serv
 An example of yaml definition file to manage the Pods access with Services resources.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/04\_services/services.yaml" %}
+{% code-tabs-item title="~/data/votingapp/04\_services/services.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Service
@@ -396,7 +408,7 @@ spec:
 Create the Services resources based on the previous yaml file definition.
 
 ```bash
-kubectl create -f /data/votingapp/04_services/services.yaml
+kubectl create -f ~/data/votingapp/04_services/services.yaml
 ```
 {% endtab %}
 {% endtabs %}

@@ -6,13 +6,25 @@ description: >-
 
 # Pods
 
-## Module Overview
+## Module
+
+_Pods_ are the smallest deployable units of computing that can be created and managed in Kubernetes.
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn the format of a YAML file_
 * _Learn how to manage a Pods_
 * _Learn how to manage containers_
+
+#### Prerequisites
+
+Create the directory `data/pods` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/pods
+```
 
 ## Run
 
@@ -41,12 +53,12 @@ The file created in this exercise will be reused, do not delete it.
 {% endhint %}
 
 {% code-tabs %}
-{% code-tabs-item title="/data/pods/01\_pods.yaml" %}
+{% code-tabs-item title="~/data/pods/01\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: my-single-nginx
+  name: my-single-app
   labels:
     env: formation
 spec:
@@ -58,7 +70,7 @@ spec:
 {% endcode-tabs %}
 
 ```bash
-kubectl create -f /data/pods/01_pods.yaml
+kubectl create -f ~/data/pods/01_pods.yaml
 ```
 
 #### Exercise n°2
@@ -66,7 +78,7 @@ kubectl create -f /data/pods/01_pods.yaml
 Create a pod that contain multiple containers : nginx, redis, postgres with a single YAML file.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/pods/02\_pods.yaml" %}
+{% code-tabs-item title="~/data/pods/02\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -87,7 +99,7 @@ spec:
 {% endcode-tabs %}
 
 ```bash
-kubectl create -f /data/pods/02_pods.yaml
+kubectl create -f ~/data/pods/02_pods.yaml
 ```
 
 ## Apply
@@ -101,7 +113,7 @@ The _apply_ command manage the status of resources in the Kubernetes cluster. It
 Update the image version of the previous nginx pods.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/pods/03\_pods.yaml" %}
+{% code-tabs-item title="~/data/pods/03\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -118,7 +130,7 @@ spec:
 {% endcode-tabs %}
 
 ```bash
-kubectl apply -f /data/pods/03_pods.yaml
+kubectl apply -f ~/data/pods/03_pods.yaml
 ```
 
 ## Get
@@ -267,7 +279,7 @@ This command is really useful to debug a container deployed in a Pod.
 Create a new Pods that send a message in stdout.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/pods/04\_pods.yaml" %}
+{% code-tabs-item title="~/data/pods/04\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -287,7 +299,7 @@ spec:
 Create the resource based on the previous yaml file definition.
 
 ```bash
-kubectl create -f /data/pods/04_pods.yaml
+kubectl create -f ~/data/pods/04_pods.yaml
 ```
 
 Get the logs of the busybox-logs Pod created previously.
@@ -674,7 +686,7 @@ kubectl delete pods busybox -n default
 Delete the nginx pod deployed previously in the default namespace with declarative method.
 
 ```bash
-kubectl delete -f /data/pods
+kubectl delete -f ~/data/pods
 ```
 
 ## Module exercise
@@ -687,19 +699,20 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/01_pods`
+The file developed has to be stored in this directory : `~/data/votingapp/01_pods`
 
 {% tabs %}
 {% tab title="Exercise" %}
 1. Deploy each containers of the Voting App in a single Pod called `voting-app` in his dedicated namespace created in the previous module.
 2. Ensure the Pods are up and running
+3. Check the logs of each Pods
 {% endtab %}
 
 {% tab title="Solution" %}
 Yaml file definition to deploy the Voting App containers.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/01\_pods/pods.yaml" %}
+{% code-tabs-item title="~/data/votingapp/01\_pods/pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -764,6 +777,25 @@ Ensure the Pods are created.
 
 ```bash
 kubectl get pods -n voting-app
+```
+
+Check the logs of each Pods to ensure the main process is running.
+
+```bash
+# Get the database logs
+kubectl logs db -n voting-app
+
+# Get the queue logs
+kubectl logs redis -n voting-app
+
+# Get the result logs
+kubectl logs result -n voting-app
+
+# Get the vote logs
+kubectl logs vote -n voting-app
+
+# Get the worker logs
+kubectl logs worker -n voting-app
 ```
 {% endtab %}
 {% endtabs %}

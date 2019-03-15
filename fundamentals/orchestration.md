@@ -6,13 +6,25 @@ description: >-
 
 # Orchestration
 
-## Module Overview
+## Module
+
+_Orchestration_ is the automated arrangement, coordination, and management of computer systems, middleware, and services.
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn what a Kubernetes cluster is_
 * _Learn how to manage it in command line_
 * _Learn how to manage basic resources on a Kubernetes cluster_
+
+#### Prerequisites
+
+Create the directory `data/votingapp` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/votingapp
+```
 
 ## Command Line
 
@@ -304,6 +316,10 @@ kube-system   nginx-ingress-controller-7c66d668b   1         1         1        
 
 #### Exercise n°4
 
+{% hint style="info" %}
+&lt; 1.12
+{% endhint %}
+
 Describe the fields associated with each supported API resource.
 
 {% tabs %}
@@ -360,6 +376,81 @@ You must specify the type of resource to explain. Valid resource types include:
 {% endtabs %}
 
 Add the --recursive flag to display all of the fields at once without descriptions. Information about each field is retrieved from the server in OpenAPI format.
+
+#### Exercise n°5
+
+{% hint style="info" %}
+&gt;1.12
+{% endhint %}
+
+{% tabs %}
+{% tab title="First Tab" %}
+```bash
+kubectl api-resources
+```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+```bash
+NAME                              SHORTNAMES   APIGROUP                       NAMESPACED   KIND
+bindings                                                                      true         Binding
+componentstatuses                 cs                                          false        ComponentStatus
+configmaps                        cm                                          true         ConfigMap
+endpoints                         ep                                          true         Endpoints
+events                            ev                                          true         Event
+limitranges                       limits                                      true         LimitRange
+namespaces                        ns                                          false        Namespace
+nodes                             no                                          false        Node
+persistentvolumeclaims            pvc                                         true         PersistentVolumeClaim
+persistentvolumes                 pv                                          false        PersistentVolume
+pods                              po                                          true         Pod
+podtemplates                                                                  true         PodTemplate
+replicationcontrollers            rc                                          true         ReplicationController
+resourcequotas                    quota                                       true         ResourceQuota
+secrets                                                                       true         Secret
+serviceaccounts                   sa                                          true         ServiceAccount
+services                          svc                                         true         Service
+mutatingwebhookconfigurations                  admissionregistration.k8s.io   false        MutatingWebhookConfiguration
+validatingwebhookconfigurations                admissionregistration.k8s.io   false        ValidatingWebhookConfiguration
+customresourcedefinitions         crd,crds     apiextensions.k8s.io           false        CustomResourceDefinition
+apiservices                                    apiregistration.k8s.io         false        APIService
+controllerrevisions                            apps                           true         ControllerRevision
+daemonsets                        ds           apps                           true         DaemonSet
+deployments                       deploy       apps                           true         Deployment
+replicasets                       rs           apps                           true         ReplicaSet
+statefulsets                      sts          apps                           true         StatefulSet
+tokenreviews                                   authentication.k8s.io          false        TokenReview
+localsubjectaccessreviews                      authorization.k8s.io           true         LocalSubjectAccessReview
+selfsubjectaccessreviews                       authorization.k8s.io           false        SelfSubjectAccessReview
+selfsubjectrulesreviews                        authorization.k8s.io           false        SelfSubjectRulesReview
+subjectaccessreviews                           authorization.k8s.io           false        SubjectAccessReview
+horizontalpodautoscalers          hpa          autoscaling                    true         HorizontalPodAutoscaler
+cronjobs                          cj           batch                          true         CronJob
+jobs                                           batch                          true         Job
+certificatesigningrequests        csr          certificates.k8s.io            false        CertificateSigningRequest
+backendconfigs                                 cloud.google.com               true         BackendConfig
+daemonsets                        ds           extensions                     true         DaemonSet
+deployments                       deploy       extensions                     true         Deployment
+ingresses                         ing          extensions                     true         Ingress
+networkpolicies                   netpol       extensions                     true         NetworkPolicy
+podsecuritypolicies               psp          extensions                     false        PodSecurityPolicy
+replicasets                       rs           extensions                     true         ReplicaSet
+nodes                                          metrics.k8s.io                 false        NodeMetrics
+pods                                           metrics.k8s.io                 true         PodMetrics
+networkpolicies                   netpol       networking.k8s.io              true         NetworkPolicy
+poddisruptionbudgets              pdb          policy                         true         PodDisruptionBudget
+podsecuritypolicies               psp          policy                         false        PodSecurityPolicy
+clusterrolebindings                            rbac.authorization.k8s.io      false        ClusterRoleBinding
+clusterroles                                   rbac.authorization.k8s.io      false        ClusterRole
+rolebindings                                   rbac.authorization.k8s.io      true         RoleBinding
+roles                                          rbac.authorization.k8s.io      true         Role
+scalingpolicies                                scalingpolicy.kope.io          true         ScalingPolicy
+priorityclasses                   pc           scheduling.k8s.io              false        PriorityClass
+storageclasses                    sc           storage.k8s.io                 false        StorageClass
+volumeattachments                              storage.k8s.io                 false        VolumeAttachment
+```
+{% endtab %}
+{% endtabs %}
 
 ## YAML file
 
@@ -677,7 +768,7 @@ Be careful on the deletion of an object in Kubernetes, there is no rollback.
 {% endhint %}
 
 {% hint style="info" %}
- Be carefull on namespace deletion, each objects deployed within it will be deleted too.
+ Be careful on namespace deletion, each objects deployed within it will be deleted too.
 {% endhint %}
 
 ```bash

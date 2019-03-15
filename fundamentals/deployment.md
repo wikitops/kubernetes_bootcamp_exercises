@@ -4,13 +4,25 @@ description: A deployment is a declarative way to manage the state of pods and r
 
 # Deployments
 
-## Module Overview
+## Module 
+
+A _Deployment_ controller provides declarative updates for Pods and ReplicaSets.
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn the format of a YAML Deployment file_
 * _Learn how to manage a Deployment_
 * _Learn how to manage the lifecycle of an application_
+
+#### Prerequisites
+
+Create the directory `data/deployments` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/deployments
+```
 
 ## Create
 
@@ -33,7 +45,7 @@ kubectl create deployment mynginxdeploymentcli --image=nginx
 Deploy an Nginx Pod in a declarative way with a Deployment object. The ReplicaSet associated has to manage 3 replicas of the Pod. The rolling update strategy will be the default update strategy for this Deployment.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/deployment/01\_deployment.yaml" %}
+{% code-tabs-item title="~/data/deployment/01\_deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -66,7 +78,7 @@ spec:
 Create the Deployment in command line.
 
 ```bash
-kubectl create -f /data/deployment/01_deployment.yaml
+kubectl create -f ~/data/deployment/01_deployment.yaml
 ```
 
 #### Exercise n°3
@@ -80,7 +92,7 @@ PostgreSQL need three environment variables to start correctly :
 * POSTGRES\_PASSWORD : the password of the newly created user
 
 {% code-tabs %}
-{% code-tabs-item title="/data/deployment/02\_deployment.yaml" %}
+{% code-tabs-item title="~/data/deployment/02\_deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -118,7 +130,7 @@ spec:
 Create the Deployment in command line.
 
 ```bash
-kubectl create -f /data/deployment/02_deployment.yaml
+kubectl create -f ~/data/deployment/02_deployment.yaml
 ```
 
 ## Get
@@ -359,7 +371,7 @@ REVISION  CHANGE-CAUSE
 Do the same operation to update Nginx in the 1.12.3 version but with a yaml file and add the `--record` parameter to the command. Get the deployment history to understand the difference between an update with or without the `--record` parameter.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/deployment/02\_deployment.yaml" %}
+{% code-tabs-item title="~/data/deployment/02\_deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -389,7 +401,7 @@ Update the Deployment in command line.
 {% tabs %}
 {% tab title="Command" %}
 ```bash
-kubectl apply -f /data/deployment/02_deployment.yaml --record
+kubectl apply -f ~/data/deployment/02_deployment.yaml --record
 kubectl rollout history deployment mynginxdeploymentyaml
 ```
 {% endtab %}
@@ -451,7 +463,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/03_deployments`
+The file developed has to be stored in this directory : ~`/data/votingapp/03_deployments`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -471,13 +483,13 @@ The file developed has to be stored in this directory : `/data/votingapp/03_depl
 Delete the previous ReplicaSet created.
 
 ```bash
-kubectl delete -f /data/votingapp/02_replicaset/replicaset.yaml
+kubectl delete -f ~/data/votingapp/02_replicaset/replicaset.yaml
 ```
 
 Example of Deployment yaml file to easily manage each part of the Voting App in a single file definition.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/03\_deployments/deployment.yaml" %}
+{% code-tabs-item title="~/data/votingapp/03\_deployments/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -651,7 +663,7 @@ spec:
 Run the command to create the Deployments.
 
 ```bash
-kubectl create -f /data/votingapp/03_deployments/deployment.yaml
+kubectl create -f ~/data/votingapp/03_deployments/deployment.yaml
 ```
 
 Ensure the objects have been created.
@@ -661,7 +673,7 @@ kubectl get all -n voting-app
 ```
 
 {% hint style="info" %}
-Check the logs of each Pods to ensure that each one has started without errors.
+Check the logs of each Pods to ensure that each one has started. Note that some Pods are waiting connections.
 {% endhint %}
 {% endtab %}
 {% endtabs %}

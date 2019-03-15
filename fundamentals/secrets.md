@@ -89,11 +89,11 @@ kubectl create secret generic SECRET_NAME --from-file=PATH_FILE
 
 ```bash
 # Create files needed for rest of example.
-echo -n 'admin' > /data/secrets/data/username.txt
-echo -n '1f2d1e2e67df' > /data/secrets/data/password.txt
+echo -n 'admin' > ~/data/secrets/username.txt
+echo -n '1f2d1e2e67df' > ~/data/secrets/password.txt
 
 # Create the Secrets based on the files created
-kubectl create secret generic myfirstsecretfile --from-file=/data/secrets/data/username.txt --from-file=/data/secrets/data/password.txt
+kubectl create secret generic myfirstsecretfile --from-file=$HOME/data/secrets/username.txt --from-file=$HOME/data/secrets/password.txt
 ```
 
 ### Manually
@@ -120,8 +120,6 @@ data:
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-Create the Secrets based on the previous yaml file.
 
 ```bash
 kubectl create -f ~/data/secrets/01_secrets.yaml

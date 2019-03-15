@@ -6,13 +6,25 @@ description: >-
 
 # ConfigMaps
 
-## Module Overview
+## Module
+
+ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn the format of a YAML ConfigMaps file_
 * _Learn how to manage a ConfigMaps_
 * _Learn the composition of a ConfigMaps_
+
+#### Prerequisites
+
+Create the directory `data/configmap` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/configmap
+```
 
 ## Create
 
@@ -245,7 +257,7 @@ Depending of the ConfigMap content, defining each variable individually can be m
 Based on the previous ConfigMaps created, create a Pod using the busybox image to display some part of the ConfigMap in single environment variables.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/configmap/01\_pod.yaml" %}
+{% code-tabs-item title="~/data/configmap/01\_pod.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -274,7 +286,7 @@ spec:
 Create the Pod to attach the ConfigMap.
 
 ```bash
-kubectl create -f /data/configmap/01_pod.yaml
+kubectl create -f ~/data/configmap/01_pod.yaml
 ```
 
 Get the logs to ensure the Pods is running and configured.
@@ -301,7 +313,7 @@ CM_COURSE=kubernetes
 Based on the previous ConfigMaps created, create a Pod using the busybox image to display the entire ConfigMap in environment variables automatically.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/configmap/02\_pod.yaml" %}
+{% code-tabs-item title="~/data/configmap/02\_pod.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -322,7 +334,7 @@ spec:
 Create the Pod to attach the ConfigMap.
 
 ```bash
-kubectl create -f /data/configmap/02_pod.yaml
+kubectl create -f ~~/data/configmap/02_pod.yaml
 ```
 
 Get the logs to ensure the Pods is running and configured.
@@ -361,7 +373,7 @@ Be careful in the path used to mount the volumes, if a file already exist, it wi
 Based on the previous ConfigMaps created, create a Pod using the busybox image to display some keys of the ConfigMap mounted as Volumes.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/configmap/03\_pod.yaml" %}
+{% code-tabs-item title="~/data/configmap/03\_pod.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -389,7 +401,7 @@ spec:
 Create the Pod to attach the ConfigMap.
 
 ```bash
-kubectl create -f /data/configmap/03_pod.yaml
+kubectl create -f ~/data/configmap/03_pod.yaml
 ```
 
 Get the logs to ensure the Pods is running and configured.
@@ -412,6 +424,8 @@ kubernetes
 
 Based on the previous ConfigMaps created, create a Pod using the busybox image to display the entire content of a ConfigMap mounted as Volumes.
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/configmap/04\_pod.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -430,11 +444,13 @@ spec:
       configMap:
         name: mysimpleconfigmap
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Create the Pod to attach the ConfigMap.
 
 ```bash
-kubectl create -f /data/configmap/04_pod.yaml
+kubectl create -f ~/data/configmap/04_pod.yaml
 ```
 
 Get the logs to ensure the Pods is running and configured.
@@ -552,7 +568,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/05_configmaps`
+The file developed has to be stored in this directory : `~/data/votingapp/05_configmaps`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -583,7 +599,7 @@ kubectl create configmap vote -n voting-app --from-literal=option_a=CATS --from-
 An example of yaml definition file to update the Deployments of the vote Pods.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/05\_configmaps/deployment.yaml" %}
+{% code-tabs-item title="~/data/votingapp/05\_configmaps/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -631,7 +647,7 @@ spec:
 Create the resource based on the previous yaml file definition.
 
 ```bash
-kubectl create -f /data/votingapp/05_configmaps/deployment.yaml
+kubectl create -f ~/data/votingapp/05_configmaps/deployment.yaml
 ```
 {% endtab %}
 {% endtabs %}

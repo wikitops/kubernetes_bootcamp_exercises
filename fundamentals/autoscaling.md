@@ -6,13 +6,23 @@ description: >-
 
 # Autoscaling
 
-## Module Overview
+## Module 
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn the format of a YAML Autoscale file_
 * _Learn how to manage a Autoscale_
 * _Learn the composition of a Autoscale_
+
+#### Prerequisites
+
+Create the directory `data/autoscaling` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/autoscaling
+```
 
 {% hint style="info" %}
 This module needs the metrics-server to be deployed on the cluster to get the monitoring values like CPU and memory. Ensure that the module is up and running before continuing.
@@ -42,6 +52,40 @@ kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limi
 # Create an Horizontal Pod Autoscaler based on the CPU usage
 kubectl autoscale deployment php-apache --cpu-percent=50 --min=3 --max=10
 ```
+
+#### Exercise n°2
+
+1. Run a sample nginx application exposing port 8080
+2. Create an Horizontal Pod Autoscaler to automatically scale the Deployment if the memory is above 50%.
+
+```bash
+kubectl run nginx --image=nginx --requests=memory=500m --limits=memory=1G --expose --port=8080
+```
+
+{% code-tabs %}
+{% code-tabs-item title="~/data/autoscaling/01\_hpa.yaml" %}
+```yaml
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Get
 
@@ -266,7 +310,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/10_autoscaling`
+The file developed has to be stored in this directory : `~/data/votingapp/10_autoscaling`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -285,6 +329,8 @@ kubectl autoscale deployment worker -n voting-app --cpu-percent=80 --min=1 --max
 
 This can be done with a yaml file definition :
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/votingapp/10\_autoscaling/hpa.yaml" %}
 ```yaml
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
@@ -305,6 +351,14 @@ spec:
       target:
         type: Utilization
         averageUtilization: 80
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the resource based on the previous yaml file definition.
+
+```bash
+kubectl create -f ~/data/votingapp/10_autoscaling/hpa.yaml
 ```
 {% endtab %}
 {% endtabs %}

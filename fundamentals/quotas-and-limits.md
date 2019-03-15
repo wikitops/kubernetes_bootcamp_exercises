@@ -1,12 +1,22 @@
 # Quotas & Limits
 
-## Module Overview
+## Module
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn the format of a YAML Resource Quota and Limit Range file_
 * _Learn how to automatically define limits to Pods_
 * _Learn the composition of a ResourceQuota_
+
+#### Prerequisites
+
+Create the directory `data/quotas` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/quotas
+```
 
 ## Create
 
@@ -28,7 +38,7 @@ Kubernetes provides the ResourceQuota object to set constraints on the number of
 #### Exercise n°1
 
 {% code-tabs %}
-{% code-tabs-item title="/data/quotas/resourcequota.yaml" %}
+{% code-tabs-item title="~/data/quotas/resourcequota.yaml" %}
 ```yaml
 apiVersion: v1
 kind: ResourceQuota
@@ -49,7 +59,7 @@ spec:
 Create the object based on the previous yaml file definition.
 
 ```bash
-kubectl create -f /data/quotas/resourcequota.yaml
+kubectl create -f ~/data/quotas/resourcequota.yaml
 ```
 
 ### LimitRange
@@ -59,7 +69,7 @@ The LimitRange object is used to set the default resource requests and limits as
 #### Exercise n°1
 
 {% code-tabs %}
-{% code-tabs-item title="/data/limits/limitrange.yaml" %}
+{% code-tabs-item title="~/data/limits/limitrange.yaml" %}
 ```yaml
 apiVersion: v1
 kind: LimitRange
@@ -91,7 +101,7 @@ spec:
 Create the object based on the previous yaml file definition.
 
 ```bash
-kubectl create -f /data/limits/limitrange.yaml
+kubectl create -f ~/data/limits/limitrange.yaml
 ```
 
 ## Get
@@ -334,7 +344,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/09_quotas`
+The file developed has to be stored in this directory : `~/data/votingapp/09_quotas`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -355,7 +365,7 @@ The file developed has to be stored in this directory : `/data/votingapp/09_quot
 Create the resource quotas to limits the resource allocation.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/09\_quotas/quotas.yaml" %}
+{% code-tabs-item title="~/data/votingapp/09\_quotas/quotas.yaml" %}
 ```yaml
 apiVersion: v1
 kind: ResourceQuota
@@ -390,7 +400,7 @@ spec:
 Create the resource based on the previous yaml file definition.
 
 ```bash
-kubectl create -f /data/votingapp/09_quotas/quotas.yaml
+kubectl create -f ~/data/votingapp/09_quotas/quotas.yaml
 ```
 {% endtab %}
 {% endtabs %}

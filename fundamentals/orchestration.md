@@ -750,7 +750,7 @@ Be careful on the deletion of an object in Kubernetes, there is no rollback.
 kubectl delete namespace app-demo
 
 # With declarative file
-kubectl delete -f /data/orchestration/namespace.yaml
+kubectl delete -f ~/data/orchestration/namespace.yaml
 ```
 
 ## Labels
@@ -781,7 +781,7 @@ minikube   Ready     master    18m       v1.13.2   beta.kubernetes.io/arch=amd64
 Add the key/value pair : _random-key=random-value_ to the first node of the cluster.
 
 ```bash
-kubectl label nodes NODE_NAME random-key=random-value
+kubectl label nodes HOSTNAME random-key=random-value
 ```
 
 #### Exercise n°3
@@ -789,7 +789,7 @@ kubectl label nodes NODE_NAME random-key=random-value
 Delete the key/value pair : _random-key=random-value_ of the first node of the cluster.
 
 ```bash
-kubectl label nodes NODE_NAME random-key-
+kubectl label nodes HOSTNAME random-key-
 ```
 
 ## Module exercise
@@ -818,8 +818,8 @@ On single node cluster like Minikube, the key defined must be unique.
 ```bash
 kubectl get nodes
 kubectl create namespace voting-app
-kubectl label node NODE_NAME1 type=database
-kubectl label node NODE_NAME2 type=queue
+kubectl label node HOSTNAME1 type=database
+kubectl label node HOSTNAME2 type=queue
 kubectl get nodes --show-labels
 ```
 {% endtab %}

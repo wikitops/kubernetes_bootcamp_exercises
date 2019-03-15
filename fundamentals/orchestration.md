@@ -20,10 +20,10 @@ At the end of this module, you will :
 
 #### Prerequisites
 
-Create the directory `data/votingapp` in your home folder to manage the YAML file needed in this module.
+Create these directories `data/votingapp` and `data/orchestration` in your home folder to manage the YAML file needed in this module.
 
 ```bash
-mkdir -p ~/data/votingapp
+mkdir -p ~/data/votingapp ~/data/orchestration
 ```
 
 ## Command Line
@@ -355,81 +355,16 @@ kube-system   nginx-ingress-controller-7c66d668b   1         1         1        
 
 #### Exercise n°4
 
-{% hint style="info" %}
-&lt; 1.12
-{% endhint %}
-
 Describe the fields associated with each supported API resource.
 
 {% tabs %}
 {% tab title="Command" %}
 ```bash
-kubectl explain
-```
-{% endtab %}
-
-{% tab title="CLI Return" %}
-```bash
-You must specify the type of resource to explain. Valid resource types include: 
-
-  * all  
-  * certificatesigningrequests (aka 'csr')  
-  * clusterrolebindings  
-  * clusterroles  
-  * componentstatuses (aka 'cs')  
-  * configmaps (aka 'cm')  
-  * controllerrevisions  
-  * cronjobs  
-  * customresourcedefinition (aka 'crd')  
-  * daemonsets (aka 'ds')  
-  * deployments (aka 'deploy')  
-  * endpoints (aka 'ep')  
-  * events (aka 'ev')  
-  * horizontalpodautoscalers (aka 'hpa')  
-  * ingresses (aka 'ing')  
-  * jobs  
-  * limitranges (aka 'limits')  
-  * namespaces (aka 'ns')  
-  * networkpolicies (aka 'netpol')  
-  * nodes (aka 'no')  
-  * persistentvolumeclaims (aka 'pvc')  
-  * persistentvolumes (aka 'pv')  
-  * poddisruptionbudgets (aka 'pdb')  
-  * podpreset  
-  * pods (aka 'po')  
-  * podsecuritypolicies (aka 'psp')  
-  * podtemplates  
-  * replicasets (aka 'rs')  
-  * replicationcontrollers (aka 'rc')  
-  * resourcequotas (aka 'quota')  
-  * rolebindings  
-  * roles  
-  * secrets  
-  * serviceaccounts (aka 'sa')  
-  * services (aka 'svc')  
-  * statefulsets (aka 'sts')  
-  * storageclasses (aka 'sc')
-
-```
-{% endtab %}
-{% endtabs %}
-
-Add the --recursive flag to display all of the fields at once without descriptions. Information about each field is retrieved from the server in OpenAPI format.
-
-#### Exercise n°5
-
-{% hint style="info" %}
-&gt;1.12
-{% endhint %}
-
-{% tabs %}
-{% tab title="First Tab" %}
-```bash
 kubectl api-resources
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="CLI Return" %}
 ```bash
 NAME                              SHORTNAMES   APIGROUP                       NAMESPACED   KIND
 bindings                                                                      true         Binding
@@ -615,7 +550,7 @@ Describe one of the master node.
 {% tabs %}
 {% tab title="Command" %}
 ```bash
-kubectl describe node MASTER_NAME
+kubectl describe node HOSTNAME
 ```
 {% endtab %}
 
@@ -759,7 +694,7 @@ kubectl create namespace app-demo
 Create a namespace _another-demo_ in declarative mode with a YAML file.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/orchestration/namespace.yaml" %}
+{% code-tabs-item title="~/data/orchestration/namespace.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Namespace

@@ -512,7 +512,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-storageClassName: gcp-gce-slow
+  storageClassName: gcp-gce-slow
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

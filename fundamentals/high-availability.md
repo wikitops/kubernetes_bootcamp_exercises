@@ -14,10 +14,10 @@ At the end of this module, you will :
 
 #### Prerequisites
 
-Create the directory `data/ha` in your home folder to manage the YAML file needed in this module.
+Create the directory `data/highavailability` in your home folder to manage the YAML file needed in this module.
 
 ```bash
-mkdir ~/data/ha
+mkdir ~/data/highavailability
 ```
 
 ## Liveness / Readiness Probe
@@ -37,7 +37,7 @@ This health check uses a command to attempt to get command return status. If the
 Create an Pods based on the busybox Docker image to run a command and check his liveness.
 
 {% code-tabs %}
-{% code-tabs-item title="~/data/ha/01\_pods.yaml" %}
+{% code-tabs-item title="~/data/highavailability/01\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -72,7 +72,7 @@ spec:
 Create a resource based on the previous yaml file definition.
 
 ```bash
-kubectl create -f ~/data/ha/01_pods.yaml
+kubectl create -f ~/data/highavailability/01_pods.yaml
 ```
 
 ### HTTP Request
@@ -84,7 +84,7 @@ This health check uses HTTP Request to attempt to get a website path on a specif
 Create a Pods based on nginx Docker image and configure his liveness and readiness to check the HTTP response of the base path of the default nginx website on port 80.
 
 {% code-tabs %}
-{% code-tabs-item title="~/data/ha/02\_pods.yaml" %}
+{% code-tabs-item title="~/data/highavailability/02\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -113,7 +113,7 @@ spec:
 Create a resource based on the previous yaml file definition.
 
 ```bash
-kubectl create -f ~/data/ha/02_pods.yaml
+kubectl create -f ~/data/highavailability/02_pods.yaml
 ```
 
 ### TCP Request
@@ -125,7 +125,7 @@ This healthcheck uses TCP Socket to attempt to open a socket to a container on a
 Create a Pods based on nginx Docker image and configure his liveness and readiness to check the TCP response of the base path of the default nginx website on port 80.
 
 {% code-tabs %}
-{% code-tabs-item title="~/data/ha/03\_pods.yaml" %}
+{% code-tabs-item title="~/data/highavailability/03\_pods.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -152,7 +152,7 @@ spec:
 Create a resource based on the previous yaml file definition.
 
 ```bash
-kubectl create -f ~/data/ha/03_pods.yaml
+kubectl create -f ~/data/highavailability/03_pods.yaml
 ```
 
 ## Module exercise

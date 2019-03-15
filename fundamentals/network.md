@@ -8,7 +8,7 @@ description: >-
 
 ## Module
 
-Networking is a central part of Kubernetes, but it can be challenging to understand exactly how it is expected to work.
+_Networking_ is a central part of Kubernetes, but it can be challenging to understand exactly how it is expected to work.
 
 #### Overview
 

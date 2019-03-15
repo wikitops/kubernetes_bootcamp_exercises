@@ -8,6 +8,8 @@ description: >-
 
 ## Module 
 
+The _Horizontal Pod Autoscaler_ automatically scales the number of pods in a replication controller, deployment or replica set based on observed CPU utilization.
+
 #### Overview
 
 At the end of this module, you will :

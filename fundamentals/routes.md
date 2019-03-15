@@ -8,6 +8,8 @@ description: >-
 
 ## Module
 
+A network policy is a specification of how groups of pods are allowed to communicate with each other and other network endpoints. _NetworkPolicy_ resources use labels to select pods and define rules which specify what traffic is allowed to the selected pods.
+
 #### Overview
 
 At the end of this module, you will :

@@ -2,6 +2,8 @@
 
 ## Module
 
+_Healthchecks_ are a way of checking the health of some resource.
+
 #### Overview
 
 At the end of this module, you will :

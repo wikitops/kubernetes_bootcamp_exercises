@@ -1,12 +1,24 @@
 # Service Accounts
 
-## Module Overview
+## Module
+
+
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn to create a service accounts_
 * _Learn how to manage access_
 * _Learn how to secure a Pods_
+
+#### Prerequisites
+
+Create the directory `data/sa` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/serviceaccount
+```
 
 ## Create
 
@@ -22,6 +34,27 @@ Create a service account call myfirstserviceaccount.
 
 ```bash
 kubectl create serviceaccount myfirstserviceaccount
+```
+
+#### Exercise n°2
+
+Create a service account named _mysecondserviceaccount_ with a yaml file definition.
+
+{% code-tabs %}
+{% code-tabs-item title="~/data/serviceaccount/01\_sa.yaml" %}
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mysecondserviceaccount
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create a resource based on the previous yaml file definition.
+
+```bash
+kubectl create -f ~/data/serviceaccount/01_sa.yaml
 ```
 
 ## Get
@@ -179,7 +212,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/14_serviceaccounts`
+The file developed has to be stored in this directory : `~/data/votingapp/14_serviceaccounts`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -202,6 +235,8 @@ kubectl create serviceaccount result
 
 Configure the vote Pods to use the vote service account.
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/votingapp/14\_serviceaccounts/vote.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -245,9 +280,13 @@ spec:
               name: vote
               protocol: TCP
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Configure the result Pods to use the result service account.
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/votingapp/14\_serviceaccounts/result.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -294,6 +333,14 @@ spec:
           ports:
             - name: result
               containerPort: 8080
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create the resources based on the previous yaml files definition.
+
+```bash
+kubectl create -f ~/data/votingapp/14_serviceaccounts/
 ```
 {% endtab %}
 {% endtabs %}

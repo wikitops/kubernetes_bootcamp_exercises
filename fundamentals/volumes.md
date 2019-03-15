@@ -9,7 +9,7 @@ description: >-
 
 ## Module
 
-Kubernetes volumes are an abstraction of external storage that can be attached and shared by multiple Pods.
+Kubernetes _volumes_ are an abstraction of external storage that can be attached and shared by multiple Pods.
 
 #### Overview
 

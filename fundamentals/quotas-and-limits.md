@@ -2,6 +2,8 @@
 
 ## Module
 
+When several users or teams share a cluster with a fixed number of nodes, there is a concern that one team could use more than its fair share of resources. _Resource quotas_ are a tool for administrators to address this concern.
+
 #### Overview
 
 At the end of this module, you will :

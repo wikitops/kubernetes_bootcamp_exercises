@@ -88,7 +88,7 @@ kubectl create configmap CONFIGMAP_NAME --from-file=PATH_TO_DIRECTORY
 
 #### Exercise n°1
 
-1. Create this file : `/data/configmaps/directory/configmap.properties`
+1. Create this file : `~/data/configmaps/directory/configmap.properties`
 2. Copy / paste the content below in the new file
 3. Create a ConfigMap based on the directory
 
@@ -99,7 +99,7 @@ subject.title=mysecondconfigmap
 ```
 
 ```bash
-kubectl create configmap myconfigmapdir --from-file=/data/configmaps/directory/
+kubectl create configmap myconfigmapdir --from-file=~/data/configmaps/directory/
 ```
 
 ### From a file
@@ -120,7 +120,7 @@ kubectl create configmap CONFIGMAP_NAME --from-file=KEY_NAME=PATH_TO_FILENAME
 
 #### Exercise n°1
 
-1. Create two properties files in this path : `/data/configmaps/directory/`
+1. Create two properties files in this path : `~/data/configmaps/directory/`
 2. Put some properties in each one
 3. Create a ConfigMap based on the two property files created
 
@@ -334,7 +334,7 @@ spec:
 Create the Pod to attach the ConfigMap.
 
 ```bash
-kubectl create -f ~~/data/configmap/02_pod.yaml
+kubectl create -f ~/data/configmap/02_pod.yaml
 ```
 
 Get the logs to ensure the Pods is running and configured.

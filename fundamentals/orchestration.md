@@ -23,7 +23,7 @@ At the end of this module, you will :
 Create the directory `data/votingapp` in your home folder to manage the YAML file needed in this module.
 
 ```bash
-mkdir ~/data/votingapp
+mkdir -p ~/data/votingapp
 ```
 
 ## Command Line

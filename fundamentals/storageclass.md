@@ -1,12 +1,24 @@
 # StorageClass
 
-## Module Overview
+## Module
+
+A _StorageClass_ provides a way for administrators to describe the “classes” of storage they offer.
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn to persist data thanks to a dynamic volumes_
 * _Learn to manage the volumes and the claim_
 * _Learn to access data within a container_
+
+#### Prerequisites
+
+Create the directory `data/storageclass` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/storageclass
+```
 
 ## Create
 
@@ -23,7 +35,7 @@ The _create_ command can create a StorageClass object based on a yaml file defin
 Create a StorageClass object to automatically use the AWS EBS volumes.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/storageclass/01\_storageclass.yaml" %}
+{% code-tabs-item title="~/data/storageclass/01\_storageclass.yaml" %}
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -43,7 +55,7 @@ volumeBindingMode: Immediate
 Create the resource based on the previous yaml definition file.
 
 ```bash
-kubectl create -f /data/storageclass/01_storageclass.yaml
+kubectl create -f ~/data/storageclass/01_storageclass.yaml
 ```
 
 ## Get
@@ -125,7 +137,7 @@ Get the documentation of a specific field of a resource.
 {% tabs %}
 {% tab title="Command" %}
 ```bash
-The default StorageClass is used to dynamically provision storage for PersistentVolumeClaims that do not require any specific storage class. It simplify the management by using the default Storage Class to create the new Persistent Volumes.kubectl explain storageclasses
+kubectl explain storageclass
 ```
 {% endtab %}
 
@@ -241,7 +253,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/08_storageclass`
+The file developed has to be stored in this directory : `~/data/votingapp/08_storageclass`
 
 {% tabs %}
 {% tab title="Exercise" %}
@@ -254,7 +266,7 @@ The file developed has to be stored in this directory : `/data/votingapp/08_stor
 Create a StorageClass to consume the AWS Elastic Block Store \(EBS\).
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/08\_storageclass/storageclass.yaml" %}
+{% code-tabs-item title="~/data/votingapp/08\_storageclass/storageclass.yaml" %}
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -274,7 +286,7 @@ volumeBindingMode: Immediate
 Create a PersistentVolumeClaim to consume the StorageClass.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/08\_storageclass/persistentvolumeclaim.yaml" %}
+{% code-tabs-item title="~/data/votingapp/08\_storageclass/persistentvolumeclaim.yaml" %}
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -295,7 +307,7 @@ storageClassName: aws-ebs-gp2
 Update the database Deployment to consume the previous PersistentVolumeClaim.
 
 {% code-tabs %}
-{% code-tabs-item title="/data/votingapp/08\_storageclass/deployment.yaml" %}
+{% code-tabs-item title="~/data/votingapp/08\_storageclass/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -355,13 +367,15 @@ spec:
 Create and update each part based on the previous yaml file.
 
 ```bash
-kubectl apply -f /data/votingapp/08_storageclass/
+kubectl apply -f ~/data/votingapp/08_storageclass/
 ```
 {% endtab %}
 
 {% tab title="Azure - Solution" %}
 Create a StorageClass to consume the Azure Storage Disk.
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/votingapp/08\_storageclass/storageclass.yaml" %}
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -373,15 +387,13 @@ parameters:
   location: eastus
   storageAccount: azure_storage_account_name
 ```
-
-Create the StorageClass based on the previous yaml file.
-
-```bash
-kubectl create -f /data/votingapp/08_storageclass/storageclass.yaml
-```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Create a PersistentVolumeClaim to consume the StorageClass.
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/votingapp/08\_storageclass/persistentvolumeclaim.yaml" %}
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -396,9 +408,13 @@ spec:
       storage: 5Gi
 storageClassName: azure-disk-slow
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Update the database Deployment to consume the previous PersistentVolumeClaim.
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/votingapp/08\_storageclass/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -452,11 +468,21 @@ spec:
           persistentVolumeClaim:
             claimName: pvc-database-dynamic
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create and update each part based on the previous yaml file.
+
+```bash
+ubectl apply -f ~/data/votingapp/08_storageclass/
+```
 {% endtab %}
 
 {% tab title="GCP - Solution" %}
 Create a StorageClass to consume the GCP Persistent Disk \(GCEPersistentDisk\).
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/votingapp/08\_storageclass/storageclass.yaml" %}
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -467,15 +493,13 @@ parameters:
   type: pd-standard
   replication-type: none
 ```
-
-Create the StorageClass based on the previous yaml file.
-
-```bash
-kubectl create -f /data/votingapp/08_storageclass/storageclass.yaml
-```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Create a PersistentVolumeClaim to consume the StorageClass.
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/votingapp/08\_storageclass/persistentvolumeclaim.yaml" %}
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -490,9 +514,13 @@ spec:
       storage: 5Gi
 storageClassName: gcp-gce-slow
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Update the database Deployment to consume the previous PersistentVolumeClaim.
 
+{% code-tabs %}
+{% code-tabs-item title="~/data/votingapp/08\_storageclass/deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -545,6 +573,14 @@ spec:
         - name: db-data
           persistentVolumeClaim:
             claimName: pvc-database-dynamic
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Create and update each part based on the previous yaml file.
+
+```bash
+ubectl apply -f ~/data/votingapp/08_storageclass/
 ```
 {% endtab %}
 {% endtabs %}

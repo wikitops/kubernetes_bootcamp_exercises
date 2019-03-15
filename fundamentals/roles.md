@@ -7,13 +7,23 @@ description: >-
 
 # Roles
 
-## Module Overview
+## Module
+
+#### Overview
 
 At the end of this module, you will :
 
 * _Learn to restrict access of resources_
 * _Learn to manage roles_
 * _Learn to secure the cluster access_
+
+#### Prerequisites
+
+Create the directory `data/roles` in your home folder to manage the YAML file needed in this module.
+
+```bash
+mkdir ~/data/roles
+```
 
 ## Create
 
@@ -463,7 +473,7 @@ For more information about the application used all along the course, please ref
 
 Based on the principles explain in this module, try by your own to handle this steps. The development of a yaml file is recommended.
 
-The file developed has to be stored in this directory : `/data/votingapp/15_roles`
+The file developed has to be stored in this directory : `~/data/votingapp/15_roles`
 
 {% tabs %}
 {% tab title="Exercise" %}

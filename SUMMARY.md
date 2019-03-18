@@ -38,4 +38,5 @@
 * [Kubernetes blog](https://kubernetes.io/blog/)
 * [Kubernetes API reference](https://v1-13.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/)
 * [Play with Kubernetes](https://labs.play-with-k8s.com/)
+* [Kubesec.io](https://kubesec.io/)
 

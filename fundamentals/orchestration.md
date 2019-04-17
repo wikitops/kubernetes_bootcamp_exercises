@@ -28,7 +28,7 @@ mkdir -p ~/data/votingapp ~/data/orchestration
 
 ## Command Line
 
-The Kubernetes command-line tool, **kubectl**, is used to to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources, create, delete, and update components, look at your new cluster and bring up apps.
+The Kubernetes command-line tool, **kubectl**, is used to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources, create, delete, and update components, look at your new cluster and bring up apps.
 
 You must use a kubectl version that is within one minor version difference of your cluster. For example, a v1.12 client should work with v1.11, v1.12, and v1.13 master. Using the latest version of kubectl helps avoid unforeseen issues.
 
